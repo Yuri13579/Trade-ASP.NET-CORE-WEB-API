@@ -23,6 +23,7 @@ namespace _1U_ASP.MiddleTier
 
         public async Task<AuthenticationResult> RegisterAsync(string email, string password)
         {
+            
             var existingUser = await _unitOfWork.UserManager.FindByEmailAsync(email);
 
             if (existingUser != null)
@@ -40,7 +41,7 @@ namespace _1U_ASP.MiddleTier
                 Email = email,
                 UserName = email
             };
-
+            
             var createdUser = await _unitOfWork.UserManager.CreateAsync(newUser, password);
 
             if (!createdUser.Succeeded)
@@ -50,13 +51,21 @@ namespace _1U_ASP.MiddleTier
                     Result = "Errors"
                 };
             }
-
-            ///return await GenerateAuthenticationResultForUserAsync(newUser);
+            
             return new AuthenticationResult
             {
                 Result = "Success"
             };
         }
+
+        public async Task<SignInResult> Login(LoginViewModel model)
+        {
+            var result =
+                await _unitOfWork.SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+            return result;
+        }
+
+
 
 
     }

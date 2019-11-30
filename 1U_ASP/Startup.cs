@@ -54,10 +54,15 @@ namespace _1U_ASP
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             //services.AddDefaultIdentity<IdentityRole>()
             //    .AddEntityFrameworkStores<ApplicationContext>();
-            services.AddIdentity<User, IdentityRole>(config =>
-            {
-                config.Tokens.EmailConfirmationTokenProvider = TokenOptions.DefaultEmailProvider;
-            });
+
+            //services.AddIdentity<User, IdentityRole>(config =>
+            //{
+            //    config.Tokens.EmailConfirmationTokenProvider = TokenOptions.DefaultEmailProvider;
+            //});
+
+
+            services.AddIdentity<User, IdentityRole>()
+              .AddEntityFrameworkStores<ApplicationContext>();
 
             services.Configure<IdentityOptions>(options =>
             {
