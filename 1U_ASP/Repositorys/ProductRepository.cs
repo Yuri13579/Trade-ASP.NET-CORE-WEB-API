@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using _1U_ASP.Context;
 using Dap1U.Models;
 using _1U_ASP.Repositorys.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace _1U_ASP.Repositorys
 {
@@ -54,6 +55,18 @@ namespace _1U_ASP.Repositorys
         Task<Product> IRepository<Product>.Get(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<List<Product>> GetAllAsync()
+        {
+            var res = await _context.Products.ToListAsync();
+            return res;
+        }
+
+        public IQueryable<Product> GetAllProducts()
+        {
+            var res =  _context.Products;
+            return res;
         }
     }
 }

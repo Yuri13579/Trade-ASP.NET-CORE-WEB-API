@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dap1U.Models;
 using _1U_ASP.MiddleTier.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace _1U_ASP.MiddleTier
 {
@@ -24,6 +25,10 @@ namespace _1U_ASP.MiddleTier
            return await _productRepository.GetProduct(id);
         }
 
+        public IQueryable<Product> GetAllProducts()
+        {
+            return _productRepository.GetAllProducts();
+        }
 
 
     }

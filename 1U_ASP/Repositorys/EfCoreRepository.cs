@@ -47,6 +47,11 @@ namespace _1U_ASP.Repositorys
             return await context.Set<TEntity>().ToListAsync();
         }
 
+        public async Task<List<TEntity>> GetAllAsync()
+        {
+            return await context.Set<TEntity>().ToListAsync();
+        }
+
         public async Task<TEntity> Update(TEntity entity)
         {
             context.Entry(entity).State = EntityState.Modified;

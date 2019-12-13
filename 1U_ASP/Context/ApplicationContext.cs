@@ -8,6 +8,7 @@ using _1U_ASP.Models;
 using System.Configuration;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace _1U_ASP.Context
 {
@@ -36,12 +37,35 @@ namespace _1U_ASP.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // использование Fluent API
             base.OnModelCreating(modelBuilder);
+            
+            modelBuilder.Entity<Product>(entity =>
+            {
+                entity.HasMany(c => c.SaleOrderDetails)
+                    .WithOne(e => e.Product);
 
-         //   modelBuilder.Entity<IdentityRole>().HasData()
+                entity.HasMany(c => c.DocEnterProducts)
+                    .WithOne(e => e.Product);
+
+                entity.HasMany(c => c.SalePriseDocs)
+                    .WithOne(e => e.Product);
+
+                //entity.HasOne(d => d.Product)
+                //    .WithMany(p => p.ProductId)
+                //    .HasForeignKey(d => d.ProductId);
+            });
+
+
+
+
 
 
         }
+
+
+
+
+
+
     }
 }

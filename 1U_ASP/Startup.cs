@@ -18,6 +18,8 @@ using _1U_ASP.Repositorys.Interface;
 using _1U_ASP.Repositorys;
 using Microsoft.AspNetCore.Identity;
 using _1U_ASP.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace _1U_ASP
 {
@@ -48,7 +50,10 @@ namespace _1U_ASP
             //        });
             //});.
             services.AddTransient<IProductRepository, ProductRepository>();
-            services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<ISaleOrderRepository, SaleOrdersRepository>();
+            services.AddTransient<ISaleOrderDetailsRepository, SaleOrderDetailsRepository>();
+            
+            services.AddTransient<ISaleOrderSevrice, SaleOrderSevrices>();
             services.AddTransient<ILoginServices, LoginServices>();
             services.AddTransient<ILoginServices, LoginServices>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
@@ -63,6 +68,32 @@ namespace _1U_ASP
 
             services.AddIdentity<User, IdentityRole>()
               .AddEntityFrameworkStores<ApplicationContext>();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        // укзывает, будет ли валидироваться издатель при валидации токена
+                        ValidateIssuer = true,
+                        // строка, представляющая издателя
+                        ValidIssuer = AuthOptions.ISSUER,
+
+                        // будет ли валидироваться потребитель токена
+                        ValidateAudience = true,
+                        // установка потребителя токена
+                        ValidAudience = AuthOptions.AUDIENCE,
+                        // будет ли валидироваться время существования
+                        ValidateLifetime = true,
+
+                        // установка ключа безопасности
+                        IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                        // валидация ключа безопасности
+                        ValidateIssuerSigningKey = true,
+                    };
+                });
+
 
             services.Configure<IdentityOptions>(options =>
             {
