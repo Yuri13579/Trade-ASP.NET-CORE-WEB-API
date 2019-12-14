@@ -17,8 +17,9 @@ namespace _1U_ASP.DTO
         public string ProductName { get; set; }
         public string ProductDescription { get; set; }
         public int Count { get; set; }
-        public float PriseSale { get; set; }
-        public float Summ { get; set; }
+        public double PriceCost { get; set; }
+        public double PriseSale { get; set; }
+        public double Summ { get; set; }
         public int ShopId { get; set; }
         public string ShopName { get; set; }
         public string ShopAddress { get; set; }

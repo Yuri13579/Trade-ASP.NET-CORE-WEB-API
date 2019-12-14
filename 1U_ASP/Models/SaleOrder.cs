@@ -15,8 +15,8 @@ namespace _1U_ASP.Models
         public Shop Shop { get; set; }
         public DateTime DataTime { get; set; }
         public SaleOrderDetail SaleOrderDetail { get; set; }
-        public bool DELETED { get; set; }
-        public int userActionId { get; set; }
+        public bool Deleted { get; set; }
+        public int UserActionId { get; set; }
 
         public ICollection<SaleOrderDetail> SaleOrderDetails { get; set; }
     }

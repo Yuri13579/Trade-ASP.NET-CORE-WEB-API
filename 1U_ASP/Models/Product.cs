@@ -15,11 +15,12 @@ namespace Dap1U.Models
        public double Barcode { get; set; }
        public string Name { get; set; }
        public string Description { get; set; }
-       public bool DELETED { get; set; }
-       public int? userActionId { get; set; }
+       public int CategoryId { get; set; }
+        public bool Deleted { get; set; }
+       public int? UserActionId { get; set; }
 
        public ICollection<ShopBalanceGood> ShopBalanceGood { get; set; }
-        public ICollection<DocEnterProduct> DocEnterProducts { get; set; }
+       public ICollection<DocEnterProduct> DocEnterProducts { get; set; }
        public ICollection<SaleOrderDetail> SaleOrderDetails { get; set; }
        public ICollection<SalePriseDoc> SalePriseDocs { get; set; }
        public ICollection<ShopProduct> ShopProducts { get; set; }

@@ -25,8 +25,7 @@ namespace _1U_ASP.Context
         public DbSet<Profile> Profile { get; set; }
         public DbSet<ShopProduct> ShopProduct { get; set; }
         public DbSet<ShopBalanceGood> ShopBalanceGood { get; set; }
-
-
+        
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
             Database.EnsureCreated();
@@ -45,6 +44,9 @@ namespace _1U_ASP.Context
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.HasKey(e => e.ProductId);
+
+                entity.Property(e => e.Deleted)
+                    .HasDefaultValue(false);
                 
                 entity.HasMany(c => c.SaleOrderDetails)
                     .WithOne(e => e.Product)
@@ -54,13 +56,20 @@ namespace _1U_ASP.Context
                     .WithOne(e => e.Product)
                     .HasForeignKey(c => c.ProductId);
 
-   
+                entity.HasData(
+                    new Product { ProductId = 1, Barcode = 4802221111, Name = "Fairy", Description = "500ml"},
+                    new Product { ProductId = 2, Barcode = 4802221222, Name = "Fairy", Description = "250ml" },
+                    new Product { ProductId = 3, Barcode = 4802221333, Name = "Gala", Description = "500ml" }
+                );
             });
 
             modelBuilder.Entity<SaleOrder>(entity =>
             {
                 entity.HasKey(e => e.SaleOrderID);
-
+                
+                entity.Property(e => e.Deleted)
+                    .HasDefaultValue(false);
+                
                 entity.HasMany(c => c.SaleOrderDetails)
                     .WithOne(e => e.SaleOrder)
                     .HasForeignKey(c => c.SaleOrderDetailId);
@@ -72,6 +81,9 @@ namespace _1U_ASP.Context
             {
                 entity.HasKey(e => e.ShopId);
 
+                entity.Property(e => e.Deleted)
+                    .HasDefaultValue(false);
+
                 entity.HasMany(c => c.SaleOrders)
                     .WithOne(e => e.Shop)
                     .HasForeignKey(c => c.SaleOrderID); ;
@@ -80,6 +92,9 @@ namespace _1U_ASP.Context
             modelBuilder.Entity<ShopProduct>(entity =>
             {
                 entity.HasKey(e => e.ShopProductId);
+
+                entity.Property(e => e.Deleted)
+                    .HasDefaultValue(false);
 
                 entity.HasOne(c => c.Shop)
                     .WithMany(e => e.ShopProducts)
@@ -94,6 +109,9 @@ namespace _1U_ASP.Context
             {
                 entity.HasKey(e => e.DocEnterProductId);
 
+                entity.Property(e => e.Deleted)
+                    .HasDefaultValue(false);
+
                 entity.HasMany(c => c.DocEnterProductDetails)
                     .WithOne(e => e.DocEnterProduct)
                    .HasForeignKey(c => c.DocEnterProductDetailId);
@@ -105,6 +123,9 @@ namespace _1U_ASP.Context
             {
                 entity.HasKey(e => e.ProviderId);
 
+                entity.Property(e => e.Deleted)
+                    .HasDefaultValue(false);
+
                 entity.HasMany(c => c.DocEnterProducts)
                     .WithOne(e => e.Provider)
                     .HasForeignKey(c => c.ProviderId);
@@ -114,6 +135,9 @@ namespace _1U_ASP.Context
             modelBuilder.Entity<ShopBalanceGood>(entity =>
             {
                 entity.HasKey(e => e.ShopBalanceGoodId);
+
+                entity.Property(e => e.Deleted)
+                    .HasDefaultValue(false);
 
                 entity.HasOne(c => c.DocEnterProduct)
                     .WithMany(e => e.ShopBalanceGood)
@@ -132,6 +156,9 @@ namespace _1U_ASP.Context
             modelBuilder.Entity<Provider>(entity =>
             {
                 entity.HasKey(e => e.ProviderId);
+
+                entity.Property(e => e.Deleted)
+                    .HasDefaultValue(false);
 
                 entity.HasMany(c => c.DocEnterProducts)
                     .WithOne(e => e.Provider)

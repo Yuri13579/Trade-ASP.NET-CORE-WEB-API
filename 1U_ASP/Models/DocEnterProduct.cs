@@ -15,8 +15,8 @@ namespace _1U_ASP.Models
         //public Product Product { get; set; }
         public int? ProviderId { get; set; }
         public Provider Provider { get; set; }
-        public bool Delete { get; set; }
-        public int UserActionId { get; set; }
+        public bool Deleted { get; set; }
+        public int? UserActionId { get; set; }
         // public DocEnterProductDetail DocEnterProductDetail { get; set; }
 
         public ICollection<ShopBalanceGood> ShopBalanceGood { get; set; }

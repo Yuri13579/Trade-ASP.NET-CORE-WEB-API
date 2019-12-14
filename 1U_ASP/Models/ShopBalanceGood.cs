@@ -16,8 +16,8 @@ namespace _1U_ASP.Models
         public int DocEnterProductId { get; set; }
         public DocEnterProduct DocEnterProduct { get; set; }
         public int Amount { get; set; }
-        public bool DELETED { get; set; }
-        public int? userActionId { get; set; }
+        public bool Deleted { get; set; }
+        public int? UserActionId { get; set; }
 
     }
 }

@@ -13,6 +13,8 @@ namespace _1U_ASP.Models
         public string NameProvider { get; set; }
         public decimal Phone { get; set; }
         public string Address { get; set; }
+        public bool Deleted { get; set; }
+        public int? UserActionId { get; set; }
 
         public ICollection<DocEnterProduct> DocEnterProducts { get; set; }
         

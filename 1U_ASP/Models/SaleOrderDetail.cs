@@ -17,10 +17,11 @@ namespace _1U_ASP.Models
         public int? ProductId { get; set; }
         public Product Product { get; set; }
         public int Count { get; set; }
-        public float PriseSale { get; set; }
-        public float Summ { get; set; }
-        public bool DELETED { get; set; }
-        public int userActionId { get; set; }
+        public double PriceCost { get; set; }
+        public double PriseSale { get; set; }
+        public double Summ { get; set; }
+        public bool Deleted { get; set; }
+        public int? UserActionId { get; set; }
 
 
 

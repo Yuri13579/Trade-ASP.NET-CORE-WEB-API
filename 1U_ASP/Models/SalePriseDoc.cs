@@ -15,7 +15,7 @@ namespace _1U_ASP.Models
         public Product Product { get; set; }
         public decimal SalePrise { get; set; }
         public DateTime DateFrom { get; set; }
-        public bool DELETED { get; set; }
-        public int userActionId { get; set; }
+        public bool Deleted { get; set; }
+        public int? UserActionId { get; set; }
     }
 }

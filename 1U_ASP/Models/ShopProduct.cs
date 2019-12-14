@@ -13,8 +13,8 @@ namespace _1U_ASP.Models
         public Shop Shop { get; set; }
         public int ProductId { get; set; }
         public Product Product { get; set; }
-        public bool DELETED { get; set; }
-        public int? userActionId { get; set; }
+        public bool Deleted { get; set; }
+        public int? UserActionId { get; set; }
 
 
     }
