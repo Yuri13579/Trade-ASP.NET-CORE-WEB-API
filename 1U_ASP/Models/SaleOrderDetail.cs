@@ -21,5 +21,8 @@ namespace _1U_ASP.Models
         public float Summ { get; set; }
         public bool DELETED { get; set; }
         public int userActionId { get; set; }
+
+
+
     }
 }

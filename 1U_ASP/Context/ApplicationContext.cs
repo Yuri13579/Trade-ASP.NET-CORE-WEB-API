@@ -23,6 +23,9 @@ namespace _1U_ASP.Context
         public DbSet<SaleOrderDetail> SaleOrderDetails { get; set; }
         public DbSet<SalePriseDoc> SalePriseDocs { get; set; }
         public DbSet<Profile> Profile { get; set; }
+        public DbSet<ShopProduct> ShopProduct { get; set; }
+        public DbSet<ShopBalanceGood> ShopBalanceGood { get; set; }
+
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
@@ -30,7 +33,7 @@ namespace _1U_ASP.Context
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-TH6PGTN;Initial Catalog=1UT;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-TH6PGTN;Initial Catalog=1UT4;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
           // optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
 
         }
@@ -41,22 +44,100 @@ namespace _1U_ASP.Context
             
             modelBuilder.Entity<Product>(entity =>
             {
+                entity.HasKey(e => e.ProductId);
+                
                 entity.HasMany(c => c.SaleOrderDetails)
-                    .WithOne(e => e.Product);
-
-                entity.HasMany(c => c.DocEnterProducts)
-                    .WithOne(e => e.Product);
-
+                    .WithOne(e => e.Product)
+                    .HasForeignKey(c => c.ProductId);
+                
                 entity.HasMany(c => c.SalePriseDocs)
-                    .WithOne(e => e.Product);
+                    .WithOne(e => e.Product)
+                    .HasForeignKey(c => c.ProductId);
 
-                //entity.HasOne(d => d.Product)
-                //    .WithMany(p => p.ProductId)
-                //    .HasForeignKey(d => d.ProductId);
+   
+            });
+
+            modelBuilder.Entity<SaleOrder>(entity =>
+            {
+                entity.HasKey(e => e.SaleOrderID);
+
+                entity.HasMany(c => c.SaleOrderDetails)
+                    .WithOne(e => e.SaleOrder)
+                    .HasForeignKey(c => c.SaleOrderDetailId);
+
             });
 
 
+            modelBuilder.Entity<Shop>(entity =>
+            {
+                entity.HasKey(e => e.ShopId);
 
+                entity.HasMany(c => c.SaleOrders)
+                    .WithOne(e => e.Shop)
+                    .HasForeignKey(c => c.SaleOrderID); ;
+            });
+
+            modelBuilder.Entity<ShopProduct>(entity =>
+            {
+                entity.HasKey(e => e.ShopProductId);
+
+                entity.HasOne(c => c.Shop)
+                    .WithMany(e => e.ShopProducts)
+                    .HasForeignKey(c => c.ShopId); ;
+
+                entity.HasOne(c => c.Product)
+                    .WithMany(e => e.ShopProducts)
+                    .HasForeignKey(c => c.ProductId); ;
+            });
+            
+            modelBuilder.Entity<DocEnterProduct>(entity =>
+            {
+                entity.HasKey(e => e.DocEnterProductId);
+
+                entity.HasMany(c => c.DocEnterProductDetails)
+                    .WithOne(e => e.DocEnterProduct)
+                   .HasForeignKey(c => c.DocEnterProductDetailId);
+                
+
+            });
+
+            modelBuilder.Entity<Provider>(entity =>
+            {
+                entity.HasKey(e => e.ProviderId);
+
+                entity.HasMany(c => c.DocEnterProducts)
+                    .WithOne(e => e.Provider)
+                    .HasForeignKey(c => c.ProviderId);
+                
+            });
+
+            modelBuilder.Entity<ShopBalanceGood>(entity =>
+            {
+                entity.HasKey(e => e.ShopBalanceGoodId);
+
+                entity.HasOne(c => c.DocEnterProduct)
+                    .WithMany(e => e.ShopBalanceGood)
+                    .HasForeignKey(c => c.DocEnterProductId);
+
+                entity.HasOne(c => c.Product)
+                    .WithMany(e => e.ShopBalanceGood)
+                    .HasForeignKey(c => c.ProductId);
+
+                entity.HasOne(c => c.Shop)
+                    .WithMany(e => e.ShopBalanceGood)
+                    .HasForeignKey(c => c.ShopId);
+
+            });
+
+            modelBuilder.Entity<Provider>(entity =>
+            {
+                entity.HasKey(e => e.ProviderId);
+
+                entity.HasMany(c => c.DocEnterProducts)
+                    .WithOne(e => e.Provider)
+                    .HasForeignKey(c => c.DocEnterProductId);
+
+           });
 
 
 

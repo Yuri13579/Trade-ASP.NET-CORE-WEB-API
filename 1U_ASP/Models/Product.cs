@@ -10,16 +10,18 @@ namespace Dap1U.Models
 {
     public class Product 
     {
-       [Key]
+     //  [Key]
        public int ProductId { get; set;}
        public double Barcode { get; set; }
        public string Name { get; set; }
        public string Description { get; set; }
        public bool DELETED { get; set; }
-       public int userActionId { get; set; }
+       public int? userActionId { get; set; }
 
-       public ICollection<DocEnterProduct> DocEnterProducts { get; set; }
+       public ICollection<ShopBalanceGood> ShopBalanceGood { get; set; }
+        public ICollection<DocEnterProduct> DocEnterProducts { get; set; }
        public ICollection<SaleOrderDetail> SaleOrderDetails { get; set; }
        public ICollection<SalePriseDoc> SalePriseDocs { get; set; }
+       public ICollection<ShopProduct> ShopProducts { get; set; }
     }
 }

@@ -17,5 +17,7 @@ namespace _1U_ASP.Models
         public SaleOrderDetail SaleOrderDetail { get; set; }
         public bool DELETED { get; set; }
         public int userActionId { get; set; }
+
+        public ICollection<SaleOrderDetail> SaleOrderDetails { get; set; }
     }
 }

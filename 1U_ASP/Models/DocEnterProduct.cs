@@ -11,13 +11,15 @@ namespace _1U_ASP.Models
     {
         [Key]
         public int DocEnterProductId { get; set; }
-        public int? ProductId { get; set; }
-        public Product Product { get; set; }
+        //public int? ProductId { get; set; }
+        //public Product Product { get; set; }
         public int? ProviderId { get; set; }
         public Provider Provider { get; set; }
         public bool Delete { get; set; }
         public int UserActionId { get; set; }
-        
+        // public DocEnterProductDetail DocEnterProductDetail { get; set; }
+
+        public ICollection<ShopBalanceGood> ShopBalanceGood { get; set; }
         public ICollection<DocEnterProductDetail> DocEnterProductDetails { get; set; }
     }
 }
