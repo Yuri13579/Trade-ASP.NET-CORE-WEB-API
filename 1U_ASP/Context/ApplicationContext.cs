@@ -32,7 +32,7 @@ namespace _1U_ASP.Context
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-TH6PGTN;Initial Catalog=1UT4;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-TH6PGTN;Initial Catalog=1UT6;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
           // optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
 
         }
@@ -62,21 +62,7 @@ namespace _1U_ASP.Context
                     new Product { ProductId = 3, Barcode = 4802221333, Name = "Gala", Description = "500ml" }
                 );
             });
-
-            modelBuilder.Entity<SaleOrder>(entity =>
-            {
-                entity.HasKey(e => e.SaleOrderID);
-                
-                entity.Property(e => e.Deleted)
-                    .HasDefaultValue(false);
-                
-                entity.HasMany(c => c.SaleOrderDetails)
-                    .WithOne(e => e.SaleOrder)
-                    .HasForeignKey(c => c.SaleOrderDetailId);
-
-            });
-
-
+            
             modelBuilder.Entity<Shop>(entity =>
             {
                 entity.HasKey(e => e.ShopId);
@@ -87,6 +73,11 @@ namespace _1U_ASP.Context
                 entity.HasMany(c => c.SaleOrders)
                     .WithOne(e => e.Shop)
                     .HasForeignKey(c => c.SaleOrderID); ;
+
+                entity.HasData(
+                    new Shop {ShopId = 1, Address = "Holovna 100", Name = "EcoShop1"},
+                    new Shop {ShopId = 2, Address = "Shevchenka ", Name = "EcoShop2"}
+                );
             });
 
             modelBuilder.Entity<ShopProduct>(entity =>
@@ -103,7 +94,38 @@ namespace _1U_ASP.Context
                 entity.HasOne(c => c.Product)
                     .WithMany(e => e.ShopProducts)
                     .HasForeignKey(c => c.ProductId); ;
+
+                entity.HasData(
+                    new ShopProduct {ShopProductId = 1, ShopId = 1, ProductId = 1},
+                    new ShopProduct { ShopProductId = 2, ShopId = 1, ProductId = 2 },
+                    new ShopProduct { ShopProductId = 3, ShopId = 1, ProductId = 3 },
+                    new ShopProduct { ShopProductId = 4, ShopId = 2, ProductId = 1 },
+                    new ShopProduct { ShopProductId = 5, ShopId = 2, ProductId = 2 },
+                    new ShopProduct { ShopProductId = 6, ShopId = 2, ProductId = 3 }
+                );
             });
+            
+
+            modelBuilder.Entity<SaleOrder>(entity =>
+            {
+                entity.HasKey(e => e.SaleOrderID);
+                
+                entity.Property(e => e.Deleted)
+                    .HasDefaultValue(false);
+                
+                entity.HasMany(c => c.SaleOrderDetails)
+                    .WithOne(e => e.SaleOrder)
+                    .HasForeignKey(c => c.SaleOrderDetailId);
+
+                entity.HasData(
+                    new SaleOrder {SaleOrderID = 1, DataTime = DateTime.Now, ShopId = 1},
+                    new SaleOrder { SaleOrderID = 2, DataTime = DateTime.Now, ShopId = 2 }
+                );
+            });
+
+
+
+           
             
             modelBuilder.Entity<DocEnterProduct>(entity =>
             {
