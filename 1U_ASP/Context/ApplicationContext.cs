@@ -32,7 +32,7 @@ namespace _1U_ASP.Context
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-TH6PGTN;Initial Catalog=1UT6;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-TH6PGTN;Initial Catalog=1UT2;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
           // optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
 
         }
@@ -123,9 +123,23 @@ namespace _1U_ASP.Context
                 );
             });
 
+            modelBuilder.Entity<SaleOrderDetail>(entity =>
+            {
+                entity.HasKey(e => e.SaleOrderDetailId);
+
+                entity.HasOne(c => c.SaleOrder)
+                    .WithMany(e => e.SaleOrderDetails)
+                    .HasForeignKey(c => c.SaleOrderId);
 
 
-           
+                entity.HasData(
+                    new SaleOrderDetail { SaleOrderDetailId = 1, SaleOrderId = 1, Count = 3, ProductId =1, PriceCost = 12.5, PriseSale = 15},
+                    new SaleOrderDetail { SaleOrderDetailId = 2, SaleOrderId = 1, Count = 2, ProductId = 2, PriceCost = 14.3, PriseSale = 17 },
+                    new SaleOrderDetail { SaleOrderDetailId = 3, SaleOrderId = 2, Count = 5, ProductId = 1, PriceCost = 12.5, PriseSale = 15 },
+                    new SaleOrderDetail { SaleOrderDetailId = 4, SaleOrderId = 2, Count = 4, ProductId = 2, PriceCost = 14.3, PriseSale = 17 },
+                    new SaleOrderDetail { SaleOrderDetailId = 5, SaleOrderId = 2, Count = 1, ProductId = 3, PriceCost = 16, PriseSale = 19.5 }
+                    );
+            });
             
             modelBuilder.Entity<DocEnterProduct>(entity =>
             {
@@ -137,9 +151,7 @@ namespace _1U_ASP.Context
                 entity.HasMany(c => c.DocEnterProductDetails)
                     .WithOne(e => e.DocEnterProduct)
                    .HasForeignKey(c => c.DocEnterProductDetailId);
-                
-
-            });
+                });
 
             modelBuilder.Entity<Provider>(entity =>
             {

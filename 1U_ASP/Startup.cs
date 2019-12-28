@@ -51,12 +51,16 @@ namespace _1U_ASP
             //});.
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<ISaleOrderRepository, SaleOrdersRepository>();
-            services.AddTransient<ISaleOrderDetailsRepository, SaleOrderDetailsRepository>();
-            
+            services.AddTransient<ISaleOrderDetailsRepository, SaleOrderSevrice>();
             services.AddTransient<ISaleOrderSevrice, SaleOrderSevrices>();
             services.AddTransient<ILoginServices, LoginServices>();
             services.AddTransient<ILoginServices, LoginServices>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+            services.AddTransient<ISaleOrderSevrice, SaleOrderSevrices>();
+
+
+            
             //services.AddDefaultIdentity<IdentityRole>()
             //    .AddEntityFrameworkStores<ApplicationContext>();
 

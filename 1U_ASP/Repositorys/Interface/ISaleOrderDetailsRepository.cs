@@ -8,5 +8,6 @@ namespace _1U_ASP.Repositorys.Interface
 {
     public interface ISaleOrderDetailsRepository : IRepository<SaleOrderDetail>
     {
+        Task<List<SaleOrderDetail>> GetAllSaleOrderDetails();
     }
 }

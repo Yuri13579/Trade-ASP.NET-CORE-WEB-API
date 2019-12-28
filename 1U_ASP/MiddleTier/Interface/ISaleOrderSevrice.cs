@@ -11,6 +11,6 @@ namespace _1U_ASP.MiddleTier.Interface
     {
         Task<SaleOrder> GetSaleOrderById(int id);
         Task<List<SaleOrder>> GetAllSaleOrder();
-        List<SaleDTO> GetAllSaleOrderWithDatails();
+        Task<List<SaleDTO>> GetAllSale();
     }
 }

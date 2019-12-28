@@ -63,9 +63,9 @@ namespace _1U_ASP.Repositorys
             return res;
         }
 
-        public IQueryable<Product> GetAllProducts()
+        public async Task<List<Product>> GetAllProducts()
         {
-            var res =  _context.Products;
+            var res = await _context.Products.ToListAsync();
             return res;
         }
     }

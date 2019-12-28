@@ -25,9 +25,9 @@ namespace _1U_ASP.MiddleTier
            return await _productRepository.GetProduct(id);
         }
 
-        public IQueryable<Product> GetAllProducts()
+        public async Task<List<Product>> GetAllProducts()
         {
-            return _productRepository.GetAllProducts();
+            return await _productRepository.GetAllProducts();
         }
 
 

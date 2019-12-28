@@ -10,7 +10,7 @@ namespace _1U_ASP.MiddleTier.Interface
     public interface IProductService
     {
         Task<Product> GetProductById(int id);
-        IQueryable<Product> GetAllProducts();
+        Task<List<Product>>  GetAllProducts();
         
     }
 }

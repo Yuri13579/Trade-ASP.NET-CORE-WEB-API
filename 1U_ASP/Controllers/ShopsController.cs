@@ -16,6 +16,7 @@ namespace _1U_ASP.Controllers
     {
         private readonly ApplicationContext _context;
 
+
         public ShopsController(ApplicationContext context)
         {
             _context = context;
@@ -26,6 +27,20 @@ namespace _1U_ASP.Controllers
         public async Task<ActionResult<IEnumerable<Shop>>> GetShops()
         {
             return await _context.Shops.ToListAsync();
+        }
+
+        // GET: api/Shops/5
+        [HttpGet("{allSale}")]
+        public async Task<ActionResult<Shop>> GetAllSale(int id)
+        {
+            var shop = await _context.Shops.FindAsync(id);
+
+            if (shop == null)
+            {
+                return NotFound();
+            }
+
+            return shop;
         }
 
         // GET: api/Shops/5

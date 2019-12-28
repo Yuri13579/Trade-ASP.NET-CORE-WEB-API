@@ -24,14 +24,14 @@ namespace _1U_ASP.Controllers
             _productService = productService;
         }
 
-        [HttpGet]
-        public async Task<Product> Get()
-        {
-            int id = 1;
-            var result = await _productService.GetAllProducts().FirstOrDefaultAsync();
-            return result;
+        //[HttpGet]
+        //public async Task<Product> Get()
+        //{
+        //    int id = 1;
+        //    var result = await _productService.GetAllProducts();
+        //    return result;
 
-        }
+        //}
 
 
         [HttpGet("GetSaleOrderById/{id}")]

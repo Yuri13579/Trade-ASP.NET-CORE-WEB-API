@@ -50,7 +50,7 @@ namespace _1U_ASP.Controllers
         {
             try
             {
-                var result = _saleOrderService.GetAllSaleOrderWithDatails();
+                var result = _saleOrderService.GetAllSale();
                 return Json(result);
             }
             catch (Exception e)

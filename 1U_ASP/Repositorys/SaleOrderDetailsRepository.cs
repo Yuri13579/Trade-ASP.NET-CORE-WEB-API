@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace _1U_ASP.Repositorys
 {
-    public class SaleOrderDetailsRepository : ISaleOrderDetailsRepository
+    public class SaleOrderSevrice : ISaleOrderDetailsRepository
     {
         private readonly ApplicationContext _context;
-        public SaleOrderDetailsRepository(ApplicationContext context)// : base(context)
+        public SaleOrderSevrice(ApplicationContext context)// : base(context)
         {
             _context = context;
         }
@@ -39,7 +39,13 @@ namespace _1U_ASP.Repositorys
 
         public Task<List<SaleOrderDetail>> GetAllAsync()
         {
-            return _context.SaleOrderDetails.ToListAsync();
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<SaleOrderDetail>> GetAllSaleOrderDetails()
+        {
+            var res = await _context.SaleOrderDetails.ToListAsync();
+             return res;
         }
 
         public Task<SaleOrderDetail> Update(SaleOrderDetail entity)

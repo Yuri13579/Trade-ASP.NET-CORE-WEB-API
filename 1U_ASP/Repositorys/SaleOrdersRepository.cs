@@ -45,10 +45,10 @@ namespace _1U_ASP.Repositorys
             throw new NotImplementedException();
         }
 
-        public Task<List<SaleOrder>>  GetAllSaleOrders()
+        public async Task<List<SaleOrder>>  GetAllSaleOrders()
         {
-            //var res = new List<SaleOrder>(_context.SaleOrders);
-            return _context.SaleOrders.ToListAsync();
+            var res = await _context.SaleOrders.ToListAsync();
+            return res;
         }
 
         public Task<SaleOrder> GetSaleOrders(int id)
