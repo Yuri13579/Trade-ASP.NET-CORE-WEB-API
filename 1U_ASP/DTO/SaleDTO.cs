@@ -11,7 +11,6 @@ namespace _1U_ASP.DTO
         public int SaleOrderID { get; set; }
         public DateTime DataTime { get; set; }
         public int SaleOrderDetailId { get; set; }
-        public int? SaleOrderId { get; set; }
         public int ProductId { get; set; }
         public double ProductBarcode { get; set; }
         public string ProductName { get; set; }

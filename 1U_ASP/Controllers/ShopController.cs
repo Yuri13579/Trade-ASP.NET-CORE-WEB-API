@@ -12,39 +12,23 @@ namespace _1U_ASP.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ShopsController : ControllerBase
+    public class ShopController : ControllerBase
     {
         private readonly ApplicationContext _context;
 
 
-        public ShopsController(ApplicationContext context)
+        public ShopController(ApplicationContext context)
         {
             _context = context;
         }
 
-        // GET: api/Shops
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Shop>>> GetShops()
+        [HttpGet("{GetAllShops}")]
+        public async Task<ActionResult<IEnumerable<Shop>>> GetAllShops()
         {
             return await _context.Shops.ToListAsync();
         }
 
-        // GET: api/Shops/5
-        [HttpGet("{allSale}")]
-        public async Task<ActionResult<Shop>> GetAllSale(int id)
-        {
-            var shop = await _context.Shops.FindAsync(id);
-
-            if (shop == null)
-            {
-                return NotFound();
-            }
-
-            return shop;
-        }
-
-        // GET: api/Shops/5
-        [HttpGet("{id}")]
+        [HttpGet("GetShoById/{id}")]
         public async Task<ActionResult<Shop>> GetShop(int id)
         {
             var shop = await _context.Shops.FindAsync(id);
@@ -58,14 +42,9 @@ namespace _1U_ASP.Controllers
         }
 
         // PUT: api/Shops/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutShop(int id, Shop shop)
+        [HttpPut("{PutShop}")]
+        public async Task<string> PutShop([FromBody]Shop shop)
         {
-            if (id != shop.ShopId)
-            {
-                return BadRequest();
-            }
-
             _context.Entry(shop).State = EntityState.Modified;
 
             try
@@ -74,21 +53,21 @@ namespace _1U_ASP.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ShopExists(id))
+                if (!ShopExists(shop.ShopId))
                 {
-                    return NotFound();
+                    return "NotFound";
                 }
                 else
                 {
-                    throw;
+                    return "Error";
                 }
             }
 
-            return NoContent();
+            return "updated";
         }
 
         // POST: api/Shops
-        [HttpPost]
+        [HttpPost("{PostShop}")]
         public async Task<ActionResult<Shop>> PostShop(Shop shop)
         {
             _context.Shops.Add(shop);
@@ -98,7 +77,7 @@ namespace _1U_ASP.Controllers
         }
 
         // DELETE: api/Shops/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{DeleteShop}/{id}")]
         public async Task<ActionResult<Shop>> DeleteShop(int id)
         {
             var shop = await _context.Shops.FindAsync(id);

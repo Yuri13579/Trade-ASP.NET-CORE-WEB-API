@@ -6,7 +6,7 @@ using _1U_ASP.Models;
 
 namespace _1U_ASP.Repositorys.Interface
 {
-    public interface ISaleOrderDetailsRepository : IRepository<SaleOrderDetail>
+    public interface ISaleOrderDetailsRepository
     {
         Task<List<SaleOrderDetail>> GetAllSaleOrderDetails();
     }

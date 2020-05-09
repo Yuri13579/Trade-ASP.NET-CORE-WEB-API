@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using _1U_ASP.Context;
 using Microsoft.AspNetCore.Builder;
@@ -18,6 +19,9 @@ using _1U_ASP.Repositorys.Interface;
 using _1U_ASP.Repositorys;
 using Microsoft.AspNetCore.Identity;
 using _1U_ASP.Models;
+using _1U_ASP.Security;
+using _1U_ASP.Security.Model;
+using _1U_ASP.Security.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -25,42 +29,39 @@ namespace _1U_ASP
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
             Configuration.GetConnectionString("DefaultConnection");
-        }
 
+            GlobalVariables.ConnectionStringMainDatabase = Configuration.GetConnectionString("DefaultConnection");
+            GlobalVariables.SecretKey = Configuration.GetSection(nameof(JwtIssuerOptions))[nameof(JwtIssuerOptions.SecretKey)];
+        }
+            
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationContext>(options =>
-               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            //services.AddDbContext<AppIdentityDbContext>(options =>
-            //{
-            //    options.UseSqlServer(GlobalVariables.ConnectionStringMainDatabase,
-            //        sqlServerOptionsAction: sqlOptions =>
-            //        {
-            //            sqlOptions.EnableRetryOnFailure(
-            //                maxRetryCount: 10,
-            //                maxRetryDelay: TimeSpan.FromSeconds(30),
-            //                errorNumbersToAdd: null);
-            //        });
-            //});.
+               options.UseSqlServer(GlobalVariables.ConnectionStringMainDatabase));
+           
+            services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<ISaleOrderRepository, SaleOrdersRepository>();
             services.AddTransient<ISaleOrderDetailsRepository, SaleOrderSevrice>();
-            services.AddTransient<ISaleOrderSevrice, SaleOrderSevrices>();
+            services.AddTransient<ISaleOrderSevrice, SaleOrderServices>();
             services.AddTransient<ILoginServices, LoginServices>();
             services.AddTransient<ILoginServices, LoginServices>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
-            services.AddTransient<ISaleOrderSevrice, SaleOrderSevrices>();
+            services.AddTransient<ISaleOrderSevrice, SaleOrderServices>();
+            services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient<IUserAccountProcessing, UserAccountProcessing>();
+            services.AddScoped<IUserAccountProcessing, UserAccountProcessing>();
+            services.AddScoped<ILogActionServeProcess, LogActionProcessing>();
 
-
-            
             //services.AddDefaultIdentity<IdentityRole>()
             //    .AddEntityFrameworkStores<ApplicationContext>();
 
@@ -70,35 +71,83 @@ namespace _1U_ASP
             //});
 
 
-            services.AddIdentity<User, IdentityRole>()
-              .AddEntityFrameworkStores<ApplicationContext>();
+            //services.AddIdentity<User, IdentityRole>()
+            //  .AddEntityFrameworkStores<ApplicationContext>();
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            //    .AddJwtBearer(options =>
+            //    {
+            //        options.RequireHttpsMetadata = false;
+            //        options.TokenValidationParameters = new TokenValidationParameters
+            //        {
+            //            // укзывает, будет ли валидироваться издатель при валидации токена
+            //            ValidateIssuer = true,
+            //            // строка, представляющая издателя
+            //            ValidIssuer = AuthOptions.ISSUER,
+
+            //            // будет ли валидироваться потребитель токена
+            //            ValidateAudience = true,
+            //            // установка потребителя токена
+            //            ValidAudience = AuthOptions.AUDIENCE,
+            //            // будет ли валидироваться время существования
+            //            ValidateLifetime = true,
+
+            //            // установка ключа безопасности
+            //            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+            //            // валидация ключа безопасности
+            //            ValidateIssuerSigningKey = true,
+            //        };
+            //    });
+
+            services.AddIdentity<AppUser, AppRole>(
+                options =>
+                {
+                    options.Password.RequiredLength = 6;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireDigit = false;
+                }).AddEntityFrameworkStores<ApplicationContext>().AddDefaultTokenProviders();
+
+            services.AddAuthentication(
+                    options =>
+                    {
+                        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    })
                 .AddJwtBearer(options =>
                 {
                     options.RequireHttpsMetadata = false;
+                    options.SaveToken = true;
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
-                        // укзывает, будет ли валидироваться издатель при валидации токена
-                        ValidateIssuer = true,
-                        // строка, представляющая издателя
-                        ValidIssuer = AuthOptions.ISSUER,
-
-                        // будет ли валидироваться потребитель токена
-                        ValidateAudience = true,
-                        // установка потребителя токена
-                        ValidAudience = AuthOptions.AUDIENCE,
-                        // будет ли валидироваться время существования
-                        ValidateLifetime = true,
-
-                        // установка ключа безопасности
-                        IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-                        // валидация ключа безопасности
+                        ValidIssuer = GlobalVariables.Issuer,
+                        ValidAudience = GlobalVariables.Audience,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(GlobalVariables.SecretKey)),
                         ValidateIssuerSigningKey = true,
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.Zero
+                    };
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            var accessToken = context.Request.Query["access_token"];
+
+                            var path = context.HttpContext.Request.Path;
+                            if (!string.IsNullOrEmpty(accessToken) &&
+                                path.StartsWithSegments("/note")
+                                || path.StartsWithSegments("/mainchat"))
+                            {
+                                context.Token = accessToken;
+                            }
+                            return Task.CompletedTask;
+                        }
                     };
                 });
-
-
+                
             services.Configure<IdentityOptions>(options =>
             {
                 // Password settings.
@@ -119,7 +168,19 @@ namespace _1U_ASP
                     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = false;
             });
-            
+
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:4200")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                           // .WithMethods("GET", "POST", "DELETE", "PUT"); // .AllowAnyOrigin();
+                    });
+            });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             
         }
@@ -138,6 +199,14 @@ namespace _1U_ASP
             }
 
             app.UseHttpsRedirection();
+
+            //app.UseCors(
+            //    options => options.WithOrigins("http://localhost:4200/").AllowAnyMethod()
+            //);
+            
+            app.UseCors(MyAllowSpecificOrigins);
+            app.UseAuthentication();
+            
             app.UseMvc();
         }
     }

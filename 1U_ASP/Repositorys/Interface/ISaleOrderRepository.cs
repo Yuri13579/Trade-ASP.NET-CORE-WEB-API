@@ -7,7 +7,7 @@ using Dap1U.Models;
 
 namespace _1U_ASP.Repositorys.Interface
 {
-    public interface ISaleOrderRepository : IRepository<SaleOrder>
+    public interface ISaleOrderRepository 
     {
         Task<SaleOrder> GetSaleOrders(int id);
         Task<List<SaleOrder>> GetAllSaleOrders();

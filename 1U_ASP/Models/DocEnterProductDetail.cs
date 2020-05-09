@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using _1U_ASP.Repositorys;
 using Dap1U.Models;
 
 namespace _1U_ASP.Models
 {
-    public class DocEnterProductDetail
+    public class DocEnterProductDetail : BaseEntity
     {
         [Key]
         public int DocEnterProductDetailId { get; set; }

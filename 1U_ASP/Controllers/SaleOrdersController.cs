@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using _1U_ASP.Context;
+using _1U_ASP.DTO;
 using _1U_ASP.Models;
 using _1U_ASP.MiddleTier.Interface;
 
@@ -33,15 +34,15 @@ namespace _1U_ASP.Controllers
         {
         
           try
-            {
-                var result = _saleOrderService.GetAllSaleOrder();
-                return Json(result);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                throw;
-            }
+          {
+              var result = _saleOrderService.GetAllSaleOrder();
+              return Json(result);
+          }
+          catch (Exception e)
+          {
+              Console.WriteLine(e.Message);
+              throw;
+          }
         }
 
         // GET: api/SaleOrders
@@ -50,7 +51,7 @@ namespace _1U_ASP.Controllers
         {
             try
             {
-                var result = _saleOrderService.GetAllSale();
+                var result = await _saleOrderService.GetAllSale();
                 return Json(result);
             }
             catch (Exception e)
@@ -80,7 +81,7 @@ namespace _1U_ASP.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutSaleOrder(int id, SaleOrder saleOrder)
         {
-            if (id != saleOrder.SaleOrderID)
+            if (id != saleOrder.SaleOrderId)
             {
                 return BadRequest();
             }
@@ -113,7 +114,7 @@ namespace _1U_ASP.Controllers
             _context.SaleOrders.Add(saleOrder);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetSaleOrder", new { id = saleOrder.SaleOrderID }, saleOrder);
+            return CreatedAtAction("GetSaleOrder", new { id = saleOrder.SaleOrderId }, saleOrder);
         }
 
         // DELETE: api/SaleOrders/5
@@ -131,10 +132,30 @@ namespace _1U_ASP.Controllers
 
             return saleOrder;
         }
+        //SellGoods
+        [HttpPost("{SellGoods}")]
+        public async Task<string> SellGoods([FromBody] SellDto sellDto)
+        {
+            string resultText;
+            try
+            {
+                 resultText = await _saleOrderService.SellGoods(sellDto);
+            }
+            catch (Exception e)
+            {
+                resultText = e.Message;
+                throw;
+            }
+           
+            return resultText;
+        }
+
+
+
 
         private bool SaleOrderExists(int id)
         {
-            return _context.SaleOrders.Any(e => e.SaleOrderID == id);
+            return _context.SaleOrders.Any(e => e.SaleOrderId == id);
         }
     }
 }

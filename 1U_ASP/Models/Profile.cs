@@ -2,21 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using _1U_ASP.Repositorys;
 
 namespace _1U_ASP.Models
 {
-    public class Profile
+    public class Profile : BaseEntity
     {
         public int ProfileId { get; set; }
-
-        public User User { get; set; }
-
-        public string UserId { get; set; }
-
-        public string Gender { get; set; }
-        public bool Deleted { get; set; }
+        public int PersonId { get; set; }
+        public Person Person { get; set; }
+        public int ProfileTypeSysCodeUniqueId { get; set; }
+        public string ProfileTitle { get; set; }
+        public bool? Status { get; set; }
         public int? UserActionId { get; set; }
-
-        //  public DateTime DOB { get; set; }
+        public bool Deleted { get; set; }
     }
 }

@@ -1,12 +1,9 @@
-﻿using _1U_ASP.MiddleTier;
-using _1U_ASP.MiddleTier.Interface;
+﻿using _1U_ASP.MiddleTier.Interface;
 using Dap1U.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+using _1U_ASP.DTO;
 
 namespace _1U_ASP.Controllers
 {
@@ -23,17 +20,7 @@ namespace _1U_ASP.Controllers
         {
             _productService = productService;
         }
-
-        //[HttpGet]
-        //public async Task<Product> Get()
-        //{
-        //    int id = 1;
-        //    var result = await _productService.GetAllProducts();
-        //    return result;
-
-        //}
-
-
+        
         [HttpGet("GetSaleOrderById/{id}")]
         public async Task<Product> GetProductById(int id)
         {
@@ -55,7 +42,7 @@ namespace _1U_ASP.Controllers
         {
             try
             {
-                var result = _productService.GetAllProducts();
+                var result = await _productService.GetAllProducts();
                 return Json(result); //result;
             }
             catch (Exception e)
@@ -63,7 +50,52 @@ namespace _1U_ASP.Controllers
                 Console.WriteLine(e.Message);
                 throw;
             }
+        }
+        //AddProduct
+        [HttpPost("AddProduct")]
+        public async Task<IActionResult> AddProduct([FromBody] Product product)
+        {
+            try
+            {
+                var result = await _productService.AddProduct(product);
+                return Json(result); 
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw;
+            }
+        }
+        //Delete
+        [HttpDelete("Delete/{id}")]
+        public async Task<bool> Delete(int id)
+        {
+            try
+            {
+                var result = await _productService.DeleteProductById(id);
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw;
+            }
 
+        }
+        //PutProduct
+        [HttpPut("PutProduct")]
+        public async Task<IActionResult> PutProduct([FromBody] Product product)
+        {
+            try
+            {
+                var result = await _productService.PutProduct(product);
+                return Json(result);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw;
+            }
         }
 
 

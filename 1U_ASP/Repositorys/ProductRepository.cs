@@ -6,67 +6,38 @@ using _1U_ASP.Context;
 using Dap1U.Models;
 using _1U_ASP.Repositorys.Interface;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace _1U_ASP.Repositorys
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly ApplicationContext _context;
-        public ProductRepository(ApplicationContext context)// : base(context)
+        private readonly IRepository<Product> _product;
+      //  private readonly ApplicationContext _context;
+        public ProductRepository(
+            //ApplicationContext context)// : base(context)
+            IRepository<Product> product
+
+            )
         {
-            _context = context;
+            //_context = context;
+            _product = product;
         }
 
-        public Task<Product> Add(Product entity)
+
+        public Task<Product> GetProduct(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Product> Delete(int id)
+        public Task<List<Product>> GetAllProducts()
         {
             throw new NotImplementedException();
         }
 
-        public async Task<Product> GetProduct(int id)
-        {
-            try
-            {
-                var res = await _context.Products.FindAsync(id);
-                return res;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                return null;
-            }
-           
-        }
-
-        public Task<List<Product>> GetAll()
+        public Product AddProduct(Product product)
         {
             throw new NotImplementedException();
-        }
-
-        public Task<Product> Update(Product entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<Product> IRepository<Product>.Get(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<List<Product>> GetAllAsync()
-        {
-            var res = await _context.Products.ToListAsync();
-            return res;
-        }
-
-        public async Task<List<Product>> GetAllProducts()
-        {
-            var res = await _context.Products.ToListAsync();
-            return res;
         }
     }
 }

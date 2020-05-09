@@ -5,10 +5,11 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using _1U_ASP.Repositorys;
 
 namespace _1U_ASP.Models
-{
-    public class SaleOrderDetail
+{ 
+    public class SaleOrderDetail : BaseEntity
     {
     //    [Key, ForeignKey("SaleOrder")]
         public int SaleOrderDetailId { get; set; }

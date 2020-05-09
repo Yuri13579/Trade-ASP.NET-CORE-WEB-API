@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using _1U_ASP.Repositorys;
 using Dap1U.Models;
 
 namespace _1U_ASP.Models
 {
-    public class ShopBalanceGood
+    public class ShopBalanceGood : BaseEntity
     {
         public int ShopBalanceGoodId { get; set; }
         public int ShopId { get; set; }

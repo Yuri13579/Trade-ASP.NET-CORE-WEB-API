@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace _1U_ASP.Repositorys.Interface
 {
-  public interface IProductRepository : IRepository<Product>
+  public interface IProductRepository 
   {
       Task<Product> GetProduct(int id);
       Task<List<Product>> GetAllProducts();
+      Product AddProduct(Product product);
   }
 }
