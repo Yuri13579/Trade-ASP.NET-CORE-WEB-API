@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using _1U_ASP.Const;
+using _1U_ASP.DTO;
 using _1U_ASP.MiddleTier;
 using _1U_ASP.Models;
 using _1U_ASP.Security;
@@ -53,11 +54,11 @@ namespace _1U_ASP.Controllers
 
         [AllowAnonymous]
         [HttpPost]//("{Login:}")
-        public async Task<string> Login([FromBody] LoginViewModel model)
+        public async Task<LoginResultDto> Login([FromBody] LoginViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return BadResponses.IncorrectInputData;
+                return new LoginResultDto { Token = BadResponses.IncorrectInputData };
             }
 
             try
@@ -67,11 +68,11 @@ namespace _1U_ASP.Controllers
                 var result = await _accountService.Login(
                     HttpContext.Connection.RemoteIpAddress.ToString(),
                     model);
-                return result;
+                return new LoginResultDto{Token = result}; 
             }
             catch (Exception ex)
             {
-                return ex.Message;
+                return new LoginResultDto { Token = ex.Message };
             }
         }
 
