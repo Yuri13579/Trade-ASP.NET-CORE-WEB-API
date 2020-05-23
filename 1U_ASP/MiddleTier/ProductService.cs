@@ -1,9 +1,12 @@
 ﻿using System;
 using _1U_ASP.Repositorys.Interface;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using _1U_ASP.Context;
 using Dap1U.Models;
 using _1U_ASP.MiddleTier.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace _1U_ASP.MiddleTier
 {
@@ -11,12 +14,15 @@ namespace _1U_ASP.MiddleTier
     {
         
         private readonly IRepository<Product> _product;
+        private readonly ApplicationContext _applicationContext;
 
         public ProductService(
-            IRepository<Product> product
+            IRepository<Product> product,
+            ApplicationContext applicationContext
         )
         {
             _product = product;
+            _applicationContext = applicationContext;
         }
             
         public async Task<Product> GetProductById(int id)
@@ -26,6 +32,11 @@ namespace _1U_ASP.MiddleTier
 
         public async Task<List<Product>> GetAllProducts()
         {
+            var products = _applicationContext.Products.FromSql("spGetAllProducts").ToList();
+
+
+            //  context.Students.FromSql("GetStudents 'Bill'").ToList();
+
             return await _product.ListAllAsync();
         }
 

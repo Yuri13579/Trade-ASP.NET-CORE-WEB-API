@@ -13,6 +13,6 @@ namespace _1U_ASP.MiddleTier.Interface
         Task<SaleOrder> GetSaleOrderById(int id);
         Task<List<SaleOrder>> GetAllSaleOrder();
         Task<List<SaleDTO>> GetAllSale();
-        Task<string> SellGoods(SellDto sellDto);
+        Task<string> SellGoods(List<SellDto> sellDto);
     }
 }

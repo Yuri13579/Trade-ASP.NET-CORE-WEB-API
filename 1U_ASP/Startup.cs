@@ -43,8 +43,12 @@ namespace _1U_ASP
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var serv = services.ToList();
+
             services.AddDbContext<ApplicationContext>(options =>
-               options.UseSqlServer(GlobalVariables.ConnectionStringMainDatabase));
+               options.UseSqlServer(GlobalVariables.ConnectionStringMainDatabase
+                  //   ,x => x.MigrationsAssembly("1U_ASP.Migrations")
+                   ));
            
             services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
             services.AddTransient<IProductRepository, ProductRepository>();
@@ -199,10 +203,6 @@ namespace _1U_ASP
             }
 
             app.UseHttpsRedirection();
-
-            //app.UseCors(
-            //    options => options.WithOrigins("http://localhost:4200/").AllowAnyMethod()
-            //);
             
             app.UseCors(MyAllowSpecificOrigins);
             app.UseAuthentication();
