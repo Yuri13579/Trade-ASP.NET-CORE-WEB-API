@@ -10,6 +10,7 @@ using _1U_ASP.Models;
 using _1U_ASP.Repositorys.Interface;
 using _1U_ASP.Service.Interface;
 using Dap1U.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace _1U_ASP.Service.Impl
@@ -134,5 +135,15 @@ namespace _1U_ASP.Service.Impl
 
             return "Updated"; 
         }
+
+        public async Task<ActionResult<SaleOrder>> GetSaleOrder(int id)
+        {
+            var saleOrder = await _saleOrder.GetByIdAsync(id);
+            return saleOrder;
+        }
+
+
+
+
     }
 }

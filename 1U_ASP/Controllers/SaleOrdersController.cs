@@ -16,15 +16,13 @@ namespace _1U_ASP.Controllers
     [ApiController]
     public class SaleOrdersController : Controller
     {
-        private readonly ApplicationContext _context;
         private readonly ISaleOrderSevrice _saleOrderService;
 
-        public SaleOrdersController(ApplicationContext context,
+        public SaleOrdersController(
             ISaleOrderSevrice saleOrderService
 
             )
         {
-            _context = context;
             _saleOrderService = saleOrderService;
         }
 
@@ -35,7 +33,7 @@ namespace _1U_ASP.Controllers
         
           try
           {
-              var result = _saleOrderService.GetAllSaleOrder();
+              var result = await _saleOrderService.GetAllSaleOrder();
               return Json(result);
           }
           catch (Exception e)
@@ -47,7 +45,7 @@ namespace _1U_ASP.Controllers
 
         // GET: api/SaleOrders
         [HttpGet("ALLSales")]
-        public async Task<IActionResult> ALLSales()
+        public async Task<IActionResult> AllSales()
         {
             try
             {
@@ -60,78 +58,15 @@ namespace _1U_ASP.Controllers
                 throw;
             }
         }
-
-
-       
+        
         // GET: api/SaleOrders/5
         [HttpGet("GetSaleOrder/{id}")]
         public async Task<ActionResult<SaleOrder>> GetSaleOrder(int id)
         {
-            var saleOrder = await _context.SaleOrders.FindAsync(id);
+            return await _saleOrderService.GetSaleOrder(id);
 
-            if (saleOrder == null)
-            {
-                return NotFound();
-            }
-
-            return saleOrder;
         }
-
-        // PUT: api/SaleOrders/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutSaleOrder(int id, SaleOrder saleOrder)
-        {
-            if (id != saleOrder.SaleOrderId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(saleOrder).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SaleOrderExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/SaleOrders
-        [HttpPost]
-        public async Task<ActionResult<SaleOrder>> PostSaleOrder(SaleOrder saleOrder)
-        {
-            _context.SaleOrders.Add(saleOrder);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetSaleOrder", new { id = saleOrder.SaleOrderId }, saleOrder);
-        }
-
-        // DELETE: api/SaleOrders/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<SaleOrder>> DeleteSaleOrder(int id)
-        {
-            var saleOrder = await _context.SaleOrders.FindAsync(id);
-            if (saleOrder == null)
-            {
-                return NotFound();
-            }
-
-            _context.SaleOrders.Remove(saleOrder);
-            await _context.SaveChangesAsync();
-
-            return saleOrder;
-        }
+        
         //SellGoods
         [HttpPost("{SellGoods}")]
         public async Task<string> SellGoods([FromBody]  List<SellDto> sellDtos)
@@ -150,13 +85,6 @@ namespace _1U_ASP.Controllers
            
             return resultText;
         }
-
-
-
-
-        private bool SaleOrderExists(int id)
-        {
-            return _context.SaleOrders.Any(e => e.SaleOrderId == id);
-        }
+        
     }
 }
