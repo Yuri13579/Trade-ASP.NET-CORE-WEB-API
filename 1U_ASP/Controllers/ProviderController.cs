@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using _1U_ASP.Context;
+using _1U_ASP.DTO;
+using _1U_ASP.MiddleTier.Interface;
 using _1U_ASP.Models;
 using _1U_ASP.Security.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -17,33 +19,35 @@ namespace _1U_ASP.Controllers
 
     //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     //[TokenFilter]
-
+  //  [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProviderController : ControllerBase
     {
-        private readonly ApplicationContext _context;
+        private readonly IProviderService _providerService;
 
-        public ProviderController(ApplicationContext context)
+        public ProviderController(
+            IProviderService providerService
+            )
         {
-            _context = context;
+           _providerService = providerService;
         }
 
-
-       // [Authorize(Roles = Authorize.Roles.CompanyOwnerCompanyAdminCompanyManager)]
+       // [AllowAnonymous]
+        // [Authorize(Roles = Authorize.Roles.CompanyOwnerCompanyAdminCompanyManager)]
         // GET: api/Provider
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Provider>>> GetProviders()
         {
-            return await _context.Provider.ToListAsync();
+            return await _providerService.GetProviders();
+           
         }
 
         // GET: api/Provider/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Provider>> GetProvider(int id)
         {
-            var provider = await _context.Provider.FindAsync(id);
-
+            var provider = await _providerService.GetProvider(id);
             if (provider == null)
             {
                 return NotFound();
@@ -54,52 +58,25 @@ namespace _1U_ASP.Controllers
 
         // PUT: api/Provider/5
         [HttpPut("{PutProvider}")]
-        public async Task<string> PutProvider( Provider provider)
+        public async Task<DataServiceMessage> PutProvider( Provider provider)
         {
-          
-            _context.Entry(provider).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception e)
-            {
-                return e.Message;
-            }
-
-            return GoodResponses.UpdatedSuccessfully;
+            return await _providerService.PutProvider(provider);
+           
         }
 
         // POST: api/Provider
         [HttpPost("{PostProvider}")]
-        public async Task<ActionResult<Provider>> PostProvider(Provider provider)
+        public async Task<string> PostProvider(Provider provider)
         {
-            _context.Provider.Add(provider);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetProvider", new { id = provider.ProviderId }, provider);
+            return await _providerService.PostProvider(provider);
+          
         }
 
         // DELETE: api/Provider/5
         [HttpDelete("{DeleteProvider}/{id}")]
-        public async Task<ActionResult<Provider>> DeleteProvider(int id)
+        public async Task<string> DeleteProvider(int id)
         {
-            var provider = await _context.Provider.FindAsync(id);
-            if (provider == null)
-            {
-                return NotFound();
-            }
-
-            _context.Provider.Remove(provider);
-            await _context.SaveChangesAsync();
-
-            return provider;
-        }
-
-        private bool ProviderExists(int id)
-        {
-            return _context.Provider.Any(e => e.ProviderId == id);
+            return await _providerService.DeleteProvider(id);
         }
     }
 }

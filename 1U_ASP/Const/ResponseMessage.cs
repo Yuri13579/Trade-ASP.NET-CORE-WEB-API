@@ -129,6 +129,7 @@ namespace _1U_ASP.Const
         public const string SentSuccessfully = "Sent successfully";
         public const string AddedSuccessfullyButSomeAppliesToThisJobAlreadyExists = "Added successfully but some applies to this job already exists :";
         public const string EntityExist = "Entity exist";
+        public const string Ok = "OK";
     }
 
 }

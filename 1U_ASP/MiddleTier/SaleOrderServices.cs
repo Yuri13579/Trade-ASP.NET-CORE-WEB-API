@@ -50,11 +50,7 @@ namespace _1U_ASP.MiddleTier
 
         public async Task<List<SaleDTO>> GetAllSale()
         {
-            var products = _product.List(x => x.Deleted == false).ToList();
-            var saleOrders =  _saleOrder.ListAll().ToList();
-            var details = await _saleOrderDetail.ListAllAsync();
-
-            var result = await (from saleOrder in _saleOrder.ListAll()
+           var result = await (from saleOrder in _saleOrder.ListAll()
                          join detail in _saleOrderDetail.ListAll()
                              on saleOrder.SaleOrderId equals detail.SaleOrderId.GetValueOrDefault()
                          join product in _product.ListAll()

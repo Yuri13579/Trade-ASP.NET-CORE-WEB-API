@@ -10,7 +10,7 @@ namespace _1U_ASP.Controllers
     
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductController: Controller
+    public class ProductController: TradeBaseController
     {
         private readonly IProductService _productService;
 
@@ -42,7 +42,8 @@ namespace _1U_ASP.Controllers
         {
             try
             {
-                var result = await _productService.GetAllProducts();
+                var token = GetTokenJwt();
+                var result = await _productService.GetAllProducts(token);
                 return Json(result); //result;
             }
             catch (Exception e)

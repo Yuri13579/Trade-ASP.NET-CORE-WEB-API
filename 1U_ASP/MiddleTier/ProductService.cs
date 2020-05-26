@@ -1,11 +1,15 @@
 ﻿using System;
 using _1U_ASP.Repositorys.Interface;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
+using _1U_ASP.Const;
 using _1U_ASP.Context;
+using _1U_ASP.DTO;
 using Dap1U.Models;
 using _1U_ASP.MiddleTier.Interface;
+using _1U_ASP.Security;
 using Microsoft.EntityFrameworkCore;
 
 namespace _1U_ASP.MiddleTier
@@ -30,14 +34,32 @@ namespace _1U_ASP.MiddleTier
            return await _product.GetByIdAsync(id);
         }
 
-        public async Task<List<Product>> GetAllProducts()
+        public async Task<DataServiceMessage> GetAllProducts(JwtSecurityToken tokenJwt)
         {
-            var products = _applicationContext.Products.FromSql("spGetAllProducts").ToList();
+            var roles = GlobalMethods.GetRolesFromJwtSecurityToken(tokenJwt);
+            // var products = _applicationContext.Products.FromSql("spGetAllProducts").ToList();
+           
+            if (roles.Contains(Authorize.Roles.CompanyOwner)
+            || roles.Contains(Authorize.Roles.CompanyAdmin)
+            || roles.Contains(Authorize.Roles.CompanyManager)
+            ) { 
+                var res= await _product.ListAllAsync();
+                return new DataServiceMessage
+                {
+                    Result = true,
+                    Data = res,
+                    MainMessage = GoodResponses.Ok
+                };
+            }
 
-
-            //  context.Students.FromSql("GetStudents 'Bill'").ToList();
-
-            return await _product.ListAllAsync();
+            else
+            {
+                return new DataServiceMessage
+                {
+                    Result =false,
+                    MainMessage = BadResponses.AccessIsDenied
+                };
+            }
         }
 
         public async Task<bool> AddProduct(Product product)

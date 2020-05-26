@@ -43,28 +43,15 @@ namespace _1U_ASP
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var serv = services.ToList();
+            //var serv = services.ToList();
 
             services.AddDbContext<ApplicationContext>(options =>
                options.UseSqlServer(GlobalVariables.ConnectionStringMainDatabase
                   //   ,x => x.MigrationsAssembly("1U_ASP.Migrations")
                    ));
-           
-            services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
-            services.AddTransient<IProductRepository, ProductRepository>();
-            services.AddTransient<ISaleOrderRepository, SaleOrdersRepository>();
-            services.AddTransient<ISaleOrderDetailsRepository, SaleOrderSevrice>();
-            services.AddTransient<ISaleOrderSevrice, SaleOrderServices>();
-            services.AddTransient<ILoginServices, LoginServices>();
-            services.AddTransient<ILoginServices, LoginServices>();
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
 
-            services.AddTransient<ISaleOrderSevrice, SaleOrderServices>();
-            services.AddTransient<IProductService, ProductService>();
-            services.AddTransient<IAccountService, AccountService>();
-            services.AddTransient<IUserAccountProcessing, UserAccountProcessing>();
-            services.AddScoped<IUserAccountProcessing, UserAccountProcessing>();
-            services.AddScoped<ILogActionServeProcess, LogActionProcessing>();
+            services.AddMainService();
+
 
             //services.AddDefaultIdentity<IdentityRole>()
             //    .AddEntityFrameworkStores<ApplicationContext>();
@@ -151,28 +138,36 @@ namespace _1U_ASP
                         }
                     };
                 });
-                
-            services.Configure<IdentityOptions>(options =>
+
+            services.AddAuthorization(options =>
             {
-                // Password settings.
-                options.Password.RequireDigit = true;
-                options.Password.RequireLowercase = true;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = true;
-                options.Password.RequiredLength = 6;
-                options.Password.RequiredUniqueChars = 1;
-
-                // Lockout settings.
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-                options.Lockout.MaxFailedAccessAttempts = 5;
-                options.Lockout.AllowedForNewUsers = true;
-
-                // User settings.
-                options.User.AllowedUserNameCharacters =
-                    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-                options.User.RequireUniqueEmail = false;
+                options.AddPolicy("RequireAdministratorRole", policy => policy.RequireRole("Administrator"));
             });
+                
+            //services.Configure<IdentityOptions>(options =>
+            //{
+            //    // Password settings.
+            //    options.Password.RequireDigit = true;
+            //    options.Password.RequireLowercase = true;
+            //    options.Password.RequireNonAlphanumeric = false;
+            //    options.Password.RequireUppercase = true;
+            //    options.Password.RequiredLength = 6;
+            //    options.Password.RequiredUniqueChars = 1;
 
+            //    // Lockout settings.
+            //    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+            //    options.Lockout.MaxFailedAccessAttempts = 5;
+            //    options.Lockout.AllowedForNewUsers = true;
+
+            //    // User settings.
+            //    options.User.AllowedUserNameCharacters =
+            //        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+            //    options.User.RequireUniqueEmail = false;
+            //});
+
+            //services.AddDefaultIdentity<IdentityUser>()
+            //    .AddRoles<IdentityRole>()
+            //    .AddEntityFrameworkStores<ApplicationContext>();
 
             services.AddCors(options =>
             {
@@ -206,7 +201,8 @@ namespace _1U_ASP
             
             app.UseCors(MyAllowSpecificOrigins);
             app.UseAuthentication();
-            
+           //app.UseAuthorization();
+
             app.UseMvc();
         }
     }
