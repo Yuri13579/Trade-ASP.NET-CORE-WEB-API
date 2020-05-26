@@ -1,4 +1,4 @@
-﻿using _1U_ASP.MiddleTier.Interface;
+﻿using _1U_ASP.Service.Interface;
 using Dap1U.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using _1U_ASP.MiddleTier;
-using _1U_ASP.MiddleTier.Impl;
-using _1U_ASP.MiddleTier.Interface;
+using _1U_ASP.Service;
+using _1U_ASP.Service.Impl;
+using _1U_ASP.Service.Interface;
 using _1U_ASP.Repositorys.Interface;
 using _1U_ASP.Security.Model;
 using _1U_ASP.Security.Service;
@@ -23,6 +23,7 @@ namespace _1U_ASP.Repositorys
             services.AddTransient<ISaleOrderSevrice, SaleOrderServices>();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IProviderService, ProviderService>();
+            services.AddTransient<IPersonService, PersonService>();
             
             services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<IUserAccountProcessing, UserAccountProcessing>();

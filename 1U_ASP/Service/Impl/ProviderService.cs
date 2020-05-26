@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 using _1U_ASP.Const;
 using _1U_ASP.Context;
 using _1U_ASP.DTO;
-using _1U_ASP.MiddleTier.Interface;
 using _1U_ASP.Models;
+using _1U_ASP.Service.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace _1U_ASP.MiddleTier.Impl
+namespace _1U_ASP.Service.Impl
 {
     public class ProviderService : IProviderService
     {

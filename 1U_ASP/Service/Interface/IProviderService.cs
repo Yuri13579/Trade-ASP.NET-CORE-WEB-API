@@ -6,7 +6,7 @@ using _1U_ASP.DTO;
 using _1U_ASP.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace _1U_ASP.MiddleTier.Interface
+namespace _1U_ASP.Service.Interface
 {
     public interface IProviderService
     {

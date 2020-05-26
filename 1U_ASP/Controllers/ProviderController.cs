@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using _1U_ASP.Context;
 using _1U_ASP.DTO;
-using _1U_ASP.MiddleTier.Interface;
+using _1U_ASP.Service.Interface;
 using _1U_ASP.Models;
 using _1U_ASP.Security.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

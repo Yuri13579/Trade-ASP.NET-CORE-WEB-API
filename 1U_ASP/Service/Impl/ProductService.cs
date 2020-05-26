@@ -1,18 +1,15 @@
 ﻿using System;
-using _1U_ASP.Repositorys.Interface;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Threading.Tasks;
 using _1U_ASP.Const;
 using _1U_ASP.Context;
 using _1U_ASP.DTO;
-using Dap1U.Models;
-using _1U_ASP.MiddleTier.Interface;
+using _1U_ASP.Repositorys.Interface;
 using _1U_ASP.Security;
-using Microsoft.EntityFrameworkCore;
+using _1U_ASP.Service.Interface;
+using Dap1U.Models;
 
-namespace _1U_ASP.MiddleTier
+namespace _1U_ASP.Service.Impl
 {
     public class ProductService: IProductService
     {

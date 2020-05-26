@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace _1U_ASP.MiddleTier
+namespace _1U_ASP.Service
 {
     public static class ExtensionMethods
     {

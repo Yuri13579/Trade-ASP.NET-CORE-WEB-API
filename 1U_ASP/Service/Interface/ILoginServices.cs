@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using _1U_ASP.Models;
 using Microsoft.AspNetCore.Identity;
 
-namespace _1U_ASP.MiddleTier.Interface
+namespace _1U_ASP.Service.Interface
 {
     public interface ILoginServices
     {
