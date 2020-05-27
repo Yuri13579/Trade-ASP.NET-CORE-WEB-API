@@ -24,7 +24,8 @@ namespace _1U_ASP.Repositorys
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IProviderService, ProviderService>();
             services.AddTransient<IPersonService, PersonService>();
-            
+            services.AddTransient<IShopService, ShopService>();
+
             services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<IUserAccountProcessing, UserAccountProcessing>();
             services.AddScoped<IUserAccountProcessing, UserAccountProcessing>();

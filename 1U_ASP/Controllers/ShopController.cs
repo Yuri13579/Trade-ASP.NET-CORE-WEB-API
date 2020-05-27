@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using _1U_ASP.Context;
+using _1U_ASP.DTO;
 using _1U_ASP.Models;
+using _1U_ASP.Service.Interface;
 
 namespace _1U_ASP.Controllers
 {
@@ -14,87 +16,50 @@ namespace _1U_ASP.Controllers
     [ApiController]
     public class ShopController : ControllerBase
     {
-        private readonly ApplicationContext _context;
+        private readonly IShopService _shopService;
 
-
-        public ShopController(ApplicationContext context)
+        public ShopController(IShopService shopService)
         {
-            _context = context;
+            _shopService = shopService;
         }
 
         [HttpGet("{GetAllShops}")]
         public async Task<ActionResult<IEnumerable<Shop>>> GetAllShops()
         {
-            return await _context.Shops.ToListAsync();
+            return await _shopService.GetAllShops();
+            
         }
 
         [HttpGet("GetShoById/{id}")]
         public async Task<ActionResult<Shop>> GetShop(int id)
         {
-            var shop = await _context.Shops.FindAsync(id);
-
-            if (shop == null)
-            {
-                return NotFound();
-            }
-
-            return shop;
+            return await _shopService.GetShop(id);
+            
         }
 
         // PUT: api/Shops/5
         [HttpPut("{PutShop}")]
-        public async Task<string> PutShop([FromBody]Shop shop)
+        public async Task<DataServiceMessage> PutShop([FromBody]Shop shop)
         {
-            _context.Entry(shop).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ShopExists(shop.ShopId))
-                {
-                    return "NotFound";
-                }
-                else
-                {
-                    return "Error";
-                }
-            }
-
-            return "updated";
+            return await _shopService.PutShop(shop);
+            
         }
 
         // POST: api/Shops
         [HttpPost("{PostShop}")]
-        public async Task<ActionResult<Shop>> PostShop(Shop shop)
+        public async Task<DataServiceMessage> PostShop(Shop shop)
         {
-            _context.Shops.Add(shop);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetShop", new { id = shop.ShopId }, shop);
+            return await _shopService.PostShop(shop);
         }
 
         // DELETE: api/Shops/5
         [HttpDelete("{DeleteShop}/{id}")]
-        public async Task<ActionResult<Shop>> DeleteShop(int id)
+        public async Task<DataServiceMessage> DeleteShop(int id)
         {
-            var shop = await _context.Shops.FindAsync(id);
-            if (shop == null)
-            {
-                return NotFound();
-            }
-
-            _context.Shops.Remove(shop);
-            await _context.SaveChangesAsync();
-
-            return shop;
+            return await _shopService.DeleteShop(id);
+            
         }
 
-        private bool ShopExists(int id)
-        {
-            return _context.Shops.Any(e => e.ShopId == id);
-        }
+       
     }
 }

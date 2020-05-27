@@ -96,8 +96,9 @@ namespace _1U_ASP.Const
         public const string IncorrectInputData = "Incorrect input data";
         public const string JobSpecificationDoesntExist = "Job specification doesn't exist";
         public const string InvalidFileFormat = "Invalid file format";
-        public const string ApplicantIsnTFound = "Applicant isn't found";
+        public const string ShopIsnTFound = "Shop isn't found";
         public const string TemplateIsNotFound = "Template is not found";
+        public const string Error = "Error";
     }
 
     public class GoodResponses
