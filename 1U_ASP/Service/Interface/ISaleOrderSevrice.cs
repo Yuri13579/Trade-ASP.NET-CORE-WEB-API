@@ -13,7 +13,7 @@ namespace _1U_ASP.Service.Interface
         Task<SaleOrder> GetSaleOrderById(int id);
         Task<List<SaleOrder>> GetAllSaleOrder();
         Task<List<SaleDTO>> GetAllSale();
-        Task<string> SellGoods(List<SellDto> sellDto);
+        Task<DataServiceMessage> SellGoods(List<SellDto> sellDto);
         Task<ActionResult<SaleOrder>> GetSaleOrder(int id);
     }
 }

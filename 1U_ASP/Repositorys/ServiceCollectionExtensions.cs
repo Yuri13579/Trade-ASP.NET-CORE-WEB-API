@@ -16,11 +16,12 @@ namespace _1U_ASP.Repositorys
     {
         public static IServiceCollection AddMainService(this IServiceCollection services)
         {
-            services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
+            services.AddTransient(typeof(IRepository<>), typeof(GenericRepository<>));
             services.AddTransient<ISaleOrderSevrice, SaleOrderServices>();
             services.AddTransient<ILoginServices, LoginServices>();
             services.AddTransient<ILoginServices, LoginServices>();
             services.AddTransient<ISaleOrderSevrice, SaleOrderServices>();
+
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IProviderService, ProviderService>();
             services.AddTransient<IPersonService, PersonService>();

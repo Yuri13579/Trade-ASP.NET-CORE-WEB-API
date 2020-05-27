@@ -43,53 +43,12 @@ namespace _1U_ASP
 
         public void ConfigureServices(IServiceCollection services)
         {
-            //var serv = services.ToList();
-
-            services.AddDbContext<ApplicationContext>(options =>
+           services.AddDbContext<ApplicationContext>(options =>
                options.UseSqlServer(GlobalVariables.ConnectionStringMainDatabase
-                  //   ,x => x.MigrationsAssembly("1U_ASP.Migrations")
-                   ));
+                 ));
 
             services.AddMainService();
-
-
-            //services.AddDefaultIdentity<IdentityRole>()
-            //    .AddEntityFrameworkStores<ApplicationContext>();
-
-            //services.AddIdentity<User, IdentityRole>(config =>
-            //{
-            //    config.Tokens.EmailConfirmationTokenProvider = TokenOptions.DefaultEmailProvider;
-            //});
-
-
-            //services.AddIdentity<User, IdentityRole>()
-            //  .AddEntityFrameworkStores<ApplicationContext>();
-
-            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            //    .AddJwtBearer(options =>
-            //    {
-            //        options.RequireHttpsMetadata = false;
-            //        options.TokenValidationParameters = new TokenValidationParameters
-            //        {
-            //            // укзывает, будет ли валидироваться издатель при валидации токена
-            //            ValidateIssuer = true,
-            //            // строка, представляющая издателя
-            //            ValidIssuer = AuthOptions.ISSUER,
-
-            //            // будет ли валидироваться потребитель токена
-            //            ValidateAudience = true,
-            //            // установка потребителя токена
-            //            ValidAudience = AuthOptions.AUDIENCE,
-            //            // будет ли валидироваться время существования
-            //            ValidateLifetime = true,
-
-            //            // установка ключа безопасности
-            //            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-            //            // валидация ключа безопасности
-            //            ValidateIssuerSigningKey = true,
-            //        };
-            //    });
-
+            
             services.AddIdentity<AppUser, AppRole>(
                 options =>
                 {
@@ -180,6 +139,7 @@ namespace _1U_ASP
                            // .WithMethods("GET", "POST", "DELETE", "PUT"); // .AllowAnyOrigin();
                     });
             });
+            services.AddMemoryCache();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             
         }

@@ -12,6 +12,7 @@ using _1U_ASP.Service.Interface;
 using Dap1U.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace _1U_ASP.Service.Impl
 {
@@ -21,43 +22,57 @@ namespace _1U_ASP.Service.Impl
         private readonly IRepository<SaleOrderDetail> _saleOrderDetail;
         private readonly IRepository<Product> _product;
         private readonly IRepository<Shop> _shop;
-        private readonly ApplicationContext _applicationContext;
+        //private readonly ApplicationContext _applicationContext;
+        private readonly IMemoryCache _memoryCache;
 
         public SaleOrderServices(
            IRepository<SaleOrder> saleOrder,
            IRepository<SaleOrderDetail> saleOrderDetail,
-           IRepository<Product> product
-           ,IRepository<Shop> shop,
-           ApplicationContext applicationContext
+           IRepository<Product> product,
+           IRepository<Shop> shop,
+           //ApplicationContext applicationContext,
+           IMemoryCache memoryCache,
+           IServiceProvider scopeFactory
            )
         {
             _saleOrder = saleOrder;
             _saleOrderDetail = saleOrderDetail;
             _product = product;
             _shop = shop;
-            _applicationContext = applicationContext;
+            //_applicationContext = applicationContext;
+            _memoryCache = memoryCache;
+            CacheUpload().Wait();
         }
 
-        public async Task<List<SaleOrder>> GetAllSaleOrder()
+        public async Task CacheUpload()
         {
-            return await _saleOrder.ListAllAsync();
-        }
+            if (!_memoryCache.TryGetValue("sell_list", out object value))
+            {
+                value = await LoadData();
+                // Вариант 1
+                // Сохранение в кэш без определения времени жизни записи. Кэш является общим для всех пользователей.
+                _memoryCache.Set("sell_list", value);
 
-        public async Task<SaleOrder> GetSaleOrderById(int id)
-        {
-            return await _saleOrder.GetByIdAsync(id);
-        }
+                // Вариант 2
+                // Cохранение в кэш на 10 секунд (использование абсолютного времени устаревания). 
+                //memoryCache.Set("saved_list", value, TimeSpan.FromSeconds(10));
 
-        public async Task<List<SaleDTO>> GetAllSale()
+                // Вариант 3
+                // Сохранение в кэш на 5 секунд (используя скользящее время устаревания). Данные удалятся из кэш, если последнее обращение произошло более 5 секунд назад.
+                //memoryCache.Set("saved_list", value, new MemoryCacheEntryOptions() { SlidingExpiration = TimeSpan.FromSeconds(5) });
+            }
+        }
+        
+        public async Task<List<SaleDTO>> LoadData()
         {
-           var result = await (from saleOrder in _saleOrder.ListAll()
-                         join detail in _saleOrderDetail.ListAll()
-                             on saleOrder.SaleOrderId equals detail.SaleOrderId.GetValueOrDefault()
-                         join product in _product.ListAll()
-                          on detail.ProductId equals product.ProductId
-                         join shop in _shop.ListAll()
-                             on saleOrder.ShopId equals shop.ShopId
-                         select new SaleDTO
+            var result = await (from saleOrder in _saleOrder.ListAll()
+                join detail in _saleOrderDetail.ListAll()
+                    on saleOrder.SaleOrderId equals detail.SaleOrderId.GetValueOrDefault()
+                join product in _product.ListAll()
+                    on detail.ProductId equals product.ProductId
+                join shop in _shop.ListAll()
+                    on saleOrder.ShopId equals shop.ShopId
+                select new SaleDTO
                 {
                     SaleOrderID = saleOrder.SaleOrderId,
                     SaleOrderDetailId = detail.SaleOrderDetailId,
@@ -77,6 +92,51 @@ namespace _1U_ASP.Service.Impl
             return result;
         }
 
+
+        public async Task<List<SaleOrder>> GetAllSaleOrder()
+        {
+           // await CacheUpload();
+           
+
+            return await _saleOrder.ListAllAsync();
+        }
+
+        public async Task<SaleOrder> GetSaleOrderById(int id)
+        {
+            return await _saleOrder.GetByIdAsync(id);
+        }
+
+        public async Task<List<SaleDTO>> GetAllSale()
+        {
+           //var result = await (from saleOrder in _saleOrder.ListAll()
+           //              join detail in _saleOrderDetail.ListAll()
+           //                  on saleOrder.SaleOrderId equals detail.SaleOrderId.GetValueOrDefault()
+           //              join product in _product.ListAll()
+           //               on detail.ProductId equals product.ProductId
+           //              join shop in _shop.ListAll()
+           //                  on saleOrder.ShopId equals shop.ShopId
+           //              select new SaleDTO
+           //     {
+           //         SaleOrderID = saleOrder.SaleOrderId,
+           //         SaleOrderDetailId = detail.SaleOrderDetailId,
+           //         ProductId = product.ProductId,
+           //         ProductName = product.Name,
+           //         ProductDescription = product.Description,
+           //         ProductBarcode = product.Barcode,
+           //         Count = detail.Count,
+           //         DataTime = saleOrder.DataTime,
+           //         PriceCost = detail.PriceCost.GetValueOrDefault(),
+           //         PriseSale = detail.PriseSale.GetValueOrDefault(),
+           //         Summ = detail.Summ.GetValueOrDefault(),
+           //         ShopId = saleOrder.ShopId.GetValueOrDefault(),
+           //         ShopName = shop.Name,
+           //         ShopAddress = shop.Address
+           //     }).ToListAsync();
+
+           var result = _memoryCache.Get("sell_list");
+            return (List<SaleDTO>) result;
+        }
+        
         private static bool StoredProcedureExists(string sp)
         {
             var connString = GlobalVariables.ConnectionStringMainDatabase;
@@ -91,7 +151,7 @@ namespace _1U_ASP.Service.Impl
             }
         }
 
-        public async Task<string> SellGoods(List<SellDto> sellDtos)
+        public async Task<DataServiceMessage> SellGoods(List<SellDto> sellDtos)
         {
             try
             {
@@ -111,29 +171,39 @@ namespace _1U_ASP.Service.Impl
                     });
 
                 bool isProcedureExist = StoredProcedureExists(SqlNames.SpAddSell);
-                if (isProcedureExist)
-                {
-                    string sql = @"exec spAddSell @Count, @PriceCost, @PriseSale, @ProductId, @SaleOrderId, @Summ";
-                    foreach (var el in saleOrderDetailCreate)
-                    {
-                        var replacements = new Dictionary<string, string> { { "@Count", el.Count.ToString() }, { "@PriceCost", el.PriceCost.ToString() }, { "@PriseSale", el.PriseSale.ToString() }, { "@ProductId" , el.ProductId.ToString() }, { "@SaleOrderId", el.SaleOrderId.ToString() }, { "@Summ", el.Summ.ToString() } };
+                //if (isProcedureExist)
+                //{
+                //    string sql = @"exec spAddSell @Count, @PriceCost, @PriseSale, @ProductId, @SaleOrderId, @Summ";
+                //    foreach (var el in saleOrderDetailCreate)
+                //    {
+                //        var replacements = new Dictionary<string, string> { { "@Count", el.Count.ToString() }, { "@PriceCost", el.PriceCost.ToString() }, { "@PriseSale", el.PriseSale.ToString() }, { "@ProductId" , el.ProductId.ToString() }, { "@SaleOrderId", el.SaleOrderId.ToString() }, { "@Summ", el.Summ.ToString() } };
 
-                        var output = replacements.Aggregate(sql, (current, replacement) => current.Replace(replacement.Key, replacement.Value));
-                        _applicationContext.Database.ExecuteSqlCommand(output);
-                    }
-                }
-                else
-                {
+                //        var output = replacements.Aggregate(sql, (current, replacement) => current.Replace(replacement.Key, replacement.Value));
+                //        _applicationContext.Database.ExecuteSqlCommand(output);
+                //    }
+                //}
+                //else
+                //{
                     await _saleOrderDetail.AddRangeAsync(saleOrderDetailCreate);
-                }
-                
+                //}
+
+                _memoryCache.Remove("sell_list");
+                await CacheUpload();
             }
             catch (Exception e)
             {
-                return e.Message;
+                return new DataServiceMessage
+                {
+                    Result = false,
+                    MainMessage = e.Message
+                };
             }
 
-            return "Updated"; 
+            return new DataServiceMessage
+            {
+                Result = true,
+                MainMessage = GoodResponses.AddedSuccessfully
+            }; 
         }
 
         public async Task<ActionResult<SaleOrder>> GetSaleOrder(int id)

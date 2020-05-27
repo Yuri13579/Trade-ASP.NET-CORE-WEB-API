@@ -34,9 +34,11 @@ namespace _1U_ASP.Context
 
         public virtual DbSet<AspNetUserClaimRole> AspNetUserClaimRole { get; set; }
         public virtual DbSet<AppPerson> ApplicationPerson { get; set; }
-
+        private List<Product> _seedProducts;
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
+            _seedProducts = new List<Product>();
+
             Database.EnsureCreated();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -69,15 +71,16 @@ namespace _1U_ASP.Context
                     .WithOne(e => e.Product)
                     .HasForeignKey(c => c.ProductId);
 
-                entity.HasData(
-                    new Product { ProductId = 1, Barcode = 4802221111, Name = "Coca-Cola", Description = "500ml", PriceCost = 4, PriseSale = 5},
-                    new Product { ProductId = 2, Barcode = 4802221222, Name = "Sprite", Description = "500ml", PriceCost = 3, PriseSale = 4 },
-                    new Product { ProductId = 3, Barcode = 4802221333, Name = "Fanta", Description = "500ml", PriceCost = 4, PriseSale = 4 },
-                    new Product { ProductId = 4, Barcode = 4802221334, Name = "Schweppes", Description = "500ml", PriceCost = 4, PriseSale = 5 },
-                    new Product { ProductId = 5, Barcode = 4802221335, Name = "Pepsi", Description = "333ml", PriceCost = 3.5, PriseSale = 4.5 },
-                    new Product { ProductId = 6, Barcode = 4802221335, Name = "Mirinda", Description = "333ml", PriceCost = 3, PriseSale = 4 }
+               
+                _seedProducts.Add( new Product { ProductId = 1, Barcode = 4802221111, Name = "Coca-Cola", Description = "500ml", PriceCost = 4, PriseSale = 5 });
+                _seedProducts.Add(new Product { ProductId = 2, Barcode = 4802221222, Name = "Sprite", Description = "500ml", PriceCost = 3, PriseSale = 4 });
+                _seedProducts.Add(new Product { ProductId = 3, Barcode = 4802221333, Name = "Fanta", Description = "500ml", PriceCost = 4, PriseSale = 4 });
+                _seedProducts.Add(new Product { ProductId = 4, Barcode = 4802221334, Name = "Schweppes", Description = "500ml", PriceCost = 4, PriseSale = 5 });
+                _seedProducts.Add(new Product { ProductId = 5, Barcode = 4802221335, Name = "Pepsi", Description = "333ml", PriceCost = 3.5, PriseSale = 4.5 });
+                _seedProducts.Add(new Product { ProductId = 6, Barcode = 4802221335, Name = "Mirinda", Description = "333ml", PriceCost = 3, PriseSale = 4 });
+
+                _seedProducts.ForEach(x=> entity.HasData(x) );
                 
-                    ); 
             });
 
             modelBuilder.Entity<Shop>(entity =>
@@ -135,11 +138,19 @@ namespace _1U_ASP.Context
                 entity.HasMany(c => c.SaleOrderDetails)
                     .WithOne(e => e.SaleOrder)
                     .HasForeignKey(c => c.SaleOrderDetailId);
+                List<SaleOrder> seedSaleOrders = new List<SaleOrder>();
+                for (int i = 1; i < NumericConstants.ConutSeedSaleOrder; i++)
+                {
+                    Random rnd = new Random();
+                    seedSaleOrders.Add(new SaleOrder { SaleOrderId = i, DataTime = DateTime.Now, ShopId = rnd.Next(1, 2)});
+                }
+                seedSaleOrders.ForEach(x=> entity.HasData(x));
 
-                entity.HasData(
-                    new SaleOrder { SaleOrderId = 1, DataTime = DateTime.Now, ShopId = 1 },
-                    new SaleOrder { SaleOrderId = 2, DataTime = DateTime.Now, ShopId = 2 }
-                );
+                //entity.HasData(
+                //    new SaleOrder { SaleOrderId = 1, DataTime = DateTime.Now, ShopId = 1 },
+                //    new SaleOrder { SaleOrderId = 2, DataTime = DateTime.Now, ShopId = 2 }
+
+                //);
             });
 
             modelBuilder.Entity<SaleOrderDetail>(entity =>
@@ -152,14 +163,35 @@ namespace _1U_ASP.Context
                 entity.HasOne(c => c.SaleOrder)
                     .WithMany(e => e.SaleOrderDetails)
                     .HasForeignKey(c => c.SaleOrderId);
-                
-                entity.HasData(
-                    new SaleOrderDetail { SaleOrderDetailId = 1, SaleOrderId = 1, Count = 3, ProductId = 1, PriceCost = 12.5, PriseSale = 15, Summ = 3*15},
-                    new SaleOrderDetail { SaleOrderDetailId = 2, SaleOrderId = 1, Count = 2, ProductId = 2, PriceCost = 14.3, PriseSale = 17, Summ = 2*17 },
-                    new SaleOrderDetail { SaleOrderDetailId = 3, SaleOrderId = 2, Count = 5, ProductId = 1, PriceCost = 12.5, PriseSale = 15, Summ = 5*15},
-                    new SaleOrderDetail { SaleOrderDetailId = 4, SaleOrderId = 2, Count = 4, ProductId = 2, PriceCost = 14.3, PriseSale = 17, Summ = 4*17},
-                    new SaleOrderDetail { SaleOrderDetailId = 5, SaleOrderId = 2, Count = 1, ProductId = 3, PriceCost = 16, PriseSale = 19.5, Summ = 1*19.5}
-                    );
+
+                List<SaleOrderDetail> n = new List<SaleOrderDetail>();
+                int currSaleOrderDetailId = 0;
+                for (int i = 1; i < NumericConstants.ConutSeedSaleOrder; i++)
+                {
+                    Random rnd = new Random();
+                    int c = rnd.Next(1, 10);
+                    for (int y = 1; y < c; y++)
+                    {
+                        int pr = rnd.Next(1, 6);
+                        Product curr = _seedProducts.FirstOrDefault(x => x.ProductId == pr);
+                        int countSale = rnd.Next(1, 10);
+                        n.Add(new SaleOrderDetail
+                        {
+                            SaleOrderDetailId = ++currSaleOrderDetailId, SaleOrderId = i, Count = countSale, ProductId = curr.ProductId, PriceCost = curr.PriceCost,
+                            PriseSale = curr.PriseSale, Summ = countSale * curr.PriseSale
+                        });
+                    }
+                }
+
+                n.ForEach(x => entity.HasData(x));
+
+                //entity.HasData(
+                //    new SaleOrderDetail { SaleOrderDetailId = 1, SaleOrderId = 1, Count = 3, ProductId = 1, PriceCost = 12.5, PriseSale = 15, Summ = 3*15},
+                //    new SaleOrderDetail { SaleOrderDetailId = 2, SaleOrderId = 1, Count = 2, ProductId = 2, PriceCost = 14.3, PriseSale = 17, Summ = 2*17 },
+                //    new SaleOrderDetail { SaleOrderDetailId = 3, SaleOrderId = 2, Count = 5, ProductId = 1, PriceCost = 12.5, PriseSale = 15, Summ = 5*15},
+                //    new SaleOrderDetail { SaleOrderDetailId = 4, SaleOrderId = 2, Count = 4, ProductId = 2, PriceCost = 14.3, PriseSale = 17, Summ = 4*17},
+                //    new SaleOrderDetail { SaleOrderDetailId = 5, SaleOrderId = 2, Count = 1, ProductId = 3, PriceCost = 16, PriseSale = 19.5, Summ = 1*19.5}
+                //    );
             });
 
             modelBuilder.Entity<DocEnterProduct>(entity =>

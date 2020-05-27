@@ -69,21 +69,9 @@ namespace _1U_ASP.Controllers
         
         //SellGoods
         [HttpPost("{SellGoods}")]
-        public async Task<string> SellGoods([FromBody]  List<SellDto> sellDtos)
+        public async Task<DataServiceMessage> SellGoods([FromBody]  List<SellDto> sellDtos)
         {
-
-            string resultText;
-            try
-            {
-                 resultText = await _saleOrderService.SellGoods(sellDtos);
-            }
-            catch (Exception e)
-            {
-                resultText = e.Message;
-                throw;
-            }
-           
-            return resultText;
+            return await _saleOrderService.SellGoods(sellDtos);
         }
         
     }

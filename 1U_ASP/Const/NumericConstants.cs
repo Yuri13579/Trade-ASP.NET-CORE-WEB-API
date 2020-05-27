@@ -30,7 +30,6 @@ namespace _1U_ASP.Const
         public const int Num4000 = 4000;
         public const int FullHoursPerMonth = 160;
         public const int HalfHoursPerMonth = 80;
-        public const int RequiredNumberIsCurrentForPersonalInformation = 3;
-        public const int RequiredNumberIsCurrentForNonPersonalInformation = 4;
+        public const int ConutSeedSaleOrder = 100;
     }
 }

@@ -9,6 +9,7 @@ using _1U_ASP.Models;
 using _1U_ASP.Service.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace _1U_ASP.Service.Impl
 {
@@ -16,16 +17,20 @@ namespace _1U_ASP.Service.Impl
     {
       
         private readonly ApplicationContext _context;
-       
-        public ProviderService(ApplicationContext context
-           
+        private readonly IMemoryCache _memoryCache;
+
+        public ProviderService(ApplicationContext context,
+        IMemoryCache memoryCache
+            
         )
         {
             _context = context;
+            _memoryCache = memoryCache;
         }
         
         public async Task<ActionResult<IEnumerable<Provider>>> GetProviders()
         {
+            var result = _memoryCache.Get("sell_list");
             return await _context.Provider.ToListAsync();
         }
 
