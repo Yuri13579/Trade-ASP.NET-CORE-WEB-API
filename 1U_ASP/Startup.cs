@@ -22,10 +22,31 @@ namespace _1U_ASP
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            Configuration.GetConnectionString("DefaultConnection");
+            GlobalVariables.EnvironmentType = configuration.GetSection(Const.Startup.DeploymentEnvironment).Value;
+            Configuration = new ConfigurationBuilder()
+                .SetBasePath(configuration.GetSection(Const.Startup.ContentRoot).Value)
+                .AddJsonFile(Const.Startup.AppSettingsJson, false, true)
+                .AddJsonFile($"appsettings.{GlobalVariables.EnvironmentType}.json", true, true)
+                .AddEnvironmentVariables().Build();
+            
+            GlobalVariables.ConnectionStringMainDatabase = Configuration.GetConnectionString(Const.Startup.DefaultConnection);
+            GlobalVariables.SecretKey =
+                Configuration.GetSection(nameof(JwtIssuerOptions))[nameof(JwtIssuerOptions.SecretKey)];
+            GlobalVariables.Audience =
+                Configuration.GetSection(nameof(JwtIssuerOptions))[nameof(JwtIssuerOptions.Audience)];
+            GlobalVariables.Issuer =
+                Configuration.GetSection(nameof(JwtIssuerOptions))[nameof(JwtIssuerOptions.Issuer)];
+          
+            GlobalVariables.SigningCredentials = new SigningCredentials(
+                new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+                    Configuration.GetSection(nameof(JwtIssuerOptions))[Const.Startup.SecretKey])),
+                SecurityAlgorithms.HmacSha256);
+          
+            //Configuration = configuration;
+            //Configuration.GetConnectionString("DefaultConnection");
 
-            GlobalVariables.ConnectionStringMainDatabase = Configuration.GetConnectionString("DefaultConnection");
-            GlobalVariables.SecretKey = Configuration.GetSection(nameof(JwtIssuerOptions))[nameof(JwtIssuerOptions.SecretKey)];
+            //GlobalVariables.ConnectionStringMainDatabase = Configuration.GetConnectionString("DefaultConnection");
+            //GlobalVariables.SecretKey = Configuration.GetSection(nameof(JwtIssuerOptions))[nameof(JwtIssuerOptions.SecretKey)];
         }
             
         public IConfiguration Configuration { get; }

@@ -4,13 +4,16 @@ using Microsoft.AspNetCore.Mvc;
 using _1U_ASP.DTO;
 using _1U_ASP.Service.Interface;
 using _1U_ASP.Models;
+using _1U_ASP.Security.Service;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace _1U_ASP.Controllers
 {
 
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     //[TokenFilter]
-  //  [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProviderController : ControllerBase
