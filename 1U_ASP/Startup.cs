@@ -1,27 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using _1U_ASP.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using _1U_ASP.Service.Interface;
-using _1U_ASP.Service;
-using _1U_ASP.Repositorys.Interface;
 using _1U_ASP.Repositorys;
 using Microsoft.AspNetCore.Identity;
-using _1U_ASP.Models;
-using _1U_ASP.Security;
 using _1U_ASP.Security.Model;
-using _1U_ASP.Security.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 

@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Threading.Tasks;
 using _1U_ASP.Const;
-using _1U_ASP.Context;
 
 namespace _1U_ASP.Security
 {

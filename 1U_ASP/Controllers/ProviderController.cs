@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using _1U_ASP.Const;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using _1U_ASP.Context;
 using _1U_ASP.DTO;
 using _1U_ASP.Service.Interface;
 using _1U_ASP.Models;
-using _1U_ASP.Security.Service;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 
 namespace _1U_ASP.Controllers
 {

@@ -3,7 +3,6 @@ using Dap1U.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-using _1U_ASP.DTO;
 
 namespace _1U_ASP.Controllers
 {

@@ -2,16 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Dap1U.Models;
 using _1U_ASP.Models;
-using System.Configuration;
 using _1U_ASP.Const;
-using _1U_ASP.Security;
 using _1U_ASP.Security.Model;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace _1U_ASP.Context
 {
@@ -95,8 +90,9 @@ namespace _1U_ASP.Context
                     .HasForeignKey(c => c.ShopId); 
 
                 entity.HasData(
-                    new Shop { ShopId = 1, Address = "Virmenska street 100", Name = "EcoShop1" },
-                    new Shop { ShopId = 2, Address = "Ukrainska street 31 ", Name = "EcoShop2" }
+                    new Shop { ShopId = 1, Address = "Virmenska street 100", Name = "Eco-Shop" },
+                    new Shop { ShopId = 2, Address = "Ukrainska street 31 ", Name = "Food-world" },
+                    new Shop { ShopId = 3, Address = "Ukrainska street 31 ", Name = "House-shop" }
                 );
             });
 
@@ -124,8 +120,7 @@ namespace _1U_ASP.Context
                     new ShopProduct { ShopProductId = 6, ShopId = 2, ProductId = 3 }
                 );
             });
-
-
+            
             modelBuilder.Entity<SaleOrder>(entity =>
             {
                 entity.HasKey(e => e.SaleOrderId);
@@ -139,10 +134,16 @@ namespace _1U_ASP.Context
                     .WithOne(e => e.SaleOrder)
                     .HasForeignKey(c => c.SaleOrderDetailId);
                 List<SaleOrder> seedSaleOrders = new List<SaleOrder>();
+                
                 for (int i = 1; i < NumericConstants.ConutSeedSaleOrder; i++)
                 {
                     Random rnd = new Random();
-                    seedSaleOrders.Add(new SaleOrder { SaleOrderId = i, DataTime = DateTime.Now, ShopId = rnd.Next(1, 2)});
+                    var randomTest = new Random();
+                    TimeSpan timeSpan = DateTime.Now - DateTime.Today.AddYears(-1); ;
+                    TimeSpan newSpan = new TimeSpan(0, randomTest.Next(0, (int)timeSpan.TotalMinutes), 0);
+                    DateTime newDate = DateTime.Today.AddYears(-1) + newSpan;
+                   
+                    seedSaleOrders.Add(new SaleOrder { SaleOrderId = i, DataTime = newDate, ShopId = rnd.Next(1, NumericConstants.SeedShopMax) });
                 }
                 seedSaleOrders.ForEach(x=> entity.HasData(x));
 
@@ -165,7 +166,7 @@ namespace _1U_ASP.Context
                     .HasForeignKey(c => c.SaleOrderId);
 
                 List<SaleOrderDetail> n = new List<SaleOrderDetail>();
-                int currSaleOrderDetailId = 0;
+                int currentSaleOrderDetailId = 0;
                 for (int i = 1; i < NumericConstants.ConutSeedSaleOrder; i++)
                 {
                     Random rnd = new Random();
@@ -173,13 +174,15 @@ namespace _1U_ASP.Context
                     for (int y = 1; y < c; y++)
                     {
                         int pr = rnd.Next(1, 6);
-                        Product curr = _seedProducts.FirstOrDefault(x => x.ProductId == pr);
+                        Product currentProduct = _seedProducts.FirstOrDefault(x => x.ProductId == pr);
                         int countSale = rnd.Next(1, 10);
-                        n.Add(new SaleOrderDetail
-                        {
-                            SaleOrderDetailId = ++currSaleOrderDetailId, SaleOrderId = i, Count = countSale, ProductId = curr.ProductId, PriceCost = curr.PriceCost,
-                            PriseSale = curr.PriseSale, Summ = countSale * curr.PriseSale
-                        });
+                        if (currentProduct != null)
+                            n.Add(new SaleOrderDetail
+                            {
+                                SaleOrderDetailId = ++currentSaleOrderDetailId, SaleOrderId = i, Count = countSale,
+                                ProductId = currentProduct.ProductId, PriceCost = currentProduct.PriceCost,
+                                PriseSale = currentProduct.PriseSale, Summ = countSale * currentProduct.PriseSale
+                            });
                     }
                 }
 
@@ -294,7 +297,6 @@ namespace _1U_ASP.Context
                             new AppRole { Id = "5bb27bb1-913a-4516-92b6-fd8f667275aa", ConcurrencyStamp = "8e193d2e-2a2a-45b1-ae7e-92c28af243ff", Name = "companymanager", NormalizedName = "COMPANYMANAGER" },
                             new AppRole { Id = "9367245f-714a-4843-a58d-276e8200ddf4", ConcurrencyStamp = "20a5aed0-6fc7-49b5-96ea-2a62c3cb17b6", Name = "companyowner", NormalizedName = "COMPANYOWNER" },
                             new AppRole { Id = "9cb615ae-3ddc-40da-8d03-65216fe22377", ConcurrencyStamp = "3f827b0d-75fa-4a2e-99c1-540603ca5b54", Name = "superadmin", NormalizedName = "SUPERADMIN" }
-
                     );
 
             });

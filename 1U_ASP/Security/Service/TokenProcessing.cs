@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using _1U_ASP.Const;
 using _1U_ASP.Context;
 using _1U_ASP.Security.Model;

@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 using _1U_ASP.Repositorys;
-using Microsoft.AspNetCore.Identity;
 
 namespace _1U_ASP.Models
 {

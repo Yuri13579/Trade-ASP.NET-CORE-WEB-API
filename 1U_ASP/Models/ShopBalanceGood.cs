@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using _1U_ASP.Repositorys;
+﻿using _1U_ASP.Repositorys;
 using Dap1U.Models;
 
 namespace _1U_ASP.Models

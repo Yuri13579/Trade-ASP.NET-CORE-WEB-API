@@ -1,10 +1,5 @@
 ﻿using _1U_ASP.Models;
-using Dap1U.Models.Abstract;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 using _1U_ASP.Repositorys;
 
 namespace Dap1U.Models

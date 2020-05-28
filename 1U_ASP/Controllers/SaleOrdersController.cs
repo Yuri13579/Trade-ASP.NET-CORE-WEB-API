@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using _1U_ASP.Context;
 using _1U_ASP.DTO;
 using _1U_ASP.Models;
 using _1U_ASP.Service.Interface;
@@ -66,6 +62,8 @@ namespace _1U_ASP.Controllers
             return await _saleOrderService.GetSaleOrder(id);
 
         }
+
+
         
         //SellGoods
         [HttpPost("{SellGoods}")]

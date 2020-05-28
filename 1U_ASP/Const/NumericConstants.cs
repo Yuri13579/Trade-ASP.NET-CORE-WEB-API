@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace _1U_ASP.Const
+﻿namespace _1U_ASP.Const
 {
     public static class NumericConstants
     {
@@ -31,5 +26,6 @@ namespace _1U_ASP.Const
         public const int FullHoursPerMonth = 160;
         public const int HalfHoursPerMonth = 80;
         public const int ConutSeedSaleOrder = 100;
+        public const int SeedShopMax = 3;
     }
 }

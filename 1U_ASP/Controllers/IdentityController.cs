@@ -1,20 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using _1U_ASP.Const;
-using _1U_ASP.Service;
 using _1U_ASP.DTO;
 using _1U_ASP.Service.Interface;
-using _1U_ASP.Models.Result;
 using _1U_ASP.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
 
 namespace _1U_ASP.Controllers
 {

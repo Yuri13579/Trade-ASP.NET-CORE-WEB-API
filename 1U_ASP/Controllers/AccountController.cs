@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using _1U_ASP.Const;
 using _1U_ASP.DTO;
 using _1U_ASP.Service;
 using _1U_ASP.Models;
-using _1U_ASP.Security;
 using _1U_ASP.Security.Model;
 using _1U_ASP.Security.Service;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace _1U_ASP.Controllers
