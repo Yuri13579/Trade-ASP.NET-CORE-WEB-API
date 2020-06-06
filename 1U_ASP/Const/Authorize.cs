@@ -17,16 +17,16 @@ namespace _1U_ASP.Const
 
         public class Roles
         {
-            public const string JobSeeker = "jobseeker";
+           // public const string JobSeeker = "jobseeker";
             public const string Employee = "employee";
             public const string CompanyOwner = "companyowner";
             public const string CompanyAdmin = "companyadmin";
             public const string CompanyManager = "companymanager";
-            public const string CustomerOwner = "customerowner";
-            public const string CustomerAdmin = "customeradmin";
-            public const string CustomerAdminManager = "customeradminmanager";
-            public const string CustomerManager = "customermanager";
-            public const string SuperAdmin = "superadmin";
+            //public const string CustomerOwner = "customerowner";
+            //public const string CustomerAdmin = "customeradmin";
+            //public const string CustomerAdminManager = "customeradminmanager";
+            //public const string CustomerManager = "customermanager";
+            //public const string SuperAdmin = "superadmin";
 
             public const string Guest = "guest";
 
@@ -42,14 +42,14 @@ namespace _1U_ASP.Const
                 "companyowner, companyadmin, customerowner, customeradmin, customeradminmanager";
             public const string JobSeekerCompanyOwnerCompanyAdminCompanyManager =
                 "jobseeker, companyowner, companyadmin, companymanager";
-            public const string CustomerOwnerCustomerAdminCustomerAdminManager =
-                "customerowner, customeradmin, customeradminmanager";
-            public const string CustomerOwnerCustomerAdmin =
-                "customerowner, customeradmin";
-            public const string CustomerOwnerCustomerManager =
-                "customerowner, customermanager";
-            public const string CompanyOwnerCompanyAdmin =
-                "companyowner, companyadmin";
+            //public const string CustomerOwnerCustomerAdminCustomerAdminManager =
+            //    "customerowner, customeradmin, customeradminmanager";
+            //public const string CustomerOwnerCustomerAdmin =
+            //    "customerowner, customeradmin";
+            //public const string CustomerOwnerCustomerManager =
+            //    "customerowner, customermanager";
+            //public const string CompanyOwnerCompanyAdmin =
+            //    "companyowner, companyadmin";
             public const string CompanyAdminCompanyManager =
                 "companyadmin, companymanager";
             public const string CompanyOwnerCustomerOwner =

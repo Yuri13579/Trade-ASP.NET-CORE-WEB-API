@@ -36,28 +36,28 @@ namespace _1U_ASP.Security.Service
                 signingCredentials: SigningCredentials);
         }
 
-        public static JwtSecurityToken GetJwtSecurityTokenAsCustomerOwner(
-            AppUser appUser,
-            int personId,
-            int employerId,
-            string remoteIpAddress)
-        {
-            var userClaims = appUser.Claims;
+        //public static JwtSecurityToken GetJwtSecurityTokenAsCustomerOwner(
+        //    AppUser appUser,
+        //    int personId,
+        //    int employerId,
+        //    string remoteIpAddress)
+        //{
+        //    var userClaims = appUser.Claims;
 
-            return new JwtSecurityToken(
-                GlobalVariables.Issuer,
-                GlobalVariables.Audience,
-                claims: GetAsCustomerTokenClaims(
-                    appUser.Id,
-                    appUser.Email,
-                    employerId,
-                    userClaims.ToList(),
-                    personId,
-                    remoteIpAddress),
-                expires: DateTime.UtcNow.Add(new TimeSpan(0, 12, 0, 0)),
-                notBefore: DateTime.UtcNow,
-                signingCredentials: SigningCredentials);
-        }
+        //    return new JwtSecurityToken(
+        //        GlobalVariables.Issuer,
+        //        GlobalVariables.Audience,
+        //        claims: GetAsCustomerTokenClaims(
+        //            appUser.Id,
+        //            appUser.Email,
+        //            employerId,
+        //            userClaims.ToList(),
+        //            personId,
+        //            remoteIpAddress),
+        //        expires: DateTime.UtcNow.Add(new TimeSpan(0, 12, 0, 0)),
+        //        notBefore: DateTime.UtcNow,
+        //        signingCredentials: SigningCredentials);
+        //}
 
         public static JwtSecurityToken GetRefreshJwtSecurityToken(
             Authorize.AccountLevel requestedLevel,
@@ -182,35 +182,35 @@ namespace _1U_ASP.Security.Service
             return tokenClaims;
         }
 
-        private static IEnumerable<Claim> GetAsCustomerTokenClaims(
-            string userId,
-            string userEmail,
-            int employerId,
-            IList<AppUserClaim> userClaims,
-            int personId,
-            string remoteIpAddress)
-        {
-            var accountSchema = userClaims.Where(x => x.ClaimType == Authorize.Claims.ClaimAccountSchema).FirstOrDefault();
+        //private static IEnumerable<Claim> GetAsCustomerTokenClaims(
+        //    string userId,
+        //    string userEmail,
+        //    int employerId,
+        //    IList<AppUserClaim> userClaims,
+        //    int personId,
+        //    string remoteIpAddress)
+        //{
+        //    var accountSchema = userClaims.Where(x => x.ClaimType == Authorize.Claims.ClaimAccountSchema).FirstOrDefault();
 
-            var tokenClaims = new List<Claim>
-            {
-                new Claim(JwtRegisteredClaimNames.Jti, userId),
-                new Claim(JwtRegisteredClaimNames.Sub, userEmail),
-                new Claim(Authorize.Claims.ClaimIp, remoteIpAddress),
-                new Claim(Authorize.Claims.ClaimPersonId, personId.ToString()),
-                new Claim(Authorize.Claims.ClaimCurrentSchema, ((int)Authorize.AccountLevel.customer).ToString()),
-                new Claim(Authorize.Claims.ClaimAccountSchema, accountSchema.ClaimValue)
-            };
+        //    var tokenClaims = new List<Claim>
+        //    {
+        //        new Claim(JwtRegisteredClaimNames.Jti, userId),
+        //        new Claim(JwtRegisteredClaimNames.Sub, userEmail),
+        //        new Claim(Authorize.Claims.ClaimIp, remoteIpAddress),
+        //        new Claim(Authorize.Claims.ClaimPersonId, personId.ToString()),
+        //        new Claim(Authorize.Claims.ClaimCurrentSchema, ((int)Authorize.AccountLevel.customer).ToString()),
+        //        new Claim(Authorize.Claims.ClaimAccountSchema, accountSchema.ClaimValue)
+        //    };
 
-            var roleClaims = GetAsCustomerRoleClaims(
-                employerId,
-                userClaims);
+        //    var roleClaims = GetAsCustomerRoleClaims(
+        //        employerId,
+        //        userClaims);
 
-            if (roleClaims.Count > 0)
-                tokenClaims.AddRange(roleClaims);
+        //    if (roleClaims.Count > 0)
+        //        tokenClaims.AddRange(roleClaims);
 
-            return tokenClaims;
-        }
+        //    return tokenClaims;
+        //}
 
         private static IEnumerable<Claim> GetTokenClaimsConfirmEmail(
             string remoteIpAddress,
@@ -289,10 +289,10 @@ namespace _1U_ASP.Security.Service
             {
                 case Authorize.AccountLevel.none:
                     break;
-                case Authorize.AccountLevel.admin:
-                    if (user.UserRoles.Select(x => x.Role.Name).Contains(Authorize.Roles.SuperAdmin))
-                        result.Add(new Claim(Authorize.Claims.ClaimRole, Authorize.Roles.SuperAdmin));
-                    break;
+                //case Authorize.AccountLevel.admin:
+                //    if (user.UserRoles.Select(x => x.Role.Name).Contains(Authorize.Roles.SuperAdmin))
+                //        result.Add(new Claim(Authorize.Claims.ClaimRole, Authorize.Roles.SuperAdmin));
+                //    break;
                 case Authorize.AccountLevel.company:
                     var defaulAccountId = user.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimDefaultAccountId)
                         .Select(y => y.ClaimValue).First();
@@ -306,21 +306,21 @@ namespace _1U_ASP.Security.Service
                         result.Add(new Claim(Authorize.Claims.ClaimRole, Authorize.Roles.CompanyManager));
                     result.Add(new Claim(Authorize.Claims.ClaimAccountId, defaulAccountId));
                     break;
-                case Authorize.AccountLevel.customer:
-                    var defaulEmployerId_1 = user.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimDefaultEmployerId)
-                        .Select(y => y.ClaimValue).First();
-                    var employerClaimRoles = user.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimEmployerId && x.ClaimValue == defaulEmployerId_1)
-                        .First().UserClaimRoles.Select(z => z.Role.Name).ToList();
-                    if (user.UserRoles.Select(x => x.Role.Name).Contains(Authorize.Roles.CustomerOwner))
-                        result.Add(new Claim(Authorize.Claims.ClaimRole, Authorize.Roles.CustomerOwner));
-                    if (employerClaimRoles.Contains(Authorize.Roles.CustomerAdmin))
-                        result.Add(new Claim(Authorize.Claims.ClaimRole, Authorize.Roles.CustomerAdmin));
-                    if (employerClaimRoles.Contains(Authorize.Roles.CustomerAdminManager))
-                        result.Add(new Claim(Authorize.Claims.ClaimRole, Authorize.Roles.CustomerAdminManager));
-                    if (employerClaimRoles.Contains(Authorize.Roles.CustomerManager))
-                        result.Add(new Claim(Authorize.Claims.ClaimRole, Authorize.Roles.CustomerManager));
-                    result.Add(new Claim(Authorize.Claims.ClaimEmployerId, defaulEmployerId_1));
-                    break;
+                //case Authorize.AccountLevel.customer:
+                //    var defaulEmployerId_1 = user.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimDefaultEmployerId)
+                //        .Select(y => y.ClaimValue).First();
+                //    var employerClaimRoles = user.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimEmployerId && x.ClaimValue == defaulEmployerId_1)
+                //        .First().UserClaimRoles.Select(z => z.Role.Name).ToList();
+                //    if (user.UserRoles.Select(x => x.Role.Name).Contains(Authorize.Roles.CustomerOwner))
+                //        result.Add(new Claim(Authorize.Claims.ClaimRole, Authorize.Roles.CustomerOwner));
+                //    if (employerClaimRoles.Contains(Authorize.Roles.CustomerAdmin))
+                //        result.Add(new Claim(Authorize.Claims.ClaimRole, Authorize.Roles.CustomerAdmin));
+                //    if (employerClaimRoles.Contains(Authorize.Roles.CustomerAdminManager))
+                //        result.Add(new Claim(Authorize.Claims.ClaimRole, Authorize.Roles.CustomerAdminManager));
+                //    if (employerClaimRoles.Contains(Authorize.Roles.CustomerManager))
+                //        result.Add(new Claim(Authorize.Claims.ClaimRole, Authorize.Roles.CustomerManager));
+                //    result.Add(new Claim(Authorize.Claims.ClaimEmployerId, defaulEmployerId_1));
+                //    break;
                 case Authorize.AccountLevel.employee:
                     var defaulEmployerId_2 = user.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimDefaultEmployerId)
                         .Select(y => y.ClaimValue).First();
@@ -330,10 +330,10 @@ namespace _1U_ASP.Security.Service
                         result.Add(new Claim(Authorize.Claims.ClaimRole, Authorize.Roles.Employee));
                     result.Add(new Claim(Authorize.Claims.ClaimEmployerId, defaulEmployerId_2));
                     break;
-                case Authorize.AccountLevel.jobseeker:
-                    if (user.UserRoles.Select(x => x.Role.Name).Contains(Authorize.Roles.JobSeeker))
-                        result.Add(new Claim(Authorize.Claims.ClaimRole, Authorize.Roles.JobSeeker));
-                    break;
+                //case Authorize.AccountLevel.jobseeker:
+                //    if (user.UserRoles.Select(x => x.Role.Name).Contains(Authorize.Roles.JobSeeker))
+                //        result.Add(new Claim(Authorize.Claims.ClaimRole, Authorize.Roles.JobSeeker));
+                //    break;
             }
 
             return result;
@@ -362,19 +362,19 @@ namespace _1U_ASP.Security.Service
                         result.Add(new Claim(Authorize.Claims.ClaimRole, Authorize.Roles.CompanyManager));
                     result.Add(new Claim(Authorize.Claims.ClaimAccountId, accountId));
                     break;
-                case Authorize.AccountLevel.customer:
-                    var employerClaimRoles = user.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimEmployerId && x.ClaimValue == employerId)
-                        .First().UserClaimRoles.Select(z => z.Role.Name).ToList();
-                    if (user.UserRoles.Select(x => x.Role.Name).Contains(Authorize.Roles.CustomerOwner))
-                        result.Add(new Claim(Authorize.Claims.ClaimRole, Authorize.Roles.CustomerOwner));
-                    if (employerClaimRoles.Contains(Authorize.Roles.CustomerAdmin))
-                        result.Add(new Claim(Authorize.Claims.ClaimRole, Authorize.Roles.CustomerAdmin));
-                    if (employerClaimRoles.Contains(Authorize.Roles.CustomerAdminManager))
-                        result.Add(new Claim(Authorize.Claims.ClaimRole, Authorize.Roles.CustomerAdminManager));
-                    if (employerClaimRoles.Contains(Authorize.Roles.CustomerManager))
-                        result.Add(new Claim(Authorize.Claims.ClaimRole, Authorize.Roles.CustomerManager));
-                    result.Add(new Claim(Authorize.Claims.ClaimEmployerId, employerId));
-                    break;
+                //case Authorize.AccountLevel.customer:
+                //    var employerClaimRoles = user.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimEmployerId && x.ClaimValue == employerId)
+                //        .First().UserClaimRoles.Select(z => z.Role.Name).ToList();
+                //    if (user.UserRoles.Select(x => x.Role.Name).Contains(Authorize.Roles.CustomerOwner))
+                //        result.Add(new Claim(Authorize.Claims.ClaimRole, Authorize.Roles.CustomerOwner));
+                //    if (employerClaimRoles.Contains(Authorize.Roles.CustomerAdmin))
+                //        result.Add(new Claim(Authorize.Claims.ClaimRole, Authorize.Roles.CustomerAdmin));
+                //    if (employerClaimRoles.Contains(Authorize.Roles.CustomerAdminManager))
+                //        result.Add(new Claim(Authorize.Claims.ClaimRole, Authorize.Roles.CustomerAdminManager));
+                //    if (employerClaimRoles.Contains(Authorize.Roles.CustomerManager))
+                //        result.Add(new Claim(Authorize.Claims.ClaimRole, Authorize.Roles.CustomerManager));
+                //    result.Add(new Claim(Authorize.Claims.ClaimEmployerId, employerId));
+                //    break;
                 case Authorize.AccountLevel.employee:
                     var employerClaimRoles_1 = user.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimEmployerId && x.ClaimValue == employerId)
                         .First().UserClaimRoles.Select(z => z.Role.Name).ToList();
@@ -387,20 +387,20 @@ namespace _1U_ASP.Security.Service
             return result;
         }
 
-        private static List<Claim> GetAsCustomerRoleClaims(
-            int employerId,
-            IList<AppUserClaim> claims)
-        {
-            var result = new List<Claim>();
-            result.Add(new Claim(Authorize.Claims.ClaimRole, Authorize.Roles.CustomerOwner));
-            result.Add(new Claim(Authorize.Claims.ClaimRole, Authorize.Roles.CustomerAdmin));
-            result.Add(new Claim(Authorize.Claims.ClaimRole, Authorize.Roles.CustomerAdminManager));
-            result.Add(new Claim(Authorize.Claims.ClaimRole, Authorize.Roles.CustomerManager));
-            var accountId = claims.Where(x => x.ClaimType == Authorize.Claims.ClaimAccountId).First().ClaimValue;
-            result.Add(new Claim(Authorize.Claims.ClaimAccountId, accountId));
-            result.Add(new Claim(Authorize.Claims.ClaimEmployerId, employerId.ToString()));
+        //private static List<Claim> GetAsCustomerRoleClaims(
+        //    int employerId,
+        //    IList<AppUserClaim> claims)
+        //{
+        //    var result = new List<Claim>();
+        //    result.Add(new Claim(Authorize.Claims.ClaimRole, Authorize.Roles.CustomerOwner));
+        //    result.Add(new Claim(Authorize.Claims.ClaimRole, Authorize.Roles.CustomerAdmin));
+        //    result.Add(new Claim(Authorize.Claims.ClaimRole, Authorize.Roles.CustomerAdminManager));
+        //    result.Add(new Claim(Authorize.Claims.ClaimRole, Authorize.Roles.CustomerManager));
+        //    var accountId = claims.Where(x => x.ClaimType == Authorize.Claims.ClaimAccountId).First().ClaimValue;
+        //    result.Add(new Claim(Authorize.Claims.ClaimAccountId, accountId));
+        //    result.Add(new Claim(Authorize.Claims.ClaimEmployerId, employerId.ToString()));
 
-            return result;
-        }
+        //    return result;
+        //}
     }
 }

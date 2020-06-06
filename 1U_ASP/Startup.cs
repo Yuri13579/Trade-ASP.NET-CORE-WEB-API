@@ -174,6 +174,7 @@ namespace _1U_ASP
            //app.UseAuthorization();
 
             app.UseMvc();
+
         }
     }
 }

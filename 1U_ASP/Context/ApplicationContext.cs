@@ -292,11 +292,11 @@ namespace _1U_ASP.Context
                 b.HasData(
                             new AppRole { Id = "0f26382a-ec94-401e-aef8-e2c44b376858", ConcurrencyStamp = "e6b70a9b-1e2f-48d6-aecc-a31748bdd35f", Name = "companyadmin", NormalizedName = "COMPANYADMIN" },
                             new AppRole { Id = "0f4e8d62-a445-4626-b2c2-d1fc566a7184", ConcurrencyStamp = "223bf724-59cb-405c-aebe-f7ba30d61eb0", Name = "employee", NormalizedName = "EMPLOYEE" },
-                            new AppRole { Id = "13c4dd37-fe45-4d87-8926-5662547cf1b2", ConcurrencyStamp = "edf487c0-47c6-4cbf-8fae-316a52b7c7e8", Name = "jobseeker", NormalizedName = "JOBSEEKER" },
-                            new AppRole { Id = "17d7983c-96e8-4d54-b51c-7692feb9a595", ConcurrencyStamp = "a051d63a-e8a3-4bdf-b60e-2c337f023d19", Name = "customeradminmanager", NormalizedName = "CUSTOMERADMINMANAGER" },
+                           // new AppRole { Id = "13c4dd37-fe45-4d87-8926-5662547cf1b2", ConcurrencyStamp = "edf487c0-47c6-4cbf-8fae-316a52b7c7e8", Name = "jobseeker", NormalizedName = "JOBSEEKER" },
+                           // new AppRole { Id = "17d7983c-96e8-4d54-b51c-7692feb9a595", ConcurrencyStamp = "a051d63a-e8a3-4bdf-b60e-2c337f023d19", Name = "customeradminmanager", NormalizedName = "CUSTOMERADMINMANAGER" },
                             new AppRole { Id = "5bb27bb1-913a-4516-92b6-fd8f667275aa", ConcurrencyStamp = "8e193d2e-2a2a-45b1-ae7e-92c28af243ff", Name = "companymanager", NormalizedName = "COMPANYMANAGER" },
-                            new AppRole { Id = "9367245f-714a-4843-a58d-276e8200ddf4", ConcurrencyStamp = "20a5aed0-6fc7-49b5-96ea-2a62c3cb17b6", Name = "companyowner", NormalizedName = "COMPANYOWNER" },
-                            new AppRole { Id = "9cb615ae-3ddc-40da-8d03-65216fe22377", ConcurrencyStamp = "3f827b0d-75fa-4a2e-99c1-540603ca5b54", Name = "superadmin", NormalizedName = "SUPERADMIN" }
+                            new AppRole { Id = "9367245f-714a-4843-a58d-276e8200ddf4", ConcurrencyStamp = "20a5aed0-6fc7-49b5-96ea-2a62c3cb17b6", Name = "companyowner", NormalizedName = "COMPANYOWNER" }
+                          //  new AppRole { Id = "9cb615ae-3ddc-40da-8d03-65216fe22377", ConcurrencyStamp = "3f827b0d-75fa-4a2e-99c1-540603ca5b54", Name = "superadmin", NormalizedName = "SUPERADMIN" }
                     );
 
             });

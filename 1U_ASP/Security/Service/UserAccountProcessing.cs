@@ -33,6 +33,173 @@ namespace _1U_ASP.Security.Service
             _person = person;
         }
         #endregion
+        
+        public async Task<AppUser> AddCompanyOwnerUserInRegister(
+          string email,
+          string password,
+          int companyId,
+          string companyName,
+          AppPerson person)
+        {
+            var appUser = new AppUser { Email = email, UserName = email, Person = person };
+            var result = await _userManager.CreateAsync(appUser, password);
+            if (!result.Succeeded)
+                return null;
+
+            await _userManager.AddToRolesAsync(appUser, new[] { Authorize.Roles.CompanyOwner, Authorize.Roles.CompanyAdmin, Authorize.Roles.CompanyManager, Authorize.Roles.Employee });
+            appUser = await GetFullUserById(appUser.Id);
+            var accountLevel = Authorize.AccountLevel.company; //| Authorize.AccountLevel.jobseeker;
+
+            appUser.Claims.Add(new AppUserClaim
+            {
+                UserId = appUser.Id,
+                ClaimType = Authorize.Claims.ClaimAccountSchema,
+                ClaimValue = ((int)accountLevel).ToString()
+            });
+
+            appUser.Claims.Add(new AppUserClaim
+            {
+                UserId = appUser.Id,
+                ClaimType = Authorize.Claims.ClaimDefaultSchema,
+                ClaimValue = ((int)Authorize.AccountLevel.company).ToString()
+            });
+
+            appUser.Claims.Add(new AppUserClaim
+            {
+                UserId = appUser.Id,
+                ClaimType = Authorize.Claims.ClaimAccountId,
+                ClaimValue = companyId.ToString(),
+                ClaimProperty = companyName
+            });
+
+            appUser.Claims.Add(new AppUserClaim
+            {
+                UserId = appUser.Id,
+                ClaimType = Authorize.Claims.ClaimDefaultAccountId,
+                ClaimValue = companyId.ToString(),
+                ClaimProperty = companyName
+            });
+
+            await _userManager.UpdateAsync(appUser);
+            appUser = await GetFullUserById(appUser.Id);
+            var accountIdUserClaim = await GetAccountIdClaim(
+                appUser,
+                companyId);
+            var companyOwnerRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CompanyOwner).First();
+            var companyAdminRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CompanyAdmin).First();
+            var companyManagerRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CompanyManager).First();
+            AddRoleClaimToClaim(accountIdUserClaim, companyOwnerRole.Id);
+            AddRoleClaimToClaim(accountIdUserClaim, companyAdminRole.Id);
+            AddRoleClaimToClaim(accountIdUserClaim, companyManagerRole.Id);
+
+            await _userManager.UpdateAsync(appUser);
+            appUser = await GetFullUserById(appUser.Id);
+
+            var personNew = await _person.AddAsync(new Person
+            {
+                FirstName = person.FirstName,
+                LastName = person.LastName,
+                DisplayName = person.DisplayName,
+                Dob = person.Dob,
+                GenderSysCodeUniqueId = person.GenderSysCodeUniqueId,
+                EmailAddress = person.EmailAddress
+            });
+            appUser.PersonId = personNew.PersonId;
+
+            return appUser;
+        }
+        
+        /// <summary>
+        /// adds roles and claims for employee
+        /// </summary>
+        /// <param name="appUser"></param>
+        /// <param name="employerId"></param>
+        /// <returns></returns>
+        //public async Task AddEmployeeClaims(
+        //    AppUser appUser,
+        //    string employerName,
+        //    int employerId)
+        //{
+        //    var accountSchemaClaim = await GetAccountSchema(appUser);
+        //    if (accountSchemaClaim == null)
+        //    {
+        //        await AddJobSeekerAccount(appUser);
+        //        appUser = await GetFullUserById(appUser.Id);
+        //        accountSchemaClaim = await GetAccountSchema(appUser);
+        //    }
+        //    var accountSchema = (Authorize.AccountLevel)Convert.ToInt32(accountSchemaClaim.ClaimValue);
+        //    if (!((accountSchema & Authorize.AccountLevel.employee) == Authorize.AccountLevel.employee))
+        //    {
+        //        appUser.Claims.Remove(accountSchemaClaim);
+        //        accountSchema |= Authorize.AccountLevel.employee;
+        //        appUser.Claims.Add(new AppUserClaim
+        //        {
+        //            UserId = appUser.Id,
+        //            ClaimType = Authorize.Claims.ClaimAccountSchema,
+        //            ClaimValue = ((int)accountSchema).ToString()
+        //        });
+        //    }
+
+        //    var defaultAccountSchema = await GetDefaultAccountSchema(appUser);
+        //    if (defaultAccountSchema == null)
+        //        appUser.Claims.Add(new AppUserClaim
+        //        {
+        //            UserId = appUser.Id,
+        //            ClaimType = Authorize.Claims.ClaimDefaultSchema,
+        //            ClaimValue = ((int)Authorize.AccountLevel.employee).ToString()
+        //        });
+
+        //    var employeeRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.Employee).First();
+        //    var employeeRoleClaim = appUser.UserRoles.Where(x => x.Role.Name == Authorize.Roles.Employee);
+        //    if (employeeRoleClaim == null)
+        //    {
+
+        //        appUser.UserRoles.Add(new AppUserRole
+        //        {
+        //            UserId = appUser.Id,
+        //            RoleId = employeeRole.Id
+        //        });
+        //    }
+
+        //    var employerIdClaim = await GetEmployerIdClaim(
+        //        appUser,
+        //        employerId);
+
+        //    if (employerIdClaim == null)
+        //    {
+        //        appUser.Claims.Add(new AppUserClaim
+        //        {
+        //            UserId = appUser.Id,
+        //            ClaimType = Authorize.Claims.ClaimEmployerId,
+        //            ClaimValue = employerId.ToString(),
+        //            ClaimProperty = employerName
+        //        });
+        //        await _userManager.UpdateAsync(appUser);
+        //        appUser = await GetFullUserById(appUser.Id);
+        //        employerIdClaim = await GetEmployerIdClaim(
+        //        appUser,
+        //        employerId);
+        //    }
+
+        //    var defaultEmployerIdClaim = appUser.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimDefaultEmployerId).FirstOrDefault();
+        //    if (defaultEmployerIdClaim == null)
+        //    {
+        //        appUser.Claims.Add(new AppUserClaim
+        //        {
+        //            UserId = appUser.Id,
+        //            ClaimType = Authorize.Claims.ClaimDefaultEmployerId,
+        //            ClaimValue = employerId.ToString(),
+        //            ClaimProperty = employerName
+        //        });
+        //    }
+
+        //    var claimRoleEmployee = employerIdClaim.UserClaimRoles.Where(x => x.RoleId == employeeRole.Id).FirstOrDefault();
+        //    if (claimRoleEmployee == null)
+        //        AddRoleClaimToClaim(employerIdClaim, employeeRole.Id);
+
+        //    await _userManager.UpdateAsync(appUser);
+        //}
+
 
         public async Task<AppUser> GetFullUserByEmail(
             string email)
@@ -206,145 +373,56 @@ namespace _1U_ASP.Security.Service
         /// </summary>
         /// <param name="appUser"></param>
         /// <returns></returns>
-        public async Task AddJobSeekerAccount(
-            AppUser appUser)
-        {
-            var accountSchemaClaim = await GetAccountSchema(appUser);
-            if (accountSchemaClaim == null)
-                appUser.Claims.Add(new AppUserClaim
-                {
-                    UserId = appUser.Id,
-                    ClaimType = Authorize.Claims.ClaimAccountSchema,
-                    ClaimValue = ((int)Authorize.AccountLevel.jobseeker).ToString()
-                });
-            else
-            {
-                var accountSchema = (Authorize.AccountLevel)Convert.ToInt32(accountSchemaClaim.ClaimValue);
-                if (!((accountSchema & Authorize.AccountLevel.jobseeker) == Authorize.AccountLevel.jobseeker))
-                {
-                    appUser.Claims.Remove(accountSchemaClaim);
-                    accountSchema |= Authorize.AccountLevel.jobseeker;
-                    appUser.Claims.Add(new AppUserClaim
-                    {
-                        UserId = appUser.Id,
-                        ClaimType = Authorize.Claims.ClaimAccountSchema,
-                        ClaimValue = ((int)accountSchema).ToString()
-                    });
-                }
-            }
+        //public async Task AddJobSeekerAccount(
+        //    AppUser appUser)
+        //{
+        //    var accountSchemaClaim = await GetAccountSchema(appUser);
+        //    if (accountSchemaClaim == null)
+        //        appUser.Claims.Add(new AppUserClaim
+        //        {
+        //            UserId = appUser.Id,
+        //            ClaimType = Authorize.Claims.ClaimAccountSchema,
+        //            ClaimValue = ((int)Authorize.AccountLevel.jobseeker).ToString()
+        //        });
+        //    else
+        //    {
+        //        var accountSchema = (Authorize.AccountLevel)Convert.ToInt32(accountSchemaClaim.ClaimValue);
+        //        if (!((accountSchema & Authorize.AccountLevel.jobseeker) == Authorize.AccountLevel.jobseeker))
+        //        {
+        //            appUser.Claims.Remove(accountSchemaClaim);
+        //            accountSchema |= Authorize.AccountLevel.jobseeker;
+        //            appUser.Claims.Add(new AppUserClaim
+        //            {
+        //                UserId = appUser.Id,
+        //                ClaimType = Authorize.Claims.ClaimAccountSchema,
+        //                ClaimValue = ((int)accountSchema).ToString()
+        //            });
+        //        }
+        //    }
 
-            var defaultAccountSchema = await GetDefaultAccountSchema(appUser);
-            if (defaultAccountSchema == null)
-                appUser.Claims.Add(new AppUserClaim
-                {
-                    UserId = appUser.Id,
-                    ClaimType = Authorize.Claims.ClaimDefaultSchema,
-                    ClaimValue = ((int)Authorize.AccountLevel.jobseeker).ToString()
-                });
+        //    var defaultAccountSchema = await GetDefaultAccountSchema(appUser);
+        //    if (defaultAccountSchema == null)
+        //        appUser.Claims.Add(new AppUserClaim
+        //        {
+        //            UserId = appUser.Id,
+        //            ClaimType = Authorize.Claims.ClaimDefaultSchema,
+        //            ClaimValue = ((int)Authorize.AccountLevel.jobseeker).ToString()
+        //        });
 
-            var jobseekerRoleClaim = appUser.UserRoles.Where(x => x.Role.Name == Authorize.Roles.JobSeeker).FirstOrDefault();
-            if (jobseekerRoleClaim == null)
-            {
-                var jobseekerRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.JobSeeker).First();
-                appUser.UserRoles.Add(new AppUserRole
-                {
-                    UserId = appUser.Id,
-                    RoleId = jobseekerRole.Id
-                });
-            }
-            await _userManager.UpdateAsync(appUser);
-        }
+        //    var jobseekerRoleClaim = appUser.UserRoles.Where(x => x.Role.Name == Authorize.Roles.JobSeeker).FirstOrDefault();
+        //    if (jobseekerRoleClaim == null)
+        //    {
+        //        var jobseekerRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.JobSeeker).First();
+        //        appUser.UserRoles.Add(new AppUserRole
+        //        {
+        //            UserId = appUser.Id,
+        //            RoleId = jobseekerRole.Id
+        //        });
+        //    }
+        //    await _userManager.UpdateAsync(appUser);
+        //}
 
-        /// <summary>
-        /// adds roles and claims for employee
-        /// </summary>
-        /// <param name="appUser"></param>
-        /// <param name="employerId"></param>
-        /// <returns></returns>
-        public async Task AddEmployeeClaims(
-            AppUser appUser,
-            string employerName,
-            int employerId)
-        {
-            var accountSchemaClaim = await GetAccountSchema(appUser);
-            if (accountSchemaClaim == null)
-            {
-                await AddJobSeekerAccount(appUser);
-                appUser = await GetFullUserById(appUser.Id);
-                accountSchemaClaim = await GetAccountSchema(appUser);
-            }
-            var accountSchema = (Authorize.AccountLevel)Convert.ToInt32(accountSchemaClaim.ClaimValue);
-            if (!((accountSchema & Authorize.AccountLevel.employee) == Authorize.AccountLevel.employee))
-            {
-                appUser.Claims.Remove(accountSchemaClaim);
-                accountSchema |= Authorize.AccountLevel.employee;
-                appUser.Claims.Add(new AppUserClaim
-                {
-                    UserId = appUser.Id,
-                    ClaimType = Authorize.Claims.ClaimAccountSchema,
-                    ClaimValue = ((int)accountSchema).ToString()
-                });
-            }
-
-            var defaultAccountSchema = await GetDefaultAccountSchema(appUser);
-            if (defaultAccountSchema == null)
-                appUser.Claims.Add(new AppUserClaim
-                {
-                    UserId = appUser.Id,
-                    ClaimType = Authorize.Claims.ClaimDefaultSchema,
-                    ClaimValue = ((int)Authorize.AccountLevel.employee).ToString()
-                });
-
-            var employeeRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.Employee).First();
-            var employeeRoleClaim = appUser.UserRoles.Where(x => x.Role.Name == Authorize.Roles.Employee);
-            if (employeeRoleClaim == null)
-            {
-
-                appUser.UserRoles.Add(new AppUserRole
-                {
-                    UserId = appUser.Id,
-                    RoleId = employeeRole.Id
-                });
-            }
-
-            var employerIdClaim = await GetEmployerIdClaim(
-                appUser,
-                employerId);
-
-            if (employerIdClaim == null)
-            {
-                appUser.Claims.Add(new AppUserClaim
-                {
-                    UserId = appUser.Id,
-                    ClaimType = Authorize.Claims.ClaimEmployerId,
-                    ClaimValue = employerId.ToString(),
-                    ClaimProperty = employerName
-                });
-                await _userManager.UpdateAsync(appUser);
-                appUser = await GetFullUserById(appUser.Id);
-                employerIdClaim = await GetEmployerIdClaim(
-                appUser,
-                employerId);
-            }
-
-            var defaultEmployerIdClaim = appUser.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimDefaultEmployerId).FirstOrDefault();
-            if (defaultEmployerIdClaim == null)
-            {
-                appUser.Claims.Add(new AppUserClaim
-                {
-                    UserId = appUser.Id,
-                    ClaimType = Authorize.Claims.ClaimDefaultEmployerId,
-                    ClaimValue = employerId.ToString(),
-                    ClaimProperty = employerName
-                });
-            }
-
-            var claimRoleEmployee = employerIdClaim.UserClaimRoles.Where(x => x.RoleId == employeeRole.Id).FirstOrDefault();
-            if (claimRoleEmployee == null)
-                AddRoleClaimToClaim(employerIdClaim, employeeRole.Id);
-
-            await _userManager.UpdateAsync(appUser);
-        }
+       
 
         #region Company
         /// <summary>
@@ -354,64 +432,64 @@ namespace _1U_ASP.Security.Service
         /// <param name="accountId"></param>
         /// <param name="companyName"></param>
         /// <returns></returns>
-        public async Task AddCompanyManagerClaims(
-            AppUser appUser,
-            int accountId,
-            string companyName)
-        {
-            var accountIdUserClaim = await GetAccountIdClaim(appUser, accountId);
-            if (accountIdUserClaim == null)
-            {
-                appUser.Claims.Add(new AppUserClaim
-                {
-                    UserId = appUser.Id,
-                    ClaimType = Authorize.Claims.ClaimAccountId,
-                    ClaimValue = accountId.ToString(),
-                    ClaimProperty = companyName
-                });
-            }
+        //public async Task AddCompanyManagerClaims(
+        //    AppUser appUser,
+        //    int accountId,
+        //    string companyName)
+        //{
+        //    var accountIdUserClaim = await GetAccountIdClaim(appUser, accountId);
+        //    if (accountIdUserClaim == null)
+        //    {
+        //        appUser.Claims.Add(new AppUserClaim
+        //        {
+        //            UserId = appUser.Id,
+        //            ClaimType = Authorize.Claims.ClaimAccountId,
+        //            ClaimValue = accountId.ToString(),
+        //            ClaimProperty = companyName
+        //        });
+        //    }
 
-            var defaultAccountIdClaim = await GetDefaultAccountIdClaim(appUser);
-            if (defaultAccountIdClaim == null)
-                appUser.Claims.Add(new AppUserClaim
-                {
-                    UserId = appUser.Id,
-                    ClaimType = Authorize.Claims.ClaimDefaultAccountId,
-                    ClaimValue = accountId.ToString(),
-                    ClaimProperty = companyName
-                });
+        //    var defaultAccountIdClaim = await GetDefaultAccountIdClaim(appUser);
+        //    if (defaultAccountIdClaim == null)
+        //        appUser.Claims.Add(new AppUserClaim
+        //        {
+        //            UserId = appUser.Id,
+        //            ClaimType = Authorize.Claims.ClaimDefaultAccountId,
+        //            ClaimValue = accountId.ToString(),
+        //            ClaimProperty = companyName
+        //        });
 
-            var accountSchemaClaim = await GetAccountSchema(appUser);
-            if (accountSchemaClaim == null)
-            {
-                await AddJobSeekerAccount(appUser);
-                appUser = await GetFullUserById(appUser.Id);
-                accountSchemaClaim = await GetAccountSchema(appUser);
-            }
-            var accountSchema = (Authorize.AccountLevel)Convert.ToInt32(accountSchemaClaim.ClaimValue);
+        //    var accountSchemaClaim = await GetAccountSchema(appUser);
+        //    if (accountSchemaClaim == null)
+        //    {
+        //        await AddJobSeekerAccount(appUser);
+        //        appUser = await GetFullUserById(appUser.Id);
+        //        accountSchemaClaim = await GetAccountSchema(appUser);
+        //    }
+        //    var accountSchema = (Authorize.AccountLevel)Convert.ToInt32(accountSchemaClaim.ClaimValue);
 
-            if (!((accountSchema & Authorize.AccountLevel.company) == Authorize.AccountLevel.company))
-            {
-                appUser.Claims.Remove(accountSchemaClaim);
-                accountSchema |= Authorize.AccountLevel.company;
-                appUser.Claims.Add(new AppUserClaim
-                {
-                    UserId = appUser.Id,
-                    ClaimType = Authorize.Claims.ClaimAccountSchema,
-                    ClaimValue = ((int)accountSchema).ToString()
-                });
-            }
+        //    if (!((accountSchema & Authorize.AccountLevel.company) == Authorize.AccountLevel.company))
+        //    {
+        //        appUser.Claims.Remove(accountSchemaClaim);
+        //        accountSchema |= Authorize.AccountLevel.company;
+        //        appUser.Claims.Add(new AppUserClaim
+        //        {
+        //            UserId = appUser.Id,
+        //            ClaimType = Authorize.Claims.ClaimAccountSchema,
+        //            ClaimValue = ((int)accountSchema).ToString()
+        //        });
+        //    }
 
-            var defaultAccountSchema = await GetDefaultAccountSchema(appUser);
-            if (defaultAccountSchema == null)
-                appUser.Claims.Add(new AppUserClaim
-                {
-                    UserId = appUser.Id,
-                    ClaimType = Authorize.Claims.ClaimDefaultSchema,
-                    ClaimValue = ((int)Authorize.AccountLevel.company).ToString()
-                });
-            await _userManager.UpdateAsync(appUser);
-        }
+        //    var defaultAccountSchema = await GetDefaultAccountSchema(appUser);
+        //    if (defaultAccountSchema == null)
+        //        appUser.Claims.Add(new AppUserClaim
+        //        {
+        //            UserId = appUser.Id,
+        //            ClaimType = Authorize.Claims.ClaimDefaultSchema,
+        //            ClaimValue = ((int)Authorize.AccountLevel.company).ToString()
+        //        });
+        //    await _userManager.UpdateAsync(appUser);
+        //}
 
         /// <summary>
         /// modified company manager roles by condition 
@@ -477,112 +555,112 @@ namespace _1U_ASP.Security.Service
         /// <param name="appUser"></param>
         /// <param name="accountId"></param>
         /// <returns></returns>
-        public async Task DeleteCompanyManagerRolesAndClaims(
-            AppUser appUser,
-            int accountId)
-        {
-            var rolesToRemove = new List<string> { Authorize.Roles.CompanyOwner, Authorize.Roles.CompanyAdmin, Authorize.Roles.CompanyManager };
+        //public async Task DeleteCompanyManagerRolesAndClaims(
+        //    AppUser appUser,
+        //    int accountId)
+        //{
+        //    var rolesToRemove = new List<string> { Authorize.Roles.CompanyOwner, Authorize.Roles.CompanyAdmin, Authorize.Roles.CompanyManager };
 
-            var accountIdUserClaim = await GetAccountIdClaim(
-                appUser,
-                accountId);
+        //    var accountIdUserClaim = await GetAccountIdClaim(
+        //        appUser,
+        //        accountId);
 
-            var companyOwnerRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CompanyOwner).First();
-            var companyAdminRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CompanyAdmin).First();
-            var companyManagerRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CompanyManager).First();
+        //    var companyOwnerRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CompanyOwner).First();
+        //    var companyAdminRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CompanyAdmin).First();
+        //    var companyManagerRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CompanyManager).First();
 
-            var otherAccountIdClaims = appUser.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimAccountId && x.ClaimValue != accountId.ToString()).ToList();
+        //    var otherAccountIdClaims = appUser.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimAccountId && x.ClaimValue != accountId.ToString()).ToList();
 
-            if (otherAccountIdClaims.Count > 0)
-            {
-                foreach (var accountClaim in otherAccountIdClaims)
-                {
-                    var userClaimRole = accountClaim.UserClaimRoles.Where(x => x.RoleId == companyOwnerRole.Id).FirstOrDefault();
-                    if (userClaimRole != null)
-                        rolesToRemove.Remove(userClaimRole.Role.Name);
-                    var userClaimRole1 = accountClaim.UserClaimRoles.Where(x => x.RoleId == companyAdminRole.Id).FirstOrDefault();
-                    if (userClaimRole1 != null)
-                        rolesToRemove.Remove(userClaimRole1.Role.Name);
-                    var userClaimRole2 = accountClaim.UserClaimRoles.Where(x => x.RoleId == companyManagerRole.Id).FirstOrDefault();
-                    if (userClaimRole2 != null)
-                        rolesToRemove.Remove(userClaimRole2.Role.Name);
-                }
-            }
+        //    if (otherAccountIdClaims.Count > 0)
+        //    {
+        //        foreach (var accountClaim in otherAccountIdClaims)
+        //        {
+        //            var userClaimRole = accountClaim.UserClaimRoles.Where(x => x.RoleId == companyOwnerRole.Id).FirstOrDefault();
+        //            if (userClaimRole != null)
+        //                rolesToRemove.Remove(userClaimRole.Role.Name);
+        //            var userClaimRole1 = accountClaim.UserClaimRoles.Where(x => x.RoleId == companyAdminRole.Id).FirstOrDefault();
+        //            if (userClaimRole1 != null)
+        //                rolesToRemove.Remove(userClaimRole1.Role.Name);
+        //            var userClaimRole2 = accountClaim.UserClaimRoles.Where(x => x.RoleId == companyManagerRole.Id).FirstOrDefault();
+        //            if (userClaimRole2 != null)
+        //                rolesToRemove.Remove(userClaimRole2.Role.Name);
+        //        }
+        //    }
 
-            if (rolesToRemove.Count > 0)
-            {
-                foreach (var roleToRemove in rolesToRemove)
-                {
-                    if (appUser.UserRoles.Where(x => x.Role.Name == roleToRemove).FirstOrDefault() != null)
-                        await _userManager.RemoveFromRoleAsync(appUser, roleToRemove);
-                }
-            }
+        //    if (rolesToRemove.Count > 0)
+        //    {
+        //        foreach (var roleToRemove in rolesToRemove)
+        //        {
+        //            if (appUser.UserRoles.Where(x => x.Role.Name == roleToRemove).FirstOrDefault() != null)
+        //                await _userManager.RemoveFromRoleAsync(appUser, roleToRemove);
+        //        }
+        //    }
 
-            appUser = await GetFullUserById(appUser.Id);
+        //    appUser = await GetFullUserById(appUser.Id);
 
-            var accountUserClaimCompanyOwnerRole = accountIdUserClaim.UserClaimRoles.Where(x => x.RoleId == companyOwnerRole.Id).FirstOrDefault();
-            if (accountUserClaimCompanyOwnerRole != null)
-                accountIdUserClaim.UserClaimRoles.Remove(accountUserClaimCompanyOwnerRole);
-            var accountUserClaimCompanyAdminRole = accountIdUserClaim.UserClaimRoles.Where(x => x.RoleId == companyAdminRole.Id).FirstOrDefault();
-            if (accountUserClaimCompanyAdminRole != null)
-                accountIdUserClaim.UserClaimRoles.Remove(accountUserClaimCompanyAdminRole);
-            var accountUserClaimCompanyManagerRole = accountIdUserClaim.UserClaimRoles.Where(x => x.RoleId == companyManagerRole.Id).FirstOrDefault();
-            if (accountUserClaimCompanyManagerRole != null)
-                accountIdUserClaim.UserClaimRoles.Remove(accountUserClaimCompanyManagerRole);
+        //    var accountUserClaimCompanyOwnerRole = accountIdUserClaim.UserClaimRoles.Where(x => x.RoleId == companyOwnerRole.Id).FirstOrDefault();
+        //    if (accountUserClaimCompanyOwnerRole != null)
+        //        accountIdUserClaim.UserClaimRoles.Remove(accountUserClaimCompanyOwnerRole);
+        //    var accountUserClaimCompanyAdminRole = accountIdUserClaim.UserClaimRoles.Where(x => x.RoleId == companyAdminRole.Id).FirstOrDefault();
+        //    if (accountUserClaimCompanyAdminRole != null)
+        //        accountIdUserClaim.UserClaimRoles.Remove(accountUserClaimCompanyAdminRole);
+        //    var accountUserClaimCompanyManagerRole = accountIdUserClaim.UserClaimRoles.Where(x => x.RoleId == companyManagerRole.Id).FirstOrDefault();
+        //    if (accountUserClaimCompanyManagerRole != null)
+        //        accountIdUserClaim.UserClaimRoles.Remove(accountUserClaimCompanyManagerRole);
 
-            appUser.Claims.Remove(accountIdUserClaim);
+        //    appUser.Claims.Remove(accountIdUserClaim);
 
-            await _userManager.UpdateAsync(appUser);
-            appUser = await GetFullUserById(appUser.Id);
+        //    await _userManager.UpdateAsync(appUser);
+        //    appUser = await GetFullUserById(appUser.Id);
 
-            if (otherAccountIdClaims.Count < 1)
-            {
-                var accountSchemaClaim = await GetAccountSchema(appUser);
-                appUser.Claims.Remove(accountSchemaClaim);
-                var accountSchema = (Authorize.AccountLevel)Convert.ToInt32(accountSchemaClaim.ClaimValue);
-                accountSchema ^= Authorize.AccountLevel.company;
-                appUser.Claims.Add(new AppUserClaim
-                {
-                    UserId = appUser.Id,
-                    ClaimType = Authorize.Claims.ClaimAccountSchema,
-                    ClaimValue = ((int)accountSchema).ToString()
-                });
-            }
+        //    if (otherAccountIdClaims.Count < 1)
+        //    {
+        //        var accountSchemaClaim = await GetAccountSchema(appUser);
+        //        appUser.Claims.Remove(accountSchemaClaim);
+        //        var accountSchema = (Authorize.AccountLevel)Convert.ToInt32(accountSchemaClaim.ClaimValue);
+        //        accountSchema ^= Authorize.AccountLevel.company;
+        //        appUser.Claims.Add(new AppUserClaim
+        //        {
+        //            UserId = appUser.Id,
+        //            ClaimType = Authorize.Claims.ClaimAccountSchema,
+        //            ClaimValue = ((int)accountSchema).ToString()
+        //        });
+        //    }
 
-            var defaultSchemaClaim = await GetDefaultAccountSchema(appUser);
-            var defaultSchema = (Authorize.AccountLevel)Convert.ToInt32(defaultSchemaClaim.ClaimValue);
-            if ((defaultSchema & Authorize.AccountLevel.company) == Authorize.AccountLevel.company)
-            {
-                appUser.Claims.Remove(defaultSchemaClaim);
-                appUser.Claims.Add(new AppUserClaim
-                {
-                    UserId = appUser.Id,
-                    ClaimType = Authorize.Claims.ClaimDefaultSchema,
-                    ClaimValue = ((int)Authorize.AccountLevel.jobseeker).ToString()
-                });
-            }
+        //    var defaultSchemaClaim = await GetDefaultAccountSchema(appUser);
+        //    var defaultSchema = (Authorize.AccountLevel)Convert.ToInt32(defaultSchemaClaim.ClaimValue);
+        //    if ((defaultSchema & Authorize.AccountLevel.company) == Authorize.AccountLevel.company)
+        //    {
+        //        appUser.Claims.Remove(defaultSchemaClaim);
+        //        appUser.Claims.Add(new AppUserClaim
+        //        {
+        //            UserId = appUser.Id,
+        //            ClaimType = Authorize.Claims.ClaimDefaultSchema,
+        //            ClaimValue = ((int)Authorize.AccountLevel.jobseeker).ToString()
+        //        });
+        //    }
 
-            var defaultAccountIdClaim = await GetDefaultAccountIdClaim(appUser);
-            if (defaultAccountIdClaim != null)
-            {
-                if (defaultAccountIdClaim.ClaimValue == accountId.ToString())
-                {
-                    appUser.Claims.Remove(defaultAccountIdClaim);
+        //    var defaultAccountIdClaim = await GetDefaultAccountIdClaim(appUser);
+        //    if (defaultAccountIdClaim != null)
+        //    {
+        //        if (defaultAccountIdClaim.ClaimValue == accountId.ToString())
+        //        {
+        //            appUser.Claims.Remove(defaultAccountIdClaim);
 
-                    if (otherAccountIdClaims.Count > 0)
-                    {
-                        appUser.Claims.Add(new AppUserClaim
-                        {
-                            UserId = appUser.Id,
-                            ClaimType = Authorize.Claims.ClaimDefaultAccountId,
-                            ClaimValue = otherAccountIdClaims.First().ClaimValue,
-                            ClaimProperty = otherAccountIdClaims.First().ClaimProperty
-                        });
-                    }
-                }
-            }
-            await _userManager.UpdateAsync(appUser);
-        }
+        //            if (otherAccountIdClaims.Count > 0)
+        //            {
+        //                appUser.Claims.Add(new AppUserClaim
+        //                {
+        //                    UserId = appUser.Id,
+        //                    ClaimType = Authorize.Claims.ClaimDefaultAccountId,
+        //                    ClaimValue = otherAccountIdClaims.First().ClaimValue,
+        //                    ClaimProperty = otherAccountIdClaims.First().ClaimProperty
+        //                });
+        //            }
+        //        }
+        //    }
+        //    await _userManager.UpdateAsync(appUser);
+        //}
 
         /// <summary>
         /// activated company claims
@@ -591,52 +669,52 @@ namespace _1U_ASP.Security.Service
         /// <param name="accountId"></param>
         /// <param name="companyName"></param>
         /// <returns></returns>
-        public async Task ActivateClaimsCompanyManager(
-            AppUser appUser,
-            int accountId,
-            string companyName)
-        {
-            var accountIdClaim = await GetAccountIdClaim(
-                appUser,
-                accountId);
-            if (accountIdClaim == null)
-            {
-                appUser.Claims.Add(new AppUserClaim
-                {
-                    UserId = appUser.Id,
-                    ClaimType = Authorize.Claims.ClaimAccountId,
-                    ClaimValue = accountId.ToString(),
-                    ClaimProperty = companyName
-                });
-            }
+        //public async Task ActivateClaimsCompanyManager(
+        //    AppUser appUser,
+        //    int accountId,
+        //    string companyName)
+        //{
+        //    var accountIdClaim = await GetAccountIdClaim(
+        //        appUser,
+        //        accountId);
+        //    if (accountIdClaim == null)
+        //    {
+        //        appUser.Claims.Add(new AppUserClaim
+        //        {
+        //            UserId = appUser.Id,
+        //            ClaimType = Authorize.Claims.ClaimAccountId,
+        //            ClaimValue = accountId.ToString(),
+        //            ClaimProperty = companyName
+        //        });
+        //    }
 
-            var defaultAccountIdClaim = await GetDefaultAccountIdClaim(appUser);
-            if (defaultAccountIdClaim == null)
-                appUser.Claims.Add(new AppUserClaim
-                {
-                    UserId = appUser.Id,
-                    ClaimType = Authorize.Claims.ClaimDefaultAccountId,
-                    ClaimValue = accountId.ToString(),
-                    ClaimProperty = companyName
-                });
+        //    var defaultAccountIdClaim = await GetDefaultAccountIdClaim(appUser);
+        //    if (defaultAccountIdClaim == null)
+        //        appUser.Claims.Add(new AppUserClaim
+        //        {
+        //            UserId = appUser.Id,
+        //            ClaimType = Authorize.Claims.ClaimDefaultAccountId,
+        //            ClaimValue = accountId.ToString(),
+        //            ClaimProperty = companyName
+        //        });
 
-            var accountSchemaClaim = await GetAccountSchema(appUser);
-            var accountSchema = (Authorize.AccountLevel)Convert.ToInt32(accountSchemaClaim.ClaimValue);
+        //    var accountSchemaClaim = await GetAccountSchema(appUser);
+        //    var accountSchema = (Authorize.AccountLevel)Convert.ToInt32(accountSchemaClaim.ClaimValue);
 
-            if (!((accountSchema & Authorize.AccountLevel.company) == Authorize.AccountLevel.company))
-            {
-                appUser.Claims.Remove(accountSchemaClaim);
-                accountSchema |= Authorize.AccountLevel.company;
-                appUser.Claims.Add(new AppUserClaim
-                {
-                    UserId = appUser.Id,
-                    ClaimType = Authorize.Claims.ClaimAccountSchema,
-                    ClaimValue = ((int)accountSchema).ToString()
-                });
-            }
+        //    if (!((accountSchema & Authorize.AccountLevel.company) == Authorize.AccountLevel.company))
+        //    {
+        //        appUser.Claims.Remove(accountSchemaClaim);
+        //        accountSchema |= Authorize.AccountLevel.company;
+        //        appUser.Claims.Add(new AppUserClaim
+        //        {
+        //            UserId = appUser.Id,
+        //            ClaimType = Authorize.Claims.ClaimAccountSchema,
+        //            ClaimValue = ((int)accountSchema).ToString()
+        //        });
+        //    }
 
-            await _userManager.UpdateAsync(appUser);
-        }
+        //    await _userManager.UpdateAsync(appUser);
+        //}
         #endregion
 
         #region Customer
@@ -647,64 +725,64 @@ namespace _1U_ASP.Security.Service
         /// <param name="employerName"></param>
         /// <param name="employerId"></param>
         /// <returns></returns>
-        public async Task AddEmployerManagerClaims(
-            AppUser appUser,
-            string employerName,
-            int employerId)
-        {
-            var employerIdUserClaim = await GetEmployerIdClaim(appUser, employerId);
-            if (employerIdUserClaim == null)
-            {
-                appUser.Claims.Add(new AppUserClaim
-                {
-                    UserId = appUser.Id,
-                    ClaimType = Authorize.Claims.ClaimEmployerId,
-                    ClaimValue = employerId.ToString(),
-                    ClaimProperty = employerName
-                });
-            }
+        //public async Task AddEmployerManagerClaims(
+        //    AppUser appUser,
+        //    string employerName,
+        //    int employerId)
+        //{
+        //    var employerIdUserClaim = await GetEmployerIdClaim(appUser, employerId);
+        //    if (employerIdUserClaim == null)
+        //    {
+        //        appUser.Claims.Add(new AppUserClaim
+        //        {
+        //            UserId = appUser.Id,
+        //            ClaimType = Authorize.Claims.ClaimEmployerId,
+        //            ClaimValue = employerId.ToString(),
+        //            ClaimProperty = employerName
+        //        });
+        //    }
 
-            var defaultEmployerIdClaim = await GetDefaultEmployerIdClaim(appUser);
-            if (defaultEmployerIdClaim == null)
-                appUser.Claims.Add(new AppUserClaim
-                {
-                    UserId = appUser.Id,
-                    ClaimType = Authorize.Claims.ClaimDefaultEmployerId,
-                    ClaimValue = employerId.ToString(),
-                    ClaimProperty = employerName
-                });
+        //    var defaultEmployerIdClaim = await GetDefaultEmployerIdClaim(appUser);
+        //    if (defaultEmployerIdClaim == null)
+        //        appUser.Claims.Add(new AppUserClaim
+        //        {
+        //            UserId = appUser.Id,
+        //            ClaimType = Authorize.Claims.ClaimDefaultEmployerId,
+        //            ClaimValue = employerId.ToString(),
+        //            ClaimProperty = employerName
+        //        });
 
-            var accountSchemaClaim = await GetAccountSchema(appUser);
-            if (accountSchemaClaim == null)
-            {
-                await AddJobSeekerAccount(appUser);
-                appUser = await GetFullUserById(appUser.Id);
-                accountSchemaClaim = await GetAccountSchema(appUser);
-            }
+        //    var accountSchemaClaim = await GetAccountSchema(appUser);
+        //    if (accountSchemaClaim == null)
+        //    {
+        //        await AddJobSeekerAccount(appUser);
+        //        appUser = await GetFullUserById(appUser.Id);
+        //        accountSchemaClaim = await GetAccountSchema(appUser);
+        //    }
 
-            var accountSchema = (Authorize.AccountLevel)Convert.ToInt32(accountSchemaClaim.ClaimValue);
-            if (!((accountSchema & Authorize.AccountLevel.customer) == Authorize.AccountLevel.customer))
-            {
-                appUser.Claims.Remove(accountSchemaClaim);
-                accountSchema |= Authorize.AccountLevel.customer;
-                appUser.Claims.Add(new AppUserClaim
-                {
-                    UserId = appUser.Id,
-                    ClaimType = Authorize.Claims.ClaimAccountSchema,
-                    ClaimValue = ((int)accountSchema).ToString()
-                });
-            }
+        //    var accountSchema = (Authorize.AccountLevel)Convert.ToInt32(accountSchemaClaim.ClaimValue);
+        //    if (!((accountSchema & Authorize.AccountLevel.customer) == Authorize.AccountLevel.customer))
+        //    {
+        //        appUser.Claims.Remove(accountSchemaClaim);
+        //        accountSchema |= Authorize.AccountLevel.customer;
+        //        appUser.Claims.Add(new AppUserClaim
+        //        {
+        //            UserId = appUser.Id,
+        //            ClaimType = Authorize.Claims.ClaimAccountSchema,
+        //            ClaimValue = ((int)accountSchema).ToString()
+        //        });
+        //    }
 
-            var defaultAccountSchema = await GetDefaultAccountSchema(appUser);
-            if (defaultAccountSchema == null)
-                appUser.Claims.Add(new AppUserClaim
-                {
-                    UserId = appUser.Id,
-                    ClaimType = Authorize.Claims.ClaimDefaultSchema,
-                    ClaimValue = ((int)Authorize.AccountLevel.customer).ToString()
-                });
-            await _userManager.UpdateAsync(appUser);
-        }
+        //    var defaultAccountSchema = await GetDefaultAccountSchema(appUser);
+        //    if (defaultAccountSchema == null)
+        //        appUser.Claims.Add(new AppUserClaim
+        //        {
+        //            UserId = appUser.Id,
+        //            ClaimType = Authorize.Claims.ClaimDefaultSchema,
+        //            ClaimValue = ((int)Authorize.AccountLevel.customer).ToString()
+        //        });
+        //    await _userManager.UpdateAsync(appUser);
+        //}
 
         /// <summary>
         /// modified customer manager roles by condition 
@@ -713,76 +791,76 @@ namespace _1U_ASP.Security.Service
         /// <param name="employerId"></param>
         /// <param name="appUser"></param>
         /// <returns></returns>
-        public async Task RoleUpdateEmployerManager(
-            string adminLevel,
-            int employerId,
-            AppUser appUser)
-        {
-            var employerIdUserClaim = await GetEmployerIdClaim(
-                appUser,
-                employerId);
+        //public async Task RoleUpdateEmployerManager(
+        //    string adminLevel,
+        //    int employerId,
+        //    AppUser appUser)
+        //{
+        //    var employerIdUserClaim = await GetEmployerIdClaim(
+        //        appUser,
+        //        employerId);
 
-            var customerOwnerRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CustomerOwner).First();
-            var customerAdminRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CustomerAdmin).First();
-            var customerAdminManagerRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CustomerAdminManager).First();
-            var customerManagerRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CustomerManager).First();
+        //    var customerOwnerRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CustomerOwner).First();
+        //    var customerAdminRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CustomerAdmin).First();
+        //    var customerAdminManagerRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CustomerAdminManager).First();
+        //    var customerManagerRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CustomerManager).First();
 
-            switch (adminLevel)
-            {
-                case SystemMessage.CustomerOwner:
-                    await AddRoleToUser(appUser, customerOwnerRole.Name);
-                    await AddRoleToUser(appUser, customerAdminRole.Name);
-                    await AddRoleToUser(appUser, customerAdminManagerRole.Name);
-                    await AddRoleToUser(appUser, customerManagerRole.Name);
+        //    switch (adminLevel)
+        //    {
+        //        case SystemMessage.CustomerOwner:
+        //            await AddRoleToUser(appUser, customerOwnerRole.Name);
+        //            await AddRoleToUser(appUser, customerAdminRole.Name);
+        //            await AddRoleToUser(appUser, customerAdminManagerRole.Name);
+        //            await AddRoleToUser(appUser, customerManagerRole.Name);
 
-                    AddRoleClaimToClaim(employerIdUserClaim, customerOwnerRole.Id);
-                    AddRoleClaimToClaim(employerIdUserClaim, customerAdminRole.Id);
-                    AddRoleClaimToClaim(employerIdUserClaim, customerAdminManagerRole.Id);
-                    AddRoleClaimToClaim(employerIdUserClaim, customerManagerRole.Id);
+        //            AddRoleClaimToClaim(employerIdUserClaim, customerOwnerRole.Id);
+        //            AddRoleClaimToClaim(employerIdUserClaim, customerAdminRole.Id);
+        //            AddRoleClaimToClaim(employerIdUserClaim, customerAdminManagerRole.Id);
+        //            AddRoleClaimToClaim(employerIdUserClaim, customerManagerRole.Id);
 
-                    break;
+        //            break;
 
-                case SystemMessage.CustomerExecutive:
-                    await RemoveRoleFromUser(appUser, customerOwnerRole.Name);
-                    await AddRoleToUser(appUser, customerAdminRole.Name);
-                    await AddRoleToUser(appUser, customerAdminManagerRole.Name);
-                    await RemoveRoleFromUser(appUser, customerManagerRole.Name);
+        //        case SystemMessage.CustomerExecutive:
+        //            await RemoveRoleFromUser(appUser, customerOwnerRole.Name);
+        //            await AddRoleToUser(appUser, customerAdminRole.Name);
+        //            await AddRoleToUser(appUser, customerAdminManagerRole.Name);
+        //            await RemoveRoleFromUser(appUser, customerManagerRole.Name);
 
-                    RemoveRoleClaimFromClaim(employerIdUserClaim, customerOwnerRole.Id);
-                    AddRoleClaimToClaim(employerIdUserClaim, customerAdminRole.Id);
-                    AddRoleClaimToClaim(employerIdUserClaim, customerAdminManagerRole.Id);
-                    RemoveRoleClaimFromClaim(employerIdUserClaim, customerManagerRole.Id);
+        //            RemoveRoleClaimFromClaim(employerIdUserClaim, customerOwnerRole.Id);
+        //            AddRoleClaimToClaim(employerIdUserClaim, customerAdminRole.Id);
+        //            AddRoleClaimToClaim(employerIdUserClaim, customerAdminManagerRole.Id);
+        //            RemoveRoleClaimFromClaim(employerIdUserClaim, customerManagerRole.Id);
 
-                    break;
+        //            break;
 
-                case SystemMessage.CustomerExecutiveManager:
-                    await RemoveRoleFromUser(appUser, customerOwnerRole.Name);
-                    await RemoveRoleFromUser(appUser, customerAdminRole.Name);
-                    await AddRoleToUser(appUser, customerAdminManagerRole.Name);
-                    await RemoveRoleFromUser(appUser, customerManagerRole.Name);
+        //        case SystemMessage.CustomerExecutiveManager:
+        //            await RemoveRoleFromUser(appUser, customerOwnerRole.Name);
+        //            await RemoveRoleFromUser(appUser, customerAdminRole.Name);
+        //            await AddRoleToUser(appUser, customerAdminManagerRole.Name);
+        //            await RemoveRoleFromUser(appUser, customerManagerRole.Name);
 
-                    RemoveRoleClaimFromClaim(employerIdUserClaim, customerOwnerRole.Id);
-                    RemoveRoleClaimFromClaim(employerIdUserClaim, customerAdminRole.Id);
-                    AddRoleClaimToClaim(employerIdUserClaim, customerAdminManagerRole.Id);
-                    RemoveRoleClaimFromClaim(employerIdUserClaim, customerManagerRole.Id);
+        //            RemoveRoleClaimFromClaim(employerIdUserClaim, customerOwnerRole.Id);
+        //            RemoveRoleClaimFromClaim(employerIdUserClaim, customerAdminRole.Id);
+        //            AddRoleClaimToClaim(employerIdUserClaim, customerAdminManagerRole.Id);
+        //            RemoveRoleClaimFromClaim(employerIdUserClaim, customerManagerRole.Id);
 
-                    break;
+        //            break;
 
-                case SystemMessage.CustomerAssistant:
-                    await RemoveRoleFromUser(appUser, customerOwnerRole.Name);
-                    await RemoveRoleFromUser(appUser, customerAdminRole.Name);
-                    await RemoveRoleFromUser(appUser, customerAdminManagerRole.Name);
-                    await AddRoleToUser(appUser, customerManagerRole.Name);
+        //        case SystemMessage.CustomerAssistant:
+        //            await RemoveRoleFromUser(appUser, customerOwnerRole.Name);
+        //            await RemoveRoleFromUser(appUser, customerAdminRole.Name);
+        //            await RemoveRoleFromUser(appUser, customerAdminManagerRole.Name);
+        //            await AddRoleToUser(appUser, customerManagerRole.Name);
 
-                    RemoveRoleClaimFromClaim(employerIdUserClaim, customerOwnerRole.Id);
-                    RemoveRoleClaimFromClaim(employerIdUserClaim, customerAdminRole.Id);
-                    RemoveRoleClaimFromClaim(employerIdUserClaim, customerAdminManagerRole.Id);
-                    AddRoleClaimToClaim(employerIdUserClaim, customerManagerRole.Id);
+        //            RemoveRoleClaimFromClaim(employerIdUserClaim, customerOwnerRole.Id);
+        //            RemoveRoleClaimFromClaim(employerIdUserClaim, customerAdminRole.Id);
+        //            RemoveRoleClaimFromClaim(employerIdUserClaim, customerAdminManagerRole.Id);
+        //            AddRoleClaimToClaim(employerIdUserClaim, customerManagerRole.Id);
 
-                    break;
-            }
-            await _userManager.UpdateAsync(appUser);
-        }
+        //            break;
+        //    }
+        //    await _userManager.UpdateAsync(appUser);
+        //}
 
         /// <summary>
         /// removed roles and claims
@@ -790,122 +868,122 @@ namespace _1U_ASP.Security.Service
         /// <param name="appUser"></param>
         /// <param name="employerId"></param>
         /// <returns></returns>
-        public async Task DeleteEmployerManagerRolesAndClaims(
-            AppUser appUser,
-            int employerId)
-        {
-            var rolesToRemove = new List<string> { Authorize.Roles.CustomerOwner, Authorize.Roles.CustomerAdmin, Authorize.Roles.CustomerAdminManager, Authorize.Roles.CustomerManager };
+        //public async Task DeleteEmployerManagerRolesAndClaims(
+        //    AppUser appUser,
+        //    int employerId)
+        //{
+        //    var rolesToRemove = new List<string> { Authorize.Roles.CustomerOwner, Authorize.Roles.CustomerAdmin, Authorize.Roles.CustomerAdminManager, Authorize.Roles.CustomerManager };
 
-            var employerIdUserClaim = await GetEmployerIdClaim(
-                appUser,
-                employerId);
+        //    var employerIdUserClaim = await GetEmployerIdClaim(
+        //        appUser,
+        //        employerId);
 
-            var customerOwnerRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CustomerOwner).First();
-            var customerAdminRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CustomerAdmin).First();
-            var customerAdminManagerRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CustomerAdminManager).First();
-            var customerManagerRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CustomerManager).First();
-            var employeeRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.Employee).First();
+        //    var customerOwnerRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CustomerOwner).First();
+        //    var customerAdminRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CustomerAdmin).First();
+        //    var customerAdminManagerRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CustomerAdminManager).First();
+        //    var customerManagerRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CustomerManager).First();
+        //    var employeeRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.Employee).First();
 
-            var otherEmployerIdClaims = appUser.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimEmployerId && x.ClaimValue != employerId.ToString()).ToList();
+        //    var otherEmployerIdClaims = appUser.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimEmployerId && x.ClaimValue != employerId.ToString()).ToList();
 
-            if (otherEmployerIdClaims.Count > 0)
-            {
-                foreach (var employerClaim in otherEmployerIdClaims)
-                {
-                    var userClaimRole = employerClaim.UserClaimRoles.Where(x => x.RoleId == customerOwnerRole.Id).FirstOrDefault();
-                    if (rolesToRemove.Contains(userClaimRole.Role.Name))
-                        rolesToRemove.Remove(userClaimRole.Role.Name);
-                    var userClaimRole1 = employerClaim.UserClaimRoles.Where(x => x.RoleId == customerAdminRole.Id).FirstOrDefault();
-                    if (rolesToRemove.Contains(userClaimRole1.Role.Name))
-                        rolesToRemove.Remove(userClaimRole1.Role.Name);
-                    var userClaimRole2 = employerClaim.UserClaimRoles.Where(x => x.RoleId == customerAdminManagerRole.Id).FirstOrDefault();
-                    if (rolesToRemove.Contains(userClaimRole2.Role.Name))
-                        rolesToRemove.Remove(userClaimRole2.Role.Name);
-                    var userClaimRole3 = employerClaim.UserClaimRoles.Where(x => x.RoleId == customerManagerRole.Id).FirstOrDefault();
-                    if (rolesToRemove.Contains(userClaimRole3.Role.Name))
-                        rolesToRemove.Remove(userClaimRole3.Role.Name);
-                }
-            }
+        //    if (otherEmployerIdClaims.Count > 0)
+        //    {
+        //        foreach (var employerClaim in otherEmployerIdClaims)
+        //        {
+        //            var userClaimRole = employerClaim.UserClaimRoles.Where(x => x.RoleId == customerOwnerRole.Id).FirstOrDefault();
+        //            if (rolesToRemove.Contains(userClaimRole.Role.Name))
+        //                rolesToRemove.Remove(userClaimRole.Role.Name);
+        //            var userClaimRole1 = employerClaim.UserClaimRoles.Where(x => x.RoleId == customerAdminRole.Id).FirstOrDefault();
+        //            if (rolesToRemove.Contains(userClaimRole1.Role.Name))
+        //                rolesToRemove.Remove(userClaimRole1.Role.Name);
+        //            var userClaimRole2 = employerClaim.UserClaimRoles.Where(x => x.RoleId == customerAdminManagerRole.Id).FirstOrDefault();
+        //            if (rolesToRemove.Contains(userClaimRole2.Role.Name))
+        //                rolesToRemove.Remove(userClaimRole2.Role.Name);
+        //            var userClaimRole3 = employerClaim.UserClaimRoles.Where(x => x.RoleId == customerManagerRole.Id).FirstOrDefault();
+        //            if (rolesToRemove.Contains(userClaimRole3.Role.Name))
+        //                rolesToRemove.Remove(userClaimRole3.Role.Name);
+        //        }
+        //    }
 
-            if (rolesToRemove.Count > 0)
-            {
-                foreach (var roleToRemove in rolesToRemove)
-                {
-                    if (appUser.UserRoles.Where(x => x.Role.Name == roleToRemove).FirstOrDefault() != null)
-                        await _userManager.RemoveFromRoleAsync(appUser, roleToRemove);
-                }
-            }
+        //    if (rolesToRemove.Count > 0)
+        //    {
+        //        foreach (var roleToRemove in rolesToRemove)
+        //        {
+        //            if (appUser.UserRoles.Where(x => x.Role.Name == roleToRemove).FirstOrDefault() != null)
+        //                await _userManager.RemoveFromRoleAsync(appUser, roleToRemove);
+        //        }
+        //    }
 
-            appUser = await GetFullUserById(appUser.Id);
+        //    appUser = await GetFullUserById(appUser.Id);
 
-            var employerUserClaimCustomerOwnerRole = employerIdUserClaim.UserClaimRoles.Where(x => x.RoleId == customerOwnerRole.Id).FirstOrDefault();
-            if (employerUserClaimCustomerOwnerRole != null)
-                employerIdUserClaim.UserClaimRoles.Remove(employerUserClaimCustomerOwnerRole);
-            var employerUserClaimCustomerAdminRole = employerIdUserClaim.UserClaimRoles.Where(x => x.RoleId == customerAdminRole.Id).FirstOrDefault();
-            if (employerUserClaimCustomerAdminRole != null)
-                employerIdUserClaim.UserClaimRoles.Remove(employerUserClaimCustomerAdminRole);
-            var employerUserClaimCustomerAdminManagerRole = employerIdUserClaim.UserClaimRoles.Where(x => x.RoleId == customerAdminManagerRole.Id).FirstOrDefault();
-            if (employerUserClaimCustomerAdminManagerRole != null)
-                employerIdUserClaim.UserClaimRoles.Remove(employerUserClaimCustomerAdminManagerRole);
-            var employerUserClaimCustomerManagerRole = employerIdUserClaim.UserClaimRoles.Where(x => x.RoleId == customerManagerRole.Id).FirstOrDefault();
-            if (employerUserClaimCustomerManagerRole != null)
-                employerIdUserClaim.UserClaimRoles.Remove(employerUserClaimCustomerManagerRole);
+        //    var employerUserClaimCustomerOwnerRole = employerIdUserClaim.UserClaimRoles.Where(x => x.RoleId == customerOwnerRole.Id).FirstOrDefault();
+        //    if (employerUserClaimCustomerOwnerRole != null)
+        //        employerIdUserClaim.UserClaimRoles.Remove(employerUserClaimCustomerOwnerRole);
+        //    var employerUserClaimCustomerAdminRole = employerIdUserClaim.UserClaimRoles.Where(x => x.RoleId == customerAdminRole.Id).FirstOrDefault();
+        //    if (employerUserClaimCustomerAdminRole != null)
+        //        employerIdUserClaim.UserClaimRoles.Remove(employerUserClaimCustomerAdminRole);
+        //    var employerUserClaimCustomerAdminManagerRole = employerIdUserClaim.UserClaimRoles.Where(x => x.RoleId == customerAdminManagerRole.Id).FirstOrDefault();
+        //    if (employerUserClaimCustomerAdminManagerRole != null)
+        //        employerIdUserClaim.UserClaimRoles.Remove(employerUserClaimCustomerAdminManagerRole);
+        //    var employerUserClaimCustomerManagerRole = employerIdUserClaim.UserClaimRoles.Where(x => x.RoleId == customerManagerRole.Id).FirstOrDefault();
+        //    if (employerUserClaimCustomerManagerRole != null)
+        //        employerIdUserClaim.UserClaimRoles.Remove(employerUserClaimCustomerManagerRole);
 
-            var employerUserClaimEmployeeRole = employerIdUserClaim.UserClaimRoles.Where(x => x.RoleId == employeeRole.Id).FirstOrDefault();
-            if (employerUserClaimEmployeeRole == null)
-                appUser.Claims.Remove(employerIdUserClaim);
+        //    var employerUserClaimEmployeeRole = employerIdUserClaim.UserClaimRoles.Where(x => x.RoleId == employeeRole.Id).FirstOrDefault();
+        //    if (employerUserClaimEmployeeRole == null)
+        //        appUser.Claims.Remove(employerIdUserClaim);
 
-            await _userManager.UpdateAsync(appUser);
-            appUser = await GetFullUserById(appUser.Id);
+        //    await _userManager.UpdateAsync(appUser);
+        //    appUser = await GetFullUserById(appUser.Id);
 
-            if (otherEmployerIdClaims.Count < 1)
-            {
-                var accountIdSchemaClaim = await GetAccountSchema(appUser);
-                appUser.Claims.Remove(accountIdSchemaClaim);
-                var accountSchema = (Authorize.AccountLevel)Convert.ToInt32(accountIdSchemaClaim.ClaimValue);
-                accountSchema ^= Authorize.AccountLevel.customer;
-                appUser.Claims.Add(new AppUserClaim
-                {
-                    UserId = appUser.Id,
-                    ClaimType = Authorize.Claims.ClaimAccountSchema,
-                    ClaimValue = ((int)accountSchema).ToString()
-                });
-            }
+        //    if (otherEmployerIdClaims.Count < 1)
+        //    {
+        //        var accountIdSchemaClaim = await GetAccountSchema(appUser);
+        //        appUser.Claims.Remove(accountIdSchemaClaim);
+        //        var accountSchema = (Authorize.AccountLevel)Convert.ToInt32(accountIdSchemaClaim.ClaimValue);
+        //        accountSchema ^= Authorize.AccountLevel.customer;
+        //        appUser.Claims.Add(new AppUserClaim
+        //        {
+        //            UserId = appUser.Id,
+        //            ClaimType = Authorize.Claims.ClaimAccountSchema,
+        //            ClaimValue = ((int)accountSchema).ToString()
+        //        });
+        //    }
 
-            var defaultSchemaClaim = await GetDefaultAccountSchema(appUser);
-            var defaultSchema = (Authorize.AccountLevel)Convert.ToInt32(defaultSchemaClaim.ClaimValue);
-            if ((defaultSchema & Authorize.AccountLevel.customer) == Authorize.AccountLevel.customer)
-            {
-                appUser.Claims.Remove(defaultSchemaClaim);
-                appUser.Claims.Add(new AppUserClaim
-                {
-                    UserId = appUser.Id,
-                    ClaimType = Authorize.Claims.ClaimDefaultSchema,
-                    ClaimValue = ((int)Authorize.AccountLevel.jobseeker).ToString()
-                });
-            }
+        //    var defaultSchemaClaim = await GetDefaultAccountSchema(appUser);
+        //    var defaultSchema = (Authorize.AccountLevel)Convert.ToInt32(defaultSchemaClaim.ClaimValue);
+        //    if ((defaultSchema & Authorize.AccountLevel.customer) == Authorize.AccountLevel.customer)
+        //    {
+        //        appUser.Claims.Remove(defaultSchemaClaim);
+        //        appUser.Claims.Add(new AppUserClaim
+        //        {
+        //            UserId = appUser.Id,
+        //            ClaimType = Authorize.Claims.ClaimDefaultSchema,
+        //            ClaimValue = ((int)Authorize.AccountLevel.jobseeker).ToString()
+        //        });
+        //    }
 
-            var defaultEmployerIdClaim = await GetDefaultEmployerIdClaim(appUser);
-            if (defaultEmployerIdClaim != null)
-            {
-                if (defaultEmployerIdClaim.ClaimValue == employerId.ToString())
-                {
-                    if (employerUserClaimEmployeeRole == null)
-                        appUser.Claims.Remove(defaultEmployerIdClaim);
+        //    var defaultEmployerIdClaim = await GetDefaultEmployerIdClaim(appUser);
+        //    if (defaultEmployerIdClaim != null)
+        //    {
+        //        if (defaultEmployerIdClaim.ClaimValue == employerId.ToString())
+        //        {
+        //            if (employerUserClaimEmployeeRole == null)
+        //                appUser.Claims.Remove(defaultEmployerIdClaim);
 
-                    if (otherEmployerIdClaims.Count > 0)
-                    {
-                        appUser.Claims.Add(new AppUserClaim
-                        {
-                            UserId = appUser.Id,
-                            ClaimType = Authorize.Claims.ClaimDefaultEmployerId,
-                            ClaimValue = otherEmployerIdClaims.First().ClaimValue
-                        });
-                    }
-                }
-            }
-            await _userManager.UpdateAsync(appUser);
-        }
+        //            if (otherEmployerIdClaims.Count > 0)
+        //            {
+        //                appUser.Claims.Add(new AppUserClaim
+        //                {
+        //                    UserId = appUser.Id,
+        //                    ClaimType = Authorize.Claims.ClaimDefaultEmployerId,
+        //                    ClaimValue = otherEmployerIdClaims.First().ClaimValue
+        //                });
+        //            }
+        //        }
+        //    }
+        //    await _userManager.UpdateAsync(appUser);
+        //}
 
         /// <summary>
         /// activated customer claims
@@ -914,52 +992,52 @@ namespace _1U_ASP.Security.Service
         /// <param name="employerName"></param>
         /// <param name="employerId"></param>
         /// <returns></returns>
-        public async Task ActivateClaimsEmployerManager(
-            AppUser appUser,
-            string employerName,
-            int employerId)
-        {
-            var employerIdClaim = await GetEmployerIdClaim(
-                appUser,
-                employerId);
-            if (employerIdClaim == null)
-            {
-                appUser.Claims.Add(new AppUserClaim
-                {
-                    UserId = appUser.Id,
-                    ClaimType = Authorize.Claims.ClaimEmployerId,
-                    ClaimValue = employerId.ToString(),
-                    ClaimProperty = employerName
-                });
-            }
+        //public async Task ActivateClaimsEmployerManager(
+        //    AppUser appUser,
+        //    string employerName,
+        //    int employerId)
+        //{
+        //    var employerIdClaim = await GetEmployerIdClaim(
+        //        appUser,
+        //        employerId);
+        //    if (employerIdClaim == null)
+        //    {
+        //        appUser.Claims.Add(new AppUserClaim
+        //        {
+        //            UserId = appUser.Id,
+        //            ClaimType = Authorize.Claims.ClaimEmployerId,
+        //            ClaimValue = employerId.ToString(),
+        //            ClaimProperty = employerName
+        //        });
+        //    }
 
-            var defaultEmployerIdClaim = await GetDefaultEmployerIdClaim(appUser);
-            if (defaultEmployerIdClaim == null)
-                appUser.Claims.Add(new AppUserClaim
-                {
-                    UserId = appUser.Id,
-                    ClaimType = Authorize.Claims.ClaimDefaultEmployerId,
-                    ClaimValue = employerId.ToString(),
-                    ClaimProperty = employerName
-                });
+        //    var defaultEmployerIdClaim = await GetDefaultEmployerIdClaim(appUser);
+        //    if (defaultEmployerIdClaim == null)
+        //        appUser.Claims.Add(new AppUserClaim
+        //        {
+        //            UserId = appUser.Id,
+        //            ClaimType = Authorize.Claims.ClaimDefaultEmployerId,
+        //            ClaimValue = employerId.ToString(),
+        //            ClaimProperty = employerName
+        //        });
 
-            var accountSchemaClaim = await GetAccountSchema(appUser);
-            var accountSchema = (Authorize.AccountLevel)Convert.ToInt32(accountSchemaClaim.ClaimValue);
+        //    var accountSchemaClaim = await GetAccountSchema(appUser);
+        //    var accountSchema = (Authorize.AccountLevel)Convert.ToInt32(accountSchemaClaim.ClaimValue);
 
-            if (!((accountSchema & Authorize.AccountLevel.customer) == Authorize.AccountLevel.customer))
-            {
-                appUser.Claims.Remove(accountSchemaClaim);
-                accountSchema |= Authorize.AccountLevel.customer;
-                appUser.Claims.Add(new AppUserClaim
-                {
-                    UserId = appUser.Id,
-                    ClaimType = Authorize.Claims.ClaimAccountSchema,
-                    ClaimValue = ((int)accountSchema).ToString()
-                });
-            }
+        //    if (!((accountSchema & Authorize.AccountLevel.customer) == Authorize.AccountLevel.customer))
+        //    {
+        //        appUser.Claims.Remove(accountSchemaClaim);
+        //        accountSchema |= Authorize.AccountLevel.customer;
+        //        appUser.Claims.Add(new AppUserClaim
+        //        {
+        //            UserId = appUser.Id,
+        //            ClaimType = Authorize.Claims.ClaimAccountSchema,
+        //            ClaimValue = ((int)accountSchema).ToString()
+        //        });
+        //    }
 
-            await _userManager.UpdateAsync(appUser);
-        }
+        //    await _userManager.UpdateAsync(appUser);
+        //}
         #endregion
 
         #region Global account schema 
@@ -968,161 +1046,161 @@ namespace _1U_ASP.Security.Service
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public async Task<List<PersonAccountLevel>> GetAccountSchemaSettings(
-            string userId)
-        {
-            var appUser = await GetFullUserById(userId);
-            var accountSchema = (Authorize.AccountLevel)Convert.ToInt32(appUser.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimAccountSchema).First().ClaimValue);
-            var defaultAccountSchema = (Authorize.AccountLevel)Convert.ToInt32(appUser.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimDefaultSchema).First().ClaimValue);
-            var result = new List<PersonAccountLevel>();
+        //public async Task<List<PersonAccountLevel>> GetAccountSchemaSettings(
+        //    string userId)
+        //{
+        //    var appUser = await GetFullUserById(userId);
+        //    var accountSchema = (Authorize.AccountLevel)Convert.ToInt32(appUser.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimAccountSchema).First().ClaimValue);
+        //    var defaultAccountSchema = (Authorize.AccountLevel)Convert.ToInt32(appUser.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimDefaultSchema).First().ClaimValue);
+        //    var result = new List<PersonAccountLevel>();
 
-            foreach (var level in Enum.GetValues(typeof(Authorize.AccountLevel)))
-            {
-                if ((Authorize.AccountLevel.none & (Authorize.AccountLevel)level) == (Authorize.AccountLevel)level)
-                    continue;
+        //    foreach (var level in Enum.GetValues(typeof(Authorize.AccountLevel)))
+        //    {
+        //        if ((Authorize.AccountLevel.none & (Authorize.AccountLevel)level) == (Authorize.AccountLevel)level)
+        //            continue;
 
-                if (((accountSchema & (Authorize.AccountLevel)level) == (Authorize.AccountLevel)level) &&
-                    (((Authorize.AccountLevel)level & Authorize.AccountLevel.admin) == Authorize.AccountLevel.admin))
-                {
-                    var accountLevel = new PersonAccountLevel
-                    {
-                        LevelName = ((Authorize.AccountLevel)level).ToString(),
-                        LevelCode = (int)(Authorize.AccountLevel)level
-                    };
+        //        if (((accountSchema & (Authorize.AccountLevel)level) == (Authorize.AccountLevel)level) &&
+        //            (((Authorize.AccountLevel)level & Authorize.AccountLevel.admin) == Authorize.AccountLevel.admin))
+        //        {
+        //            var accountLevel = new PersonAccountLevel
+        //            {
+        //                LevelName = ((Authorize.AccountLevel)level).ToString(),
+        //                LevelCode = (int)(Authorize.AccountLevel)level
+        //            };
 
-                    if ((defaultAccountSchema & (Authorize.AccountLevel)level) == (Authorize.AccountLevel)level)
-                        accountLevel.IsSet = true;
+        //            if ((defaultAccountSchema & (Authorize.AccountLevel)level) == (Authorize.AccountLevel)level)
+        //                accountLevel.IsSet = true;
 
-                    accountLevel.CompanyEmployers = null;
-                    result.Add(accountLevel);
-                    continue;
-                }
+        //            accountLevel.CompanyEmployers = null;
+        //            result.Add(accountLevel);
+        //            continue;
+        //        }
 
-                if (((accountSchema & (Authorize.AccountLevel)level) == (Authorize.AccountLevel)level) &&
-                    (((Authorize.AccountLevel)level & Authorize.AccountLevel.company) == Authorize.AccountLevel.company))
-                {
-                    var accountLevel = new PersonAccountLevel
-                    {
-                        LevelName = ((Authorize.AccountLevel)level).ToString(),
-                        LevelCode = (int)(Authorize.AccountLevel)level
-                    };
+        //        if (((accountSchema & (Authorize.AccountLevel)level) == (Authorize.AccountLevel)level) &&
+        //            (((Authorize.AccountLevel)level & Authorize.AccountLevel.company) == Authorize.AccountLevel.company))
+        //        {
+        //            var accountLevel = new PersonAccountLevel
+        //            {
+        //                LevelName = ((Authorize.AccountLevel)level).ToString(),
+        //                LevelCode = (int)(Authorize.AccountLevel)level
+        //            };
 
-                    if ((defaultAccountSchema & (Authorize.AccountLevel)level) == (Authorize.AccountLevel)level)
-                        accountLevel.IsSet = true;
+        //            if ((defaultAccountSchema & (Authorize.AccountLevel)level) == (Authorize.AccountLevel)level)
+        //                accountLevel.IsSet = true;
 
-                    var defaultAccountId = appUser.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimDefaultAccountId).First().ClaimValue;
+        //            var defaultAccountId = appUser.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimDefaultAccountId).First().ClaimValue;
 
-                    accountLevel.CompanyEmployers = appUser.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimAccountId)
-                        .Where(k => k.UserClaimRoles.Count > 0).Select(y => new CompanyEmployerProperty
-                        {
-                            AccountId = y.ClaimValue,
-                            CompanyName = y.ClaimProperty,
-                            EmployerId = null,
-                            EmployerName = null,
-                            IsSet = y.ClaimValue == defaultAccountId
-                        }).ToList();
+        //            accountLevel.CompanyEmployers = appUser.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimAccountId)
+        //                .Where(k => k.UserClaimRoles.Count > 0).Select(y => new CompanyEmployerProperty
+        //                {
+        //                    AccountId = y.ClaimValue,
+        //                    CompanyName = y.ClaimProperty,
+        //                    EmployerId = null,
+        //                    EmployerName = null,
+        //                    IsSet = y.ClaimValue == defaultAccountId
+        //                }).ToList();
 
-                    result.Add(accountLevel);
-                    continue;
-                }
+        //            result.Add(accountLevel);
+        //            continue;
+        //        }
 
-                if (((accountSchema & (Authorize.AccountLevel)level) == (Authorize.AccountLevel)level) &&
-                    (((Authorize.AccountLevel)level & Authorize.AccountLevel.customer) == Authorize.AccountLevel.customer))
-                {
-                    var accountLevel = new PersonAccountLevel
-                    {
-                        LevelName = ((Authorize.AccountLevel)level).ToString(),
-                        LevelCode = (int)(Authorize.AccountLevel)level
-                    };
+        //        if (((accountSchema & (Authorize.AccountLevel)level) == (Authorize.AccountLevel)level) &&
+        //            (((Authorize.AccountLevel)level & Authorize.AccountLevel.customer) == Authorize.AccountLevel.customer))
+        //        {
+        //            var accountLevel = new PersonAccountLevel
+        //            {
+        //                LevelName = ((Authorize.AccountLevel)level).ToString(),
+        //                LevelCode = (int)(Authorize.AccountLevel)level
+        //            };
 
-                    if ((defaultAccountSchema & (Authorize.AccountLevel)level) == (Authorize.AccountLevel)level)
-                        accountLevel.IsSet = true;
+        //            if ((defaultAccountSchema & (Authorize.AccountLevel)level) == (Authorize.AccountLevel)level)
+        //                accountLevel.IsSet = true;
 
-                    var employerIdClaims = appUser.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimEmployerId)
-                        .Where(k => k.UserClaimRoles.Count > 0).ToList();
+        //            var employerIdClaims = appUser.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimEmployerId)
+        //                .Where(k => k.UserClaimRoles.Count > 0).ToList();
 
-                    var customerOnly = employerIdClaims.Where(x => x.UserClaimRoles.Where(
-                        y => y.Role.Name == Authorize.Roles.CustomerOwner
-                        || y.Role.Name == Authorize.Roles.CustomerAdmin
-                        || y.Role.Name == Authorize.Roles.CustomerAdminManager
-                        || y.Role.Name == Authorize.Roles.CustomerManager).Count() > 0).ToList();
+        //            var customerOnly = employerIdClaims.Where(x => x.UserClaimRoles.Where(
+        //                y => y.Role.Name == Authorize.Roles.CustomerOwner
+        //                || y.Role.Name == Authorize.Roles.CustomerAdmin
+        //                || y.Role.Name == Authorize.Roles.CustomerAdminManager
+        //                || y.Role.Name == Authorize.Roles.CustomerManager).Count() > 0).ToList();
 
-                    var defaultEmployerId = appUser.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimDefaultEmployerId).First().ClaimValue;
+        //            var defaultEmployerId = appUser.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimDefaultEmployerId).First().ClaimValue;
 
-                    accountLevel.CompanyEmployers = customerOnly.Select(y => new CompanyEmployerProperty
-                    {
-                        AccountId = null,
-                        CompanyName = null,
-                        EmployerId = y.ClaimValue,
-                        EmployerName = y.ClaimProperty,
-                        IsSet = y.ClaimValue == defaultEmployerId
-                    }).ToList();
+        //            accountLevel.CompanyEmployers = customerOnly.Select(y => new CompanyEmployerProperty
+        //            {
+        //                AccountId = null,
+        //                CompanyName = null,
+        //                EmployerId = y.ClaimValue,
+        //                EmployerName = y.ClaimProperty,
+        //                IsSet = y.ClaimValue == defaultEmployerId
+        //            }).ToList();
 
-                    //foreach (var companyEmployer in accountLevel.CompanyEmployers)
-                    //    companyEmployer.AccountId = (await _employerCompany.GetBySpecAsync(
-                    //        new EmployerCompanySpec(Convert.ToInt32(companyEmployer.EmployerId)))).CompanyId.ToString();
+        //            //foreach (var companyEmployer in accountLevel.CompanyEmployers)
+        //            //    companyEmployer.AccountId = (await _employerCompany.GetBySpecAsync(
+        //            //        new EmployerCompanySpec(Convert.ToInt32(companyEmployer.EmployerId)))).CompanyId.ToString();
 
-                    result.Add(accountLevel);
-                    continue;
-                }
+        //            result.Add(accountLevel);
+        //            continue;
+        //        }
 
-                if (((accountSchema & (Authorize.AccountLevel)level) == (Authorize.AccountLevel)level) &&
-                    (((Authorize.AccountLevel)level & Authorize.AccountLevel.employee) == Authorize.AccountLevel.employee))
-                {
-                    var accountLevel = new PersonAccountLevel
-                    {
-                        LevelName = ((Authorize.AccountLevel)level).ToString(),
-                        LevelCode = (int)(Authorize.AccountLevel)level
-                    };
+        //        if (((accountSchema & (Authorize.AccountLevel)level) == (Authorize.AccountLevel)level) &&
+        //            (((Authorize.AccountLevel)level & Authorize.AccountLevel.employee) == Authorize.AccountLevel.employee))
+        //        {
+        //            var accountLevel = new PersonAccountLevel
+        //            {
+        //                LevelName = ((Authorize.AccountLevel)level).ToString(),
+        //                LevelCode = (int)(Authorize.AccountLevel)level
+        //            };
 
-                    if ((defaultAccountSchema & (Authorize.AccountLevel)level) == (Authorize.AccountLevel)level)
-                        accountLevel.IsSet = true;
+        //            if ((defaultAccountSchema & (Authorize.AccountLevel)level) == (Authorize.AccountLevel)level)
+        //                accountLevel.IsSet = true;
 
-                    var employerIdClaims = appUser.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimEmployerId)
-                        .Where(k => k.UserClaimRoles.Count > 0).ToList();
+        //            var employerIdClaims = appUser.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimEmployerId)
+        //                .Where(k => k.UserClaimRoles.Count > 0).ToList();
 
-                    var employeeOnly = employerIdClaims.Where(x => x.UserClaimRoles.Where(
-                        y => y.Role.Name == Authorize.Roles.Employee).Count() > 0).ToList();
+        //            var employeeOnly = employerIdClaims.Where(x => x.UserClaimRoles.Where(
+        //                y => y.Role.Name == Authorize.Roles.Employee).Count() > 0).ToList();
 
-                    var defaultEmployerId = appUser.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimDefaultEmployerId).First().ClaimValue;
+        //            var defaultEmployerId = appUser.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimDefaultEmployerId).First().ClaimValue;
 
-                    accountLevel.CompanyEmployers = employeeOnly.Select(y => new CompanyEmployerProperty
-                    {
-                        AccountId = null,
-                        CompanyName = null,
-                        EmployerId = y.ClaimValue,
-                        EmployerName = y.ClaimProperty,
-                        IsSet = y.ClaimValue == defaultEmployerId
-                    }).ToList();
+        //            accountLevel.CompanyEmployers = employeeOnly.Select(y => new CompanyEmployerProperty
+        //            {
+        //                AccountId = null,
+        //                CompanyName = null,
+        //                EmployerId = y.ClaimValue,
+        //                EmployerName = y.ClaimProperty,
+        //                IsSet = y.ClaimValue == defaultEmployerId
+        //            }).ToList();
 
-                    //foreach (var companyEmployer in accountLevel.CompanyEmployers)
-                    //    companyEmployer.AccountId = (await _employerCompany.GetBySpecAsync(
-                    //        new EmployerCompanySpec(Convert.ToInt32(companyEmployer.EmployerId)))).CompanyId.ToString();
+        //            //foreach (var companyEmployer in accountLevel.CompanyEmployers)
+        //            //    companyEmployer.AccountId = (await _employerCompany.GetBySpecAsync(
+        //            //        new EmployerCompanySpec(Convert.ToInt32(companyEmployer.EmployerId)))).CompanyId.ToString();
 
-                    result.Add(accountLevel);
-                    continue;
-                }
+        //            result.Add(accountLevel);
+        //            continue;
+        //        }
 
-                if (((accountSchema & (Authorize.AccountLevel)level) == (Authorize.AccountLevel)level) &&
-                    (((Authorize.AccountLevel)level & Authorize.AccountLevel.jobseeker) == Authorize.AccountLevel.jobseeker))
-                {
-                    var accountLevel = new PersonAccountLevel
-                    {
-                        LevelName = ((Authorize.AccountLevel)level).ToString(),
-                        LevelCode = (int)(Authorize.AccountLevel)level
-                    };
+        //        if (((accountSchema & (Authorize.AccountLevel)level) == (Authorize.AccountLevel)level) &&
+        //            (((Authorize.AccountLevel)level & Authorize.AccountLevel.jobseeker) == Authorize.AccountLevel.jobseeker))
+        //        {
+        //            var accountLevel = new PersonAccountLevel
+        //            {
+        //                LevelName = ((Authorize.AccountLevel)level).ToString(),
+        //                LevelCode = (int)(Authorize.AccountLevel)level
+        //            };
 
-                    if ((defaultAccountSchema & (Authorize.AccountLevel)level) == (Authorize.AccountLevel)level)
-                        accountLevel.IsSet = true;
+        //            if ((defaultAccountSchema & (Authorize.AccountLevel)level) == (Authorize.AccountLevel)level)
+        //                accountLevel.IsSet = true;
 
-                    accountLevel.CompanyEmployers = null;
-                    result.Add(accountLevel);
-                    continue;
-                }
-            }
+        //            accountLevel.CompanyEmployers = null;
+        //            result.Add(accountLevel);
+        //            continue;
+        //        }
+        //    }
 
-            return result;
-        }
+        //    return result;
+        //}
 
         /// <summary>
         /// updates account schema for user
@@ -1232,186 +1310,111 @@ namespace _1U_ASP.Security.Service
             return await _userManager.SetUserNameAsync(appUser, email);
         }
 
-        public async Task<AppUser> AddCustomerOwnerUserInRegister(
-            string email,
-            string password,
-            string employerName,
-            int employerId,
-            AppPerson person)
-        {
-            var appUser = new AppUser { Email = email, UserName = email, Person = person };
-            var result = await _userManager.CreateAsync(appUser, password);
-            if (!result.Succeeded)
-                return null;
+        //public async Task<AppUser> AddCustomerOwnerUserInRegister(
+        //    string email,
+        //    string password,
+        //    string employerName,
+        //    int employerId,
+        //    AppPerson person)
+        //{
+        //    var appUser = new AppUser { Email = email, UserName = email, Person = person };
+        //    var result = await _userManager.CreateAsync(appUser, password);
+        //    if (!result.Succeeded)
+        //        return null;
 
-            await _userManager.AddToRolesAsync(appUser, new[] { Authorize.Roles.CustomerOwner, Authorize.Roles.CustomerAdmin, Authorize.Roles.CustomerManager, Authorize.Roles.JobSeeker });
-            appUser = await GetFullUserById(appUser.Id);
-            var accountLevel = Authorize.AccountLevel.customer | Authorize.AccountLevel.jobseeker;
+        //    await _userManager.AddToRolesAsync(appUser, new[] { Authorize.Roles.CustomerOwner, Authorize.Roles.CustomerAdmin, Authorize.Roles.CustomerManager, Authorize.Roles.JobSeeker });
+        //    appUser = await GetFullUserById(appUser.Id);
+        //    var accountLevel = Authorize.AccountLevel.customer | Authorize.AccountLevel.jobseeker;
 
-            appUser.Claims.Add(new AppUserClaim
-            {
-                UserId = appUser.Id,
-                ClaimType = Authorize.Claims.ClaimAccountSchema,
-                ClaimValue = ((int)accountLevel).ToString()
-            });
+        //    appUser.Claims.Add(new AppUserClaim
+        //    {
+        //        UserId = appUser.Id,
+        //        ClaimType = Authorize.Claims.ClaimAccountSchema,
+        //        ClaimValue = ((int)accountLevel).ToString()
+        //    });
 
-            appUser.Claims.Add(new AppUserClaim
-            {
-                UserId = appUser.Id,
-                ClaimType = Authorize.Claims.ClaimDefaultSchema,
-                ClaimValue = ((int)Authorize.AccountLevel.customer).ToString()
-            });
+        //    appUser.Claims.Add(new AppUserClaim
+        //    {
+        //        UserId = appUser.Id,
+        //        ClaimType = Authorize.Claims.ClaimDefaultSchema,
+        //        ClaimValue = ((int)Authorize.AccountLevel.customer).ToString()
+        //    });
 
-            appUser.Claims.Add(new AppUserClaim
-            {
-                UserId = appUser.Id,
-                ClaimType = Authorize.Claims.ClaimEmployerId,
-                ClaimValue = employerId.ToString(),
-                ClaimProperty = employerName
-            });
+        //    appUser.Claims.Add(new AppUserClaim
+        //    {
+        //        UserId = appUser.Id,
+        //        ClaimType = Authorize.Claims.ClaimEmployerId,
+        //        ClaimValue = employerId.ToString(),
+        //        ClaimProperty = employerName
+        //    });
 
-            appUser.Claims.Add(new AppUserClaim
-            {
-                UserId = appUser.Id,
-                ClaimType = Authorize.Claims.ClaimDefaultEmployerId,
-                ClaimValue = employerId.ToString(),
-                ClaimProperty = employerName
-            });
+        //    appUser.Claims.Add(new AppUserClaim
+        //    {
+        //        UserId = appUser.Id,
+        //        ClaimType = Authorize.Claims.ClaimDefaultEmployerId,
+        //        ClaimValue = employerId.ToString(),
+        //        ClaimProperty = employerName
+        //    });
 
-            await _userManager.UpdateAsync(appUser);
-            appUser = await GetFullUserById(appUser.Id);
+        //    await _userManager.UpdateAsync(appUser);
+        //    appUser = await GetFullUserById(appUser.Id);
 
-            var employerIdUserClaim = await GetEmployerIdClaim(
-                appUser,
-                employerId);
+        //    var employerIdUserClaim = await GetEmployerIdClaim(
+        //        appUser,
+        //        employerId);
 
-            var customerOwnerRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CustomerOwner).First();
-            var customerAdminRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CustomerAdmin).First();
-            var customerAdminManagerRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CustomerAdminManager).First();
-            var customerManagerRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CustomerManager).First();
+        //    var customerOwnerRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CustomerOwner).First();
+        //    var customerAdminRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CustomerAdmin).First();
+        //    var customerAdminManagerRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CustomerAdminManager).First();
+        //    var customerManagerRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CustomerManager).First();
 
-            await AddRoleToUser(appUser, customerOwnerRole.Name);
-            await AddRoleToUser(appUser, customerAdminRole.Name);
-            await AddRoleToUser(appUser, customerAdminManagerRole.Name);
-            await AddRoleToUser(appUser, customerManagerRole.Name);
+        //    await AddRoleToUser(appUser, customerOwnerRole.Name);
+        //    await AddRoleToUser(appUser, customerAdminRole.Name);
+        //    await AddRoleToUser(appUser, customerAdminManagerRole.Name);
+        //    await AddRoleToUser(appUser, customerManagerRole.Name);
 
-            AddRoleClaimToClaim(employerIdUserClaim, customerOwnerRole.Id);
-            AddRoleClaimToClaim(employerIdUserClaim, customerAdminRole.Id);
-            AddRoleClaimToClaim(employerIdUserClaim, customerAdminManagerRole.Id);
-            AddRoleClaimToClaim(employerIdUserClaim, customerManagerRole.Id);
+        //    AddRoleClaimToClaim(employerIdUserClaim, customerOwnerRole.Id);
+        //    AddRoleClaimToClaim(employerIdUserClaim, customerAdminRole.Id);
+        //    AddRoleClaimToClaim(employerIdUserClaim, customerAdminManagerRole.Id);
+        //    AddRoleClaimToClaim(employerIdUserClaim, customerManagerRole.Id);
 
-            await _userManager.UpdateAsync(appUser);
-            appUser = await GetFullUserById(appUser.Id);
-            return appUser;
-        }
+        //    await _userManager.UpdateAsync(appUser);
+        //    appUser = await GetFullUserById(appUser.Id);
+        //    return appUser;
+        //}
+        
+        //public async Task<AppUser> AddJobSeekerUserInRegister(
+        //    string email,
+        //    string password,
+        //    AppPerson person)
+        //{
+        //    var appUser = new AppUser { Email = email, UserName = email, Person = person };
+        //    var result = await _userManager.CreateAsync(appUser, password);
+        //    if (!result.Succeeded)
+        //        return null;
 
-        public async Task<AppUser> AddCompanyOwnerUserInRegister(
-            string email,
-            string password,
-            int companyId,
-            string companyName,
-            AppPerson person)
-        {
-            var appUser = new AppUser { Email = email, UserName = email, Person = person };
-            var result = await _userManager.CreateAsync(appUser, password);
-            if (!result.Succeeded)
-                return null;
+        //    await _userManager.AddToRolesAsync(appUser, new[] { Authorize.Roles.JobSeeker });
+        //    appUser = await GetFullUserById(appUser.Id);
+        //    var accountLevel = Authorize.AccountLevel.jobseeker;
 
-            await _userManager.AddToRolesAsync(appUser, new[] { Authorize.Roles.CompanyOwner, Authorize.Roles.CompanyAdmin, Authorize.Roles.CompanyManager, Authorize.Roles.JobSeeker });
-            appUser = await GetFullUserById(appUser.Id);
-            var accountLevel = Authorize.AccountLevel.company | Authorize.AccountLevel.jobseeker;
+        //    appUser.Claims.Add(new AppUserClaim
+        //    {
+        //        UserId = appUser.Id,
+        //        ClaimType = Authorize.Claims.ClaimAccountSchema,
+        //        ClaimValue = ((int)accountLevel).ToString()
+        //    });
 
-            appUser.Claims.Add(new AppUserClaim
-            {
-                UserId = appUser.Id,
-                ClaimType = Authorize.Claims.ClaimAccountSchema,
-                ClaimValue = ((int)accountLevel).ToString()
-            });
+        //    appUser.Claims.Add(new AppUserClaim
+        //    {
+        //        UserId = appUser.Id,
+        //        ClaimType = Authorize.Claims.ClaimDefaultSchema,
+        //        ClaimValue = ((int)accountLevel).ToString()
+        //    });
 
-            appUser.Claims.Add(new AppUserClaim
-            {
-                UserId = appUser.Id,
-                ClaimType = Authorize.Claims.ClaimDefaultSchema,
-                ClaimValue = ((int)Authorize.AccountLevel.company).ToString()
-            });
-
-            appUser.Claims.Add(new AppUserClaim
-            {
-                UserId = appUser.Id,
-                ClaimType = Authorize.Claims.ClaimAccountId,
-                ClaimValue = companyId.ToString(),
-                ClaimProperty = companyName
-            });
-
-            appUser.Claims.Add(new AppUserClaim
-            {
-                UserId = appUser.Id,
-                ClaimType = Authorize.Claims.ClaimDefaultAccountId,
-                ClaimValue = companyId.ToString(),
-                ClaimProperty = companyName
-            });
-
-            await _userManager.UpdateAsync(appUser);
-            appUser = await GetFullUserById(appUser.Id);
-            var accountIdUserClaim = await GetAccountIdClaim(
-                appUser,
-                companyId);
-            var companyOwnerRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CompanyOwner).First();
-            var companyAdminRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CompanyAdmin).First();
-            var companyManagerRole = _roleManager.Roles.Where(x => x.Name == Authorize.Roles.CompanyManager).First();
-            AddRoleClaimToClaim(accountIdUserClaim, companyOwnerRole.Id);
-            AddRoleClaimToClaim(accountIdUserClaim, companyAdminRole.Id);
-            AddRoleClaimToClaim(accountIdUserClaim, companyManagerRole.Id);
-
-            await _userManager.UpdateAsync(appUser);
-            appUser = await GetFullUserById(appUser.Id);
-
-            var personNew=  await _person.AddAsync(new Person
-            {
-                FirstName = person.FirstName,
-                LastName = person.LastName,
-                DisplayName = person.DisplayName,
-                Dob = person.Dob,
-                GenderSysCodeUniqueId = person.GenderSysCodeUniqueId,
-                EmailAddress = person.EmailAddress
-            });
-            appUser.PersonId = personNew.PersonId;
-
-            return appUser;
-        }
-
-        public async Task<AppUser> AddJobSeekerUserInRegister(
-            string email,
-            string password,
-            AppPerson person)
-        {
-            var appUser = new AppUser { Email = email, UserName = email, Person = person };
-            var result = await _userManager.CreateAsync(appUser, password);
-            if (!result.Succeeded)
-                return null;
-
-            await _userManager.AddToRolesAsync(appUser, new[] { Authorize.Roles.JobSeeker });
-            appUser = await GetFullUserById(appUser.Id);
-            var accountLevel = Authorize.AccountLevel.jobseeker;
-
-            appUser.Claims.Add(new AppUserClaim
-            {
-                UserId = appUser.Id,
-                ClaimType = Authorize.Claims.ClaimAccountSchema,
-                ClaimValue = ((int)accountLevel).ToString()
-            });
-
-            appUser.Claims.Add(new AppUserClaim
-            {
-                UserId = appUser.Id,
-                ClaimType = Authorize.Claims.ClaimDefaultSchema,
-                ClaimValue = ((int)accountLevel).ToString()
-            });
-
-            await _userManager.UpdateAsync(appUser);
-            appUser = await GetFullUserById(appUser.Id);
-            return appUser;
-        }
+        //    await _userManager.UpdateAsync(appUser);
+        //    appUser = await GetFullUserById(appUser.Id);
+        //    return appUser;
+        //}
 
         public async Task<IList<UserLoginInfo>> GetUserLogins(
             AppUser appUser)
@@ -1443,79 +1446,79 @@ namespace _1U_ASP.Security.Service
         /// </summary>
         /// <param name="appUser"></param>
         /// <returns></returns>
-        private async Task<AppUserClaim> GetAccountSchema(
-            AppUser appUser)
-        {
-            var accountSchemaClaim = new AppUserClaim();
-            var accountSchemaClaims = appUser.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimAccountSchema).ToList();
-            if (accountSchemaClaims.Count > 1)
-            {
-                accountSchemaClaim = accountSchemaClaims.Last();
-                accountSchemaClaims = accountSchemaClaims.SkipLast(1).ToList();
-                foreach (var claim in accountSchemaClaims)
-                    appUser.Claims.Remove(claim);
-            }
-            else if (accountSchemaClaims.Count == 1)
-                accountSchemaClaim = accountSchemaClaims.First();
-            else
-            {
-                if (appUser.UserRoles.Where(x => x.Role.Name == Authorize.Roles.JobSeeker).FirstOrDefault() == null)
-                    await _userManager.AddToRoleAsync(appUser, Authorize.Roles.JobSeeker);
-                appUser.Claims.Add(new AppUserClaim
-                {
-                    UserId = appUser.Id,
-                    ClaimType = Authorize.Claims.ClaimAccountSchema,
-                    ClaimValue = ((int)Authorize.AccountLevel.jobseeker).ToString()
-                });
+        //private async Task<AppUserClaim> GetAccountSchema(
+        //    AppUser appUser)
+        //{
+        //    var accountSchemaClaim = new AppUserClaim();
+        //    var accountSchemaClaims = appUser.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimAccountSchema).ToList();
+        //    if (accountSchemaClaims.Count > 1)
+        //    {
+        //        accountSchemaClaim = accountSchemaClaims.Last();
+        //        accountSchemaClaims = accountSchemaClaims.SkipLast(1).ToList();
+        //        foreach (var claim in accountSchemaClaims)
+        //            appUser.Claims.Remove(claim);
+        //    }
+        //    else if (accountSchemaClaims.Count == 1)
+        //        accountSchemaClaim = accountSchemaClaims.First();
+        //    else
+        //    {
+        //        if (appUser.UserRoles.Where(x => x.Role.Name == Authorize.Roles.JobSeeker).FirstOrDefault() == null)
+        //            await _userManager.AddToRoleAsync(appUser, Authorize.Roles.JobSeeker);
+        //        appUser.Claims.Add(new AppUserClaim
+        //        {
+        //            UserId = appUser.Id,
+        //            ClaimType = Authorize.Claims.ClaimAccountSchema,
+        //            ClaimValue = ((int)Authorize.AccountLevel.jobseeker).ToString()
+        //        });
 
-                await _userManager.UpdateAsync(appUser);
+        //        await _userManager.UpdateAsync(appUser);
 
-                appUser = await _userManager.Users
-                    .Where(x => x.Id == appUser.Id)
-                    .Include(e => e.Claims)
-                    .FirstOrDefaultAsync();
+        //        appUser = await _userManager.Users
+        //            .Where(x => x.Id == appUser.Id)
+        //            .Include(e => e.Claims)
+        //            .FirstOrDefaultAsync();
 
-                accountSchemaClaim = appUser.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimAccountSchema).First();
-            }
-            return accountSchemaClaim;
-        }
+        //        accountSchemaClaim = appUser.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimAccountSchema).First();
+        //    }
+        //    return accountSchemaClaim;
+        //}
 
-        private async Task<AppUserClaim> GetDefaultAccountSchema(
-            AppUser appUser)
-        {
-            var defaultAccountSchemaClaim = new AppUserClaim();
-            var defaultAccountSchemaClaims = appUser.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimDefaultSchema).ToList();
-            if (defaultAccountSchemaClaims.Count > 1)
-            {
-                defaultAccountSchemaClaim = defaultAccountSchemaClaims.Last();
-                defaultAccountSchemaClaims = defaultAccountSchemaClaims.SkipLast(1).ToList();
-                foreach (var claim in defaultAccountSchemaClaims)
-                    appUser.Claims.Remove(claim);
-            }
-            else if (defaultAccountSchemaClaims.Count == 1)
-                defaultAccountSchemaClaim = defaultAccountSchemaClaims.First();
-            else
-            {
-                if (appUser.UserRoles.Where(x => x.Role.Name == Authorize.Roles.JobSeeker).FirstOrDefault() == null)
-                    await _userManager.AddToRoleAsync(appUser, Authorize.Roles.JobSeeker);
-                appUser.Claims.Add(new AppUserClaim
-                {
-                    UserId = appUser.Id,
-                    ClaimType = Authorize.Claims.ClaimDefaultSchema,
-                    ClaimValue = ((int)Authorize.AccountLevel.jobseeker).ToString()
-                });
+        //private async Task<AppUserClaim> GetDefaultAccountSchema(
+        //    AppUser appUser)
+        //{
+        //    var defaultAccountSchemaClaim = new AppUserClaim();
+        //    var defaultAccountSchemaClaims = appUser.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimDefaultSchema).ToList();
+        //    if (defaultAccountSchemaClaims.Count > 1)
+        //    {
+        //        defaultAccountSchemaClaim = defaultAccountSchemaClaims.Last();
+        //        defaultAccountSchemaClaims = defaultAccountSchemaClaims.SkipLast(1).ToList();
+        //        foreach (var claim in defaultAccountSchemaClaims)
+        //            appUser.Claims.Remove(claim);
+        //    }
+        //    else if (defaultAccountSchemaClaims.Count == 1)
+        //        defaultAccountSchemaClaim = defaultAccountSchemaClaims.First();
+        //    else
+        //    {
+        //        if (appUser.UserRoles.Where(x => x.Role.Name == Authorize.Roles.JobSeeker).FirstOrDefault() == null)
+        //            await _userManager.AddToRoleAsync(appUser, Authorize.Roles.JobSeeker);
+        //        appUser.Claims.Add(new AppUserClaim
+        //        {
+        //            UserId = appUser.Id,
+        //            ClaimType = Authorize.Claims.ClaimDefaultSchema,
+        //            ClaimValue = ((int)Authorize.AccountLevel.jobseeker).ToString()
+        //        });
 
-                await _userManager.UpdateAsync(appUser);
+        //        await _userManager.UpdateAsync(appUser);
 
-                appUser = await _userManager.Users
-                        .Where(x => x.Id == appUser.Id)
-                        .Include(e => e.Claims)
-                        .FirstOrDefaultAsync();
+        //        appUser = await _userManager.Users
+        //                .Where(x => x.Id == appUser.Id)
+        //                .Include(e => e.Claims)
+        //                .FirstOrDefaultAsync();
 
-                defaultAccountSchemaClaim = appUser.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimDefaultSchema).First();
-            }
-            return defaultAccountSchemaClaim;
-        }
+        //        defaultAccountSchemaClaim = appUser.Claims.Where(x => x.ClaimType == Authorize.Claims.ClaimDefaultSchema).First();
+        //    }
+        //    return defaultAccountSchemaClaim;
+        //}
 
         private async Task<AppUserClaim> GetAccountIdClaim(
             AppUser appUser,
