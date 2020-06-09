@@ -12,7 +12,6 @@ namespace _1U_ASP.Models
         public Product Product { get; set; }
         public bool Deleted { get; set; }
         public int? UserActionId { get; set; }
-
-
+        
     }
 }

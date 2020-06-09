@@ -196,19 +196,7 @@ namespace _1U_ASP.Context
                 //    new SaleOrderDetail { SaleOrderDetailId = 5, SaleOrderId = 2, Count = 1, ProductId = 3, PriceCost = 16, PriseSale = 19.5, Summ = 1*19.5}
                 //    );
             });
-
-            modelBuilder.Entity<DocEnterProduct>(entity =>
-            {
-                entity.HasKey(e => e.DocEnterProductId);
-
-                entity.Property(e => e.Deleted)
-                    .HasDefaultValue(false);
-
-                entity.HasMany(c => c.DocEnterProductDetails)
-                    .WithOne(e => e.DocEnterProduct)
-                   .HasForeignKey(c => c.DocEnterProductDetailId);
-            });
-
+            
             modelBuilder.Entity<Provider>(entity =>
             {
                 entity.HasKey(e => e.ProviderId);
@@ -226,6 +214,44 @@ namespace _1U_ASP.Context
                 );
                 //
             });
+
+            modelBuilder.Entity<DocEnterProduct>(entity =>
+            {
+                entity.HasKey(e => e.DocEnterProductId);
+
+                entity.Property(e => e.Deleted)
+                    .HasDefaultValue(false);
+
+                entity.HasMany(c => c.DocEnterProductDetails)
+                    .WithOne(e => e.DocEnterProduct)
+                    .HasForeignKey(c => c.DocEnterProductDetailId);
+
+                entity.HasData(
+                    new DocEnterProduct { DocEnterProductId =1, ProviderId = 1 },
+                    new DocEnterProduct { DocEnterProductId = 2, ProviderId = 2 }
+                );
+
+            });
+
+            modelBuilder.Entity<DocEnterProductDetail>(entity =>
+            {
+                entity.HasKey(e => e.DocEnterProductDetailId);
+
+                entity.Property(e => e.Deleted)
+                    .HasDefaultValue(false);
+
+                entity.HasOne(c => c.DocEnterProduct)
+                    .WithMany(e => e.DocEnterProductDetails)
+                    .HasForeignKey(c => c.DocEnterProductDetailId);
+
+                entity.HasData(
+                    new DocEnterProductDetail { DocEnterProductDetailId =1, DocEnterProductId = 1, ProductId = 1, Count= 7, InPrise  = 5, Summ =  35},
+                    new DocEnterProductDetail { DocEnterProductDetailId = 2, DocEnterProductId = 2, ProductId = 2, Count = 6, InPrise = 6, Summ = 36 }
+                );
+
+            });
+
+
 
             modelBuilder.Entity<ShopBalanceGood>(entity =>
             {
@@ -247,6 +273,8 @@ namespace _1U_ASP.Context
                     .HasForeignKey(c => c.ShopId);
 
             });
+
+
 
 
             modelBuilder.Entity<AppUser>(b =>

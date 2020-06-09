@@ -26,6 +26,8 @@ namespace _1U_ASP.Repositorys
             services.AddTransient<IUserAccountProcessing, UserAccountProcessing>();
             services.AddScoped<IUserAccountProcessing, UserAccountProcessing>();
             services.AddScoped<ILogActionServeProcess, LogActionProcessing>();
+            services.AddTransient<IDocEnterProductService, DocEnterProductService>();
+            
             return services;
         }
     }

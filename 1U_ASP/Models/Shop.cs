@@ -21,5 +21,8 @@ namespace _1U_ASP.Models
         public ICollection<ShopBalanceGood> ShopBalanceGood { get; set; }
         public ICollection<SaleOrder> SaleOrders { get; set; }
         public ICollection<ShopProduct> ShopProducts { get; set; }
+
+
+       
     }
 }

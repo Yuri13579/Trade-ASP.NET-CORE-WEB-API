@@ -19,7 +19,7 @@ namespace Dap1U.Models
 
 
        public ICollection<ShopBalanceGood> ShopBalanceGood { get; set; }
-       public ICollection<DocEnterProduct> DocEnterProducts { get; set; }
+       public ICollection<DocEnterProductDetail> DocEnterProductDetail { get; set; }
        public ICollection<SaleOrderDetail> SaleOrderDetails { get; set; }
        public ICollection<SalePriseDoc> SalePriseDocs { get; set; }
        public ICollection<ShopProduct> ShopProducts { get; set; }
