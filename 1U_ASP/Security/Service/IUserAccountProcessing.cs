@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using _1U_ASP.Security.Model;
-using Microsoft.AspNetCore.Identity;
 
 namespace _1U_ASP.Security.Service
 {

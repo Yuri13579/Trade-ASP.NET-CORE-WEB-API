@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using _1U_ASP.Const;
 using _1U_ASP.DTO;
-using _1U_ASP.Service.Interface;
 using _1U_ASP.Models;
+using _1U_ASP.Service.Interface;
 using Microsoft.AspNetCore.Authorization;
 
 namespace _1U_ASP.Controllers

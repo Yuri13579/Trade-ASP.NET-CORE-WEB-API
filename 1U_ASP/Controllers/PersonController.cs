@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using _1U_ASP.DTO;
 using _1U_ASP.Models;
 using _1U_ASP.Service.Interface;
+using Microsoft.AspNetCore.Mvc;
 
 namespace _1U_ASP.Controllers
 {

@@ -1,11 +1,11 @@
-﻿using _1U_ASP.Repositorys.Interface;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using _1U_ASP.Context;
+using _1U_ASP.Repositorys.Interface;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace _1U_ASP.Repositorys

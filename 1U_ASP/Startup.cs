@@ -2,6 +2,7 @@
 using System.Text;
 using System.Threading.Tasks;
 using _1U_ASP.Context;
+using _1U_ASP.Security.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +11,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using _1U_ASP.Repositorys;
 using Microsoft.AspNetCore.Identity;
-using _1U_ASP.Security.Model;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;

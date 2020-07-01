@@ -1,5 +1,5 @@
-﻿using Dap1U.Models;
-using _1U_ASP.Repositorys;
+﻿using _1U_ASP.Repositorys;
+using Dap1U.Models;
 
 namespace _1U_ASP.Models
 { 

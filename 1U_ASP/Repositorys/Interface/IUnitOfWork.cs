@@ -1,6 +1,6 @@
-﻿using _1U_ASP.Models;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using System;
+using _1U_ASP.Models;
 
 namespace _1U_ASP.Repositorys.Interface
 {

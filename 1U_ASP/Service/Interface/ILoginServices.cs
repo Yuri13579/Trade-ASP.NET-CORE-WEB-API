@@ -1,6 +1,6 @@
-﻿using _1U_ASP.Models.Result;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using _1U_ASP.Models;
+using _1U_ASP.Models.Result;
 using Microsoft.AspNetCore.Identity;
 
 namespace _1U_ASP.Service.Interface

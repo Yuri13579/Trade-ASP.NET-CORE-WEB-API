@@ -2,10 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Dap1U.Models;
-using _1U_ASP.Models;
 using _1U_ASP.Const;
+using _1U_ASP.Models;
 using _1U_ASP.Security.Model;
+using Dap1U.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace _1U_ASP.Context
@@ -466,7 +466,7 @@ namespace _1U_ASP.Context
             });
         }
          
-        public DbSet<_1U_ASP.Models.Person> Person { get; set; }
+        public DbSet<Person> Person { get; set; }
 
 
 

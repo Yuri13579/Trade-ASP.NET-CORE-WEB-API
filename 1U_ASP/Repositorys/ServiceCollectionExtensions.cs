@@ -1,8 +1,8 @@
-﻿using _1U_ASP.Service.Impl;
-using _1U_ASP.Service.Interface;
-using _1U_ASP.Repositorys.Interface;
+﻿using _1U_ASP.Repositorys.Interface;
 using _1U_ASP.Security.Model;
 using _1U_ASP.Security.Service;
+using _1U_ASP.Service.Impl;
+using _1U_ASP.Service.Interface;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace _1U_ASP.Repositorys
