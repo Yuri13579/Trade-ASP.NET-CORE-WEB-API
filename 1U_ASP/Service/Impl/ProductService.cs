@@ -59,19 +59,27 @@ namespace _1U_ASP.Service.Impl
             }
         }
 
-        public async Task<bool> AddProduct(Product product)
+        public async Task<DataServiceMessage> AddProduct(Product product)
         {
             await _product.AddAsync(product);
-            return true;
+            return new DataServiceMessage
+            {
+                Result = true,
+                MainMessage = GoodResponses.AddedSuccessfully
+            };
         }
 
-        public async Task<bool> DeleteProductById(int id)
+        public async Task<DataServiceMessage> DeleteProductById(int id)
         {
             await _product.DeleteAsyncById(id);
-            return true;
+            return new DataServiceMessage
+            {
+                Result = true,
+                MainMessage = GoodResponses.DeletedSuccessfully
+            };
         }
 
-        public async Task<bool> PutProduct(Product product)
+        public async Task<DataServiceMessage> PutProduct(Product product)
         {
            var old = await _product.GetByIdAsync(product.ProductId);
            if (old != null &&
@@ -88,7 +96,11 @@ namespace _1U_ASP.Service.Impl
                 old.PriceCost = product.PriceCost;
                 old.PriseSale = product.PriseSale;
                 await _product.UpdateAsync(old);
-                return true;
+                return new DataServiceMessage
+                {
+                    Result = true,
+                    MainMessage = GoodResponses.UpdatedSuccessfully
+                };
             }
 
             if (old == null)
@@ -96,9 +108,12 @@ namespace _1U_ASP.Service.Impl
                 product.ProductId = 0;
                 await AddProduct(product);
             }
-          
-
-            return true;
+            
+            return new DataServiceMessage
+            {
+                Result = true,
+                MainMessage = GoodResponses.UpdatedSuccessfully
+            };
         }
         
     }

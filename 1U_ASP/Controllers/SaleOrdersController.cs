@@ -62,8 +62,6 @@ namespace _1U_ASP.Controllers
             return await _saleOrderService.GetSaleOrder(id);
 
         }
-
-
         
         //SellGoods
         [HttpPost("{SellGoods}")]

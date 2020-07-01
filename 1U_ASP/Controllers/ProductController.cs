@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using _1U_ASP.DTO;
 using _1U_ASP.Service.Interface;
 
 namespace _1U_ASP.Controllers
@@ -68,7 +69,7 @@ namespace _1U_ASP.Controllers
         }
         //Delete
         [HttpDelete("Delete/{id}")]
-        public async Task<bool> Delete(int id)
+        public async Task<DataServiceMessage> Delete(int id)
         {
             try
             {

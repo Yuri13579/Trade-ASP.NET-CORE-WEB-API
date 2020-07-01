@@ -28,23 +28,31 @@ namespace _1U_ASP.Controllers
 
         [AllowAnonymous]
         [HttpPost("{Register}")]
-        public async Task<string> Register([FromBody] RegisterViewModel model)
+        public async Task<DataServiceMessage> Register([FromBody] RegisterViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return BadResponses.IncorrectInputData;
+                return  new DataServiceMessage
+                {
+                    Result = false,
+                    MainMessage = BadResponses.IncorrectInputData
+                }; 
             }
             try
             {
                 model.TrimAllStringsWhithNull();
 
-                var result = await _accountService.Register(
+                DataServiceMessage result = await _accountService.Register(
                 model);
                 return result;
             }
             catch (Exception ex)
             {
-                return ex.Message;
+                return new DataServiceMessage
+                {
+                    Result = false,
+                    MainMessage = ex.Message
+                };
             }
         }
 
@@ -64,7 +72,7 @@ namespace _1U_ASP.Controllers
                 var result = await _accountService.Login(
                     HttpContext.Connection.RemoteIpAddress.ToString(),
                     model);
-                return new LoginResultDto{Token = result}; 
+                return new LoginResultDto{Token = result.MainMessage}; 
             }
             catch (Exception ex)
             {

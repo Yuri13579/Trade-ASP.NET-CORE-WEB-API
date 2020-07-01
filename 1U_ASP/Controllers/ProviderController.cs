@@ -56,7 +56,7 @@ namespace _1U_ASP.Controllers
 
         // POST: api/Provider
         [HttpPost("{PostProvider}")]
-        public async Task<string> PostProvider(Provider provider)
+        public async Task<DataServiceMessage> PostProvider(Provider provider)
         {
             return await _providerService.PostProvider(provider);
           
@@ -64,7 +64,7 @@ namespace _1U_ASP.Controllers
 
         // DELETE: api/Provider/5
         [HttpDelete("{DeleteProvider}/{id}")]
-        public async Task<string> DeleteProvider(int id)
+        public async Task<DataServiceMessage> DeleteProvider(int id)
         {
             return await _providerService.DeleteProvider(id);
         }

@@ -11,7 +11,7 @@ namespace _1U_ASP.Service.Interface
         Task<ActionResult<IEnumerable<Provider>>> GetProviders();
         Task<ActionResult<Provider>> GetProvider(int id);
         Task<DataServiceMessage> PutProvider(Provider provider);
-        Task<string> PostProvider(Provider provider);
-        Task<string> DeleteProvider(int id);
+        Task<DataServiceMessage> PostProvider(Provider provider);
+        Task<DataServiceMessage> DeleteProvider(int id);
     }
 }

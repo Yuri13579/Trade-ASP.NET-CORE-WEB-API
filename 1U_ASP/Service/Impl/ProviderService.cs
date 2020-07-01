@@ -65,7 +65,7 @@ namespace _1U_ASP.Service.Impl
             });
         }
 
-        public async Task<string> PostProvider(Provider provider)
+        public async Task<DataServiceMessage> PostProvider(Provider provider)
         {
             try
             {
@@ -74,25 +74,40 @@ namespace _1U_ASP.Service.Impl
             }
             catch (Exception e)
             {
-                return e.Message;
+                return new DataServiceMessage
+                {
+                    Result = false,
+                    MainMessage = e.Message
+                };
             }
 
-            return GoodResponses.AddedSuccessfully;
-            
+            return new DataServiceMessage
+            {
+                Result = true,
+                MainMessage = GoodResponses.AddedSuccessfully
+            };
         }
 
-        public async Task<string> DeleteProvider(int id)
+        public async Task<DataServiceMessage> DeleteProvider(int id)
         {
             var provider = await _context.Provider.FindAsync(id);
             if (provider == null)
             {
-                return BadResponses.PersonIsnTFound;
+                return new DataServiceMessage
+                {
+                    Result = false,
+                    MainMessage = BadResponses.PersonIsnTFound
+                };
             }
 
             _context.Provider.Remove(provider);
             await _context.SaveChangesAsync();
 
-            return GoodResponses.DeletedSuccessfully;
+            return new DataServiceMessage
+            {
+                Result = true,
+                MainMessage = GoodResponses.DeletedSuccessfully
+            };
         }
     }
 }

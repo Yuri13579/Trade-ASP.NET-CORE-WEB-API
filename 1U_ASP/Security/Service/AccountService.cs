@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 using _1U_ASP.Const;
+using _1U_ASP.DTO;
 using _1U_ASP.Models;
 using _1U_ASP.Repositorys.Interface;
 using _1U_ASP.Security.Model;
@@ -34,12 +35,16 @@ namespace _1U_ASP.Security.Service
         #endregion
 
 
-        public async Task<string> Register(RegisterViewModel model)
+        public async Task<DataServiceMessage> Register(RegisterViewModel model)
         {
             var appUser = await _userAccountProcessing.GetFullUserByEmail(model.Email);
             if (appUser != null)
-                return BadResponses.UserAlreadyExists;
-
+                return new DataServiceMessage
+                {
+                    Result = false,
+                    MainMessage = BadResponses.UserAlreadyExists
+                };
+          
             //appUser = await _userAccountProcessing.AddJobSeekerUserInRegister(
             //    model.Email,
             //    model.Password,
@@ -69,8 +74,12 @@ namespace _1U_ASP.Security.Service
             await AddProfile(
                 appUser.PersonId.GetValueOrDefault(),
                 model);
-
-            return GoodResponses.AddedSuccessfully;
+            return new DataServiceMessage
+            {
+                Result = true,
+                MainMessage = GoodResponses.AddedSuccessfully
+            };
+           
         }
 
         private async Task AddProfile(
@@ -91,33 +100,31 @@ namespace _1U_ASP.Security.Service
             
         }
        
-        public async Task<string> Login(string remoteIpAddress, LoginViewModel model)
+        public async Task<DataServiceMessage> Login(string remoteIpAddress, LoginViewModel model)
         {
             var user = await _userAccountProcessing.GetFullUserByEmail(model.Email);
 
             if (user == null || user.Person.Deleted == true)
-                return BadResponses.UserIsnTFound;
-
+                return new DataServiceMessage
+                {
+                    Result = false,
+                    MainMessage = BadResponses.UserIsnTFound
+                };
+            
             //if (await _userManager.IsLockedOutAsync(user))
             //    return  BadResponses.YouCanTryAgainInMinutes;
 
             if (_passwordHasher.VerifyHashedPassword(user, user.PasswordHash, model.Password)
                 != PasswordVerificationResult.Success)
-                return BadResponses.PasswordIsnTValid;
-
+                return new DataServiceMessage
+                {
+                    Result = false,
+                    MainMessage = BadResponses.PasswordIsnTValid
+                };
+           
             if (string.IsNullOrEmpty(model.ReturnUrl))
                 model.ReturnUrl = "";
 
-            //if (!user.EmailConfirmed)
-            //{
-            //    var emailToken = TokenProcessing.GetJwtConfirmEmailToken(user, remoteIpAddress, model.ReturnUrl);
-            //    await _emailSender.SendEmailConfirmEmailAddress(user.Email, model.ReturnUrl, emailToken);
-            //    return new DataServiceMessage
-            //    {
-            //        Result = false,
-            //        MainMessage = BadResponses.EmailAddressIsnTConfirmed
-            //    };
-            //}
 
             if (user.AccessFailedCount > 0)
                 await _userManager.ResetAccessFailedCountAsync(user);
@@ -148,7 +155,11 @@ namespace _1U_ASP.Security.Service
                 TokenProcessing.GetJwtSecurityToken(
                     user,
                     ""));
-            return token;
+            return new DataServiceMessage
+            {
+                Result = true,
+                MainMessage = token
+            };
         }
 
         public Task<bool> CheckEmail(string email)

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
+using _1U_ASP.DTO;
 using _1U_ASP.Models;
 using _1U_ASP.Security.Model;
 
@@ -24,11 +25,11 @@ namespace _1U_ASP.Security.Service
             string remoteIpAddress,
             JwtSecurityToken tokenJwt);
         
-        Task<string> Login(
+        Task<DataServiceMessage> Login(
             string remoteIpAddress,
            LoginViewModel model);
 
-        Task<string> Register(
+        Task<DataServiceMessage> Register(
             RegisterViewModel model
             );
         

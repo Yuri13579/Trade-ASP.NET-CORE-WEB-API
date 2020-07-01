@@ -10,8 +10,8 @@ namespace _1U_ASP.Service.Interface
         Task<Product> GetProductById(int id);
         Task<DataServiceMessage>  GetAllProducts(JwtSecurityToken tokenJwt);
 
-        Task<bool> AddProduct(Product productDto);
-        Task<bool> DeleteProductById(int id);
-        Task<bool> PutProduct(Product product);
+        Task<DataServiceMessage> AddProduct(Product productDto);
+        Task<DataServiceMessage> DeleteProductById(int id);
+        Task<DataServiceMessage> PutProduct(Product product);
     }
 }
