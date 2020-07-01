@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using _1U_ASP.Security.Model;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 namespace _1U_ASP
 {
@@ -150,6 +151,34 @@ namespace _1U_ASP
                     });
             });
             services.AddMemoryCache();
+            
+            //services.AddSwaggerGen(c =>
+            //{
+            //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+            //});
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "ToDo API",
+                    Description = "A simple example ASP.NET Core Web API",
+                    TermsOfService = new Uri("https://example.com/terms"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Shayne Boyer",
+                        Email = string.Empty,
+                        Url = new Uri("https://twitter.com/spboyer"),
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "Use under LICX",
+                        Url = new Uri("https://example.com/license"),
+                    }
+                });
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             
         }
@@ -171,9 +200,21 @@ namespace _1U_ASP
             
             app.UseCors(MyAllowSpecificOrigins);
             app.UseAuthentication();
-           //app.UseAuthorization();
+            app.UseSwagger();
+            app.MapWhen(x => !x.Request.Path.Value.StartsWith("/swagger"), builder =>
+            {
+                builder.UseMvc();
+            });
+            app.UseSwaggerUI(c =>
+            {c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.RoutePrefix = string.Empty;
+            });
+            app.MapWhen(x => !x.Request.Path.Value.StartsWith("/swagger"), builder =>
+            {
+                builder.UseMvc();
+            });
 
-            app.UseMvc();
+            //app.UseMvc();
 
         }
     }

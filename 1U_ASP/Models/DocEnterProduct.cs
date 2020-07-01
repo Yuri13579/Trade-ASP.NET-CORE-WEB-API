@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using _1U_ASP.Repositorys;
 
@@ -12,6 +13,7 @@ namespace _1U_ASP.Models
         //public Product Product { get; set; }
         public int? ProviderId { get; set; }
         public Provider Provider { get; set; }
+        public DateTime DocDate { get; set; }
         public bool Deleted { get; set; }
         public int? UserActionId { get; set; }
         // public DocEnterProductDetail DocEnterProductDetail { get; set; }

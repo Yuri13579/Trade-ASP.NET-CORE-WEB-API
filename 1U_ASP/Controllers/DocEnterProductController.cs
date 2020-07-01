@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using _1U_ASP.DTO;
+using _1U_ASP.Models;
 using _1U_ASP.Service.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,12 +21,17 @@ namespace _1U_ASP.Controllers
             _docEnterProductService = docEnterProductService;
         }
 
-        [HttpGet]
-        public async Task<List<DocEnterProductDetailDto>> GetAllEnterProductDetails()
+        [HttpGet("GetAllEnterProducts")]
+        public async Task<List<DocEnterProductDto>> GetAllEnterProducts()
         {
-            return await _docEnterProductService.GetAllEnterProductDetails();
+            return await _docEnterProductService.GetAllEnterProducts();
         }
 
-
+        [HttpGet("GetDocEnterProductDetailsById/{id}")]
+        public async Task<List<DocEnterProductDetailDto>> GetDocEnterProductDetailsById(int id)
+        {
+            return await _docEnterProductService.GetDocEnterProductDetailsById(id);
+        }
+        
     }
 }
