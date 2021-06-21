@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace _1U_ASP.Controllers
 {
 
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+  //  [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
     public class ProviderController : ControllerBase

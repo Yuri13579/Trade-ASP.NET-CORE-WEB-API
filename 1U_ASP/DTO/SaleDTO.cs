@@ -18,5 +18,7 @@ namespace _1U_ASP.DTO
         public int ShopId { get; set; }
         public string ShopName { get; set; }
         public string ShopAddress { get; set; }
+        public string DisplayData { get; set; }
+        public DateTime Sort { get; set; }
     }
 }

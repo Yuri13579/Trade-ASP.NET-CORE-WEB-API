@@ -1,0 +1,1027 @@
+2020-09-02 20:18:03.338 +03:00 [Information] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager: User profile is available. Using 'C:\Users\Admin\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2020-09-02 20:18:05.398 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/values  
+2020-09-02 20:18:05.829 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.ValuesController.Get (1U_ASP)'
+2020-09-02 20:18:05.884 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "Get", controller = "Values"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[System.String]] Get() on controller _1U_ASP.Controllers.ValuesController (1U_ASP).
+2020-09-02 20:18:05.920 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.ValuesController.Get (1U_ASP) - Validation state: Valid
+2020-09-02 20:18:05.949 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.ValuesController.Get (1U_ASP), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 16.9183ms.
+2020-09-02 20:18:05.972 +03:00 [Information] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor: Executing ObjectResult, writing value of type 'System.String[]'.
+2020-09-02 20:18:06.744 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.ValuesController.Get (1U_ASP) in 426.4451ms
+2020-09-02 20:18:06.967 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.ValuesController.Get (1U_ASP)'
+2020-09-02 20:18:07.549 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 1735.4162ms 200 application/json; charset=utf-8
+2020-09-02 20:18:10.609 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/favicon.ico  
+2020-09-02 20:18:10.933 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 440.4094ms 404 
+2020-09-02 20:18:31.382 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/SaleOrders/ALLSales  
+2020-09-02 20:18:31.403 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:18:31.428 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 33.2469ms 204 
+2020-09-02 20:18:31.469 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/SaleOrders/ALLSales  
+2020-09-02 20:18:31.476 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:18:31.817 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2020-09-02 20:18:31.825 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+2020-09-02 20:18:31.845 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP)'
+2020-09-02 20:18:31.868 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "AllSales", controller = "SaleOrders"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AllSales() on controller _1U_ASP.Controllers.SaleOrdersController (1U_ASP).
+2020-09-02 20:18:33.085 +03:00 [Warning] Microsoft.EntityFrameworkCore.Model.Validation: No type was specified for the decimal column 'Phone' on entity type 'Provider'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2020-09-02 20:18:33.091 +03:00 [Warning] Microsoft.EntityFrameworkCore.Model.Validation: No type was specified for the decimal column 'SalePrise' on entity type 'SalePriseDoc'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2020-09-02 20:18:33.193 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:18:33.364 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (16ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:18:33.645 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (41ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [saleOrder].[SaleOrderId], [detail].[SaleOrderDetailId], [product].[ProductId], [product].[Name] AS [ProductName], [product].[Description] AS [ProductDescription], [product].[Barcode] AS [ProductBarcode], [detail].[Count], [saleOrder].[DataTime], COALESCE([detail].[PriceCost], 0.0E0) AS [PriceCost], COALESCE([detail].[PriseSale], 0.0E0) AS [PriseSale], COALESCE([detail].[Summ], 0.0E0) AS [Summ], COALESCE([saleOrder].[ShopId], 0) AS [ShopId], [shop].[Name] AS [ShopName], [shop].[Address] AS [ShopAddress]
+FROM [SaleOrders] AS [saleOrder]
+INNER JOIN [SaleOrderDetails] AS [detail] ON [saleOrder].[SaleOrderId] = COALESCE([detail].[SaleOrderId], 0)
+INNER JOIN [Products] AS [product] ON [detail].[ProductId] = [product].[ProductId]
+INNER JOIN [Shops] AS [shop] ON [saleOrder].[ShopId] = [shop].[ShopId]
+2020-09-02 20:18:33.707 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP) - Validation state: Valid
+2020-09-02 20:18:33.718 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP), returned result Microsoft.AspNetCore.Mvc.JsonResult in 6.9442ms.
+2020-09-02 20:18:33.726 +03:00 [Information] Microsoft.AspNetCore.Mvc.Formatters.Json.Internal.JsonResultExecutor: Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[_1U_ASP.DTO.SaleDTO, 1U_ASP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-09-02 20:18:33.779 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP) in 1907.322ms
+2020-09-02 20:18:33.784 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP)'
+2020-09-02 20:18:33.790 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 2321.6489ms 200 application/json; charset=utf-8
+2020-09-02 20:18:43.670 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/Shop/GetAllShops  
+2020-09-02 20:18:43.705 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/Product/GetAllProducts  
+2020-09-02 20:18:43.709 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:18:43.712 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:18:43.717 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 96.2947ms 204 
+2020-09-02 20:18:43.720 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 88.7612ms 204 
+2020-09-02 20:18:43.724 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/Shop/GetAllShops  
+2020-09-02 20:18:43.726 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/Product/GetAllProducts  
+2020-09-02 20:18:43.730 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:18:43.733 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:18:43.738 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2020-09-02 20:18:43.744 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+2020-09-02 20:18:43.741 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2020-09-02 20:18:43.747 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+2020-09-02 20:18:43.751 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP)'
+2020-09-02 20:18:43.761 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP)'
+2020-09-02 20:18:43.765 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "GetAllProducts", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts() on controller _1U_ASP.Controllers.ProductController (1U_ASP).
+2020-09-02 20:18:43.780 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:18:43.822 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:18:43.830 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP) - Validation state: Valid
+2020-09-02 20:18:43.838 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "GetAllShops", controller = "Shop"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[_1U_ASP.Models.Shop]]] GetAllShops() on controller _1U_ASP.Controllers.ShopController (1U_ASP).
+2020-09-02 20:18:43.858 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:18:43.939 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (64ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:18:43.978 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (9ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [p].[ProductId], [p].[Barcode], [p].[CategoryId], [p].[Deleted], [p].[Description], [p].[Name], [p].[Photo], [p].[PriceCost], [p].[PriseSale], [p].[UserActionId]
+FROM [Products] AS [p]
+2020-09-02 20:18:43.983 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP) - Validation state: Valid
+2020-09-02 20:18:44.100 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (14ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [s].[ShopId], [s].[Address], [s].[Deleted], [s].[Name], [s].[UserActionId]
+FROM [Shops] AS [s]
+2020-09-02 20:18:44.104 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP), returned result Microsoft.AspNetCore.Mvc.JsonResult in 267.2566ms.
+2020-09-02 20:18:44.118 +03:00 [Information] Microsoft.AspNetCore.Mvc.Formatters.Json.Internal.JsonResultExecutor: Executing JsonResult, writing value of type '_1U_ASP.DTO.DataServiceMessage'.
+2020-09-02 20:18:44.128 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 136.27ms.
+2020-09-02 20:18:44.139 +03:00 [Information] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor: Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[_1U_ASP.Models.Shop, 1U_ASP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-09-02 20:18:44.162 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP) in 315.8797ms
+2020-09-02 20:18:44.168 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP) in 395.2311ms
+2020-09-02 20:18:44.174 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP)'
+2020-09-02 20:18:44.181 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP)'
+2020-09-02 20:18:44.198 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 473.5475ms 200 application/json; charset=utf-8
+2020-09-02 20:18:44.201 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 473.1922ms 200 application/json; charset=utf-8
+2020-09-02 20:18:49.262 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/SaleOrders/SellGoods  
+2020-09-02 20:18:49.265 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:18:49.271 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 6.6702ms 204 
+2020-09-02 20:18:49.274 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 POST https://localhost:44307/api/SaleOrders/SellGoods application/json 2
+2020-09-02 20:18:49.277 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:18:49.282 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2020-09-02 20:18:49.296 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+2020-09-02 20:18:49.311 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.SaleOrdersController.SellGoods (1U_ASP)'
+2020-09-02 20:18:49.342 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "SellGoods", controller = "SaleOrders"}. Executing controller action with signature System.Threading.Tasks.Task`1[_1U_ASP.DTO.DataServiceMessage] SellGoods(System.Collections.Generic.List`1[_1U_ASP.DTO.SellDto]) on controller _1U_ASP.Controllers.SaleOrdersController (1U_ASP).
+2020-09-02 20:18:49.347 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:18:49.353 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:18:49.409 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.SaleOrdersController.SellGoods (1U_ASP) - Validation state: Valid
+2020-09-02 20:18:49.588 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.SaleOrdersController.SellGoods (1U_ASP), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 170.3544ms.
+2020-09-02 20:18:49.597 +03:00 [Information] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor: Executing ObjectResult, writing value of type '_1U_ASP.DTO.DataServiceMessage'.
+2020-09-02 20:18:49.616 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.SaleOrdersController.SellGoods (1U_ASP) in 261.0412ms
+2020-09-02 20:18:49.624 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.SaleOrdersController.SellGoods (1U_ASP)'
+2020-09-02 20:18:49.637 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 353.6865ms 200 application/json; charset=utf-8
+2020-09-02 20:18:57.603 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/SaleOrders/SellGoods  
+2020-09-02 20:18:57.607 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:18:57.611 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 7.3402ms 204 
+2020-09-02 20:18:57.624 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 POST https://localhost:44307/api/SaleOrders/SellGoods application/json 157
+2020-09-02 20:18:57.651 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:18:57.655 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2020-09-02 20:18:57.660 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+2020-09-02 20:18:57.663 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.SaleOrdersController.SellGoods (1U_ASP)'
+2020-09-02 20:18:57.673 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "SellGoods", controller = "SaleOrders"}. Executing controller action with signature System.Threading.Tasks.Task`1[_1U_ASP.DTO.DataServiceMessage] SellGoods(System.Collections.Generic.List`1[_1U_ASP.DTO.SellDto]) on controller _1U_ASP.Controllers.SaleOrdersController (1U_ASP).
+2020-09-02 20:18:57.681 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:18:57.697 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:18:57.711 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.SaleOrdersController.SellGoods (1U_ASP) - Validation state: Valid
+2020-09-02 20:18:57.886 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (10ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [SaleOrders] ([DataTime], [ShopId], [UserActionId])
+VALUES (@p0, @p1, @p2);
+SELECT [SaleOrderId], [Deleted]
+FROM [SaleOrders]
+WHERE @@ROWCOUNT = 1 AND [SaleOrderId] = scope_identity();
+2020-09-02 20:18:57.953 +03:00 [Warning] Microsoft.EntityFrameworkCore.Query: The LINQ expression 'LastOrDefault()' could not be translated and will be evaluated locally.
+2020-09-02 20:18:57.974 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (2ms) [Parameters=[@__x_ProductId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [z].[ProductId], [z].[Barcode], [z].[CategoryId], [z].[Deleted], [z].[Description], [z].[Name], [z].[Photo], [z].[PriceCost], [z].[PriseSale], [z].[UserActionId]
+FROM [Products] AS [z]
+WHERE [z].[ProductId] = @__x_ProductId_0
+2020-09-02 20:18:57.980 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[@__x_ProductId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [z].[ProductId], [z].[Barcode], [z].[CategoryId], [z].[Deleted], [z].[Description], [z].[Name], [z].[Photo], [z].[PriceCost], [z].[PriseSale], [z].[UserActionId]
+FROM [Products] AS [z]
+WHERE [z].[ProductId] = @__x_ProductId_0
+2020-09-02 20:18:57.984 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[@__x_ProductId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [z].[ProductId], [z].[Barcode], [z].[CategoryId], [z].[Deleted], [z].[Description], [z].[Name], [z].[Photo], [z].[PriceCost], [z].[PriseSale], [z].[UserActionId]
+FROM [Products] AS [z]
+WHERE [z].[ProductId] = @__x_ProductId_0
+2020-09-02 20:18:57.989 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[@__x_ProductId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [z].[ProductId], [z].[Barcode], [z].[CategoryId], [z].[Deleted], [z].[Description], [z].[Name], [z].[Photo], [z].[PriceCost], [z].[PriseSale], [z].[UserActionId]
+FROM [Products] AS [z]
+WHERE [z].[ProductId] = @__x_ProductId_0
+2020-09-02 20:18:58.004 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (10ms) [Parameters=[@__x_ProductId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [z].[ProductId], [z].[Barcode], [z].[CategoryId], [z].[Deleted], [z].[Description], [z].[Name], [z].[Photo], [z].[PriceCost], [z].[PriseSale], [z].[UserActionId]
+FROM [Products] AS [z]
+WHERE [z].[ProductId] = @__x_ProductId_0
+2020-09-02 20:18:58.008 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[@__x_ProductId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [z].[ProductId], [z].[Barcode], [z].[CategoryId], [z].[Deleted], [z].[Description], [z].[Name], [z].[Photo], [z].[PriceCost], [z].[PriseSale], [z].[UserActionId]
+FROM [Products] AS [z]
+WHERE [z].[ProductId] = @__x_ProductId_0
+2020-09-02 20:18:58.105 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (13ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Double), @p2='?' (DbType = Double), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32), @p5='?' (DbType = Double), @p6='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [SaleOrderDetails] ([Count], [PriceCost], [PriseSale], [ProductId], [SaleOrderId], [Summ], [UserActionId])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+SELECT [SaleOrderDetailId], [Deleted]
+FROM [SaleOrderDetails]
+WHERE @@ROWCOUNT = 1 AND [SaleOrderDetailId] = scope_identity();
+2020-09-02 20:18:58.117 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Double), @p2='?' (DbType = Double), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32), @p5='?' (DbType = Double), @p6='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [SaleOrderDetails] ([Count], [PriceCost], [PriseSale], [ProductId], [SaleOrderId], [Summ], [UserActionId])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+SELECT [SaleOrderDetailId], [Deleted]
+FROM [SaleOrderDetails]
+WHERE @@ROWCOUNT = 1 AND [SaleOrderDetailId] = scope_identity();
+2020-09-02 20:18:58.144 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (13ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [saleOrder].[SaleOrderId], [detail].[SaleOrderDetailId], [product].[ProductId], [product].[Name] AS [ProductName], [product].[Description] AS [ProductDescription], [product].[Barcode] AS [ProductBarcode], [detail].[Count], [saleOrder].[DataTime], COALESCE([detail].[PriceCost], 0.0E0) AS [PriceCost], COALESCE([detail].[PriseSale], 0.0E0) AS [PriseSale], COALESCE([detail].[Summ], 0.0E0) AS [Summ], COALESCE([saleOrder].[ShopId], 0) AS [ShopId], [shop].[Name] AS [ShopName], [shop].[Address] AS [ShopAddress]
+FROM [SaleOrders] AS [saleOrder]
+INNER JOIN [SaleOrderDetails] AS [detail] ON [saleOrder].[SaleOrderId] = COALESCE([detail].[SaleOrderId], 0)
+INNER JOIN [Products] AS [product] ON [detail].[ProductId] = [product].[ProductId]
+INNER JOIN [Shops] AS [shop] ON [saleOrder].[ShopId] = [shop].[ShopId]
+2020-09-02 20:18:58.166 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.SaleOrdersController.SellGoods (1U_ASP), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 450.4181ms.
+2020-09-02 20:18:58.182 +03:00 [Information] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor: Executing ObjectResult, writing value of type '_1U_ASP.DTO.DataServiceMessage'.
+2020-09-02 20:18:58.191 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.SaleOrdersController.SellGoods (1U_ASP) in 509.4847ms
+2020-09-02 20:18:58.199 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.SaleOrdersController.SellGoods (1U_ASP)'
+2020-09-02 20:18:58.213 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 588.3356ms 200 application/json; charset=utf-8
+2020-09-02 20:19:05.635 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/SaleOrders/ALLSales  
+2020-09-02 20:19:05.641 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:19:05.648 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 14.4911ms 204 
+2020-09-02 20:19:05.670 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/SaleOrders/ALLSales  
+2020-09-02 20:19:05.681 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:19:05.692 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2020-09-02 20:19:05.697 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+2020-09-02 20:19:05.706 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP)'
+2020-09-02 20:19:05.712 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "AllSales", controller = "SaleOrders"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AllSales() on controller _1U_ASP.Controllers.SaleOrdersController (1U_ASP).
+2020-09-02 20:19:05.716 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:19:05.726 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:19:05.730 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP) - Validation state: Valid
+2020-09-02 20:19:05.734 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP), returned result Microsoft.AspNetCore.Mvc.JsonResult in 0.4694ms.
+2020-09-02 20:19:05.739 +03:00 [Information] Microsoft.AspNetCore.Mvc.Formatters.Json.Internal.JsonResultExecutor: Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[_1U_ASP.DTO.SaleDTO, 1U_ASP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-09-02 20:19:05.750 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP) in 34.8362ms
+2020-09-02 20:19:05.753 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP)'
+2020-09-02 20:19:05.757 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 85.5042ms 200 application/json; charset=utf-8
+2020-09-02 20:19:10.232 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/SaleOrders/MonthlySalesOfGoods  
+2020-09-02 20:19:10.235 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:19:10.240 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 6.797ms 204 
+2020-09-02 20:19:10.243 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/SaleOrders/MonthlySalesOfGoods  
+2020-09-02 20:19:10.246 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:19:10.251 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2020-09-02 20:19:10.254 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+2020-09-02 20:19:10.257 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.SaleOrdersController.MonthlySalesOfGoods (1U_ASP)'
+2020-09-02 20:19:10.264 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "MonthlySalesOfGoods", controller = "SaleOrders"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] MonthlySalesOfGoods() on controller _1U_ASP.Controllers.SaleOrdersController (1U_ASP).
+2020-09-02 20:19:10.270 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:19:10.275 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:19:10.279 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.SaleOrdersController.MonthlySalesOfGoods (1U_ASP) - Validation state: Valid
+2020-09-02 20:19:10.303 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.SaleOrdersController.MonthlySalesOfGoods (1U_ASP), returned result Microsoft.AspNetCore.Mvc.JsonResult in 20.7098ms.
+2020-09-02 20:19:10.306 +03:00 [Information] Microsoft.AspNetCore.Mvc.Formatters.Json.Internal.JsonResultExecutor: Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[_1U_ASP.DTO.SaleDTO, 1U_ASP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-09-02 20:19:10.310 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.SaleOrdersController.MonthlySalesOfGoods (1U_ASP) in 42.1799ms
+2020-09-02 20:19:10.313 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.SaleOrdersController.MonthlySalesOfGoods (1U_ASP)'
+2020-09-02 20:19:10.316 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 72.5533ms 200 application/json; charset=utf-8
+2020-09-02 20:19:11.541 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/SaleOrders/YearlySalesOfGoods  
+2020-09-02 20:19:11.544 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:19:11.548 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 6.1273ms 204 
+2020-09-02 20:19:11.551 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/SaleOrders/YearlySalesOfGoods  
+2020-09-02 20:19:11.556 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:19:11.560 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2020-09-02 20:19:11.563 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+2020-09-02 20:19:11.566 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.SaleOrdersController.YearlySalesOfGoods (1U_ASP)'
+2020-09-02 20:19:11.572 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "YearlySalesOfGoods", controller = "SaleOrders"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] YearlySalesOfGoods() on controller _1U_ASP.Controllers.SaleOrdersController (1U_ASP).
+2020-09-02 20:19:11.575 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:19:11.583 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:19:11.587 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.SaleOrdersController.YearlySalesOfGoods (1U_ASP) - Validation state: Valid
+2020-09-02 20:19:11.598 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.SaleOrdersController.YearlySalesOfGoods (1U_ASP), returned result Microsoft.AspNetCore.Mvc.JsonResult in 7.9002ms.
+2020-09-02 20:19:11.601 +03:00 [Information] Microsoft.AspNetCore.Mvc.Formatters.Json.Internal.JsonResultExecutor: Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[_1U_ASP.DTO.SaleDTO, 1U_ASP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-09-02 20:19:11.605 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.SaleOrdersController.YearlySalesOfGoods (1U_ASP) in 29.4659ms
+2020-09-02 20:19:11.608 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.SaleOrdersController.YearlySalesOfGoods (1U_ASP)'
+2020-09-02 20:19:11.611 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 59.6132ms 200 application/json; charset=utf-8
+2020-09-02 20:19:18.398 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/SaleOrders/MonthlySalesOfGoods  
+2020-09-02 20:19:18.402 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:19:18.405 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 8.1093ms 204 
+2020-09-02 20:19:18.408 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/SaleOrders/MonthlySalesOfGoods  
+2020-09-02 20:19:18.411 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:19:18.414 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2020-09-02 20:19:18.418 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+2020-09-02 20:19:18.421 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.SaleOrdersController.MonthlySalesOfGoods (1U_ASP)'
+2020-09-02 20:19:18.424 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "MonthlySalesOfGoods", controller = "SaleOrders"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] MonthlySalesOfGoods() on controller _1U_ASP.Controllers.SaleOrdersController (1U_ASP).
+2020-09-02 20:19:18.429 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:19:18.434 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:19:18.437 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.SaleOrdersController.MonthlySalesOfGoods (1U_ASP) - Validation state: Valid
+2020-09-02 20:19:18.443 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.SaleOrdersController.MonthlySalesOfGoods (1U_ASP), returned result Microsoft.AspNetCore.Mvc.JsonResult in 0.8135ms.
+2020-09-02 20:19:18.448 +03:00 [Information] Microsoft.AspNetCore.Mvc.Formatters.Json.Internal.JsonResultExecutor: Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[_1U_ASP.DTO.SaleDTO, 1U_ASP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-09-02 20:19:18.454 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.SaleOrdersController.MonthlySalesOfGoods (1U_ASP) in 25.0305ms
+2020-09-02 20:19:18.457 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.SaleOrdersController.MonthlySalesOfGoods (1U_ASP)'
+2020-09-02 20:19:18.460 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 51.6359ms 200 application/json; charset=utf-8
+2020-09-02 20:19:19.153 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/SaleOrders/ALLSales  
+2020-09-02 20:19:19.156 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:19:19.164 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 7.7405ms 204 
+2020-09-02 20:19:19.166 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/SaleOrders/ALLSales  
+2020-09-02 20:19:19.169 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:19:19.172 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2020-09-02 20:19:19.177 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+2020-09-02 20:19:19.179 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP)'
+2020-09-02 20:19:19.182 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "AllSales", controller = "SaleOrders"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AllSales() on controller _1U_ASP.Controllers.SaleOrdersController (1U_ASP).
+2020-09-02 20:19:19.186 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:19:19.191 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:19:19.193 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP) - Validation state: Valid
+2020-09-02 20:19:19.197 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP), returned result Microsoft.AspNetCore.Mvc.JsonResult in 0.4801ms.
+2020-09-02 20:19:19.200 +03:00 [Information] Microsoft.AspNetCore.Mvc.Formatters.Json.Internal.JsonResultExecutor: Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[_1U_ASP.DTO.SaleDTO, 1U_ASP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-09-02 20:19:19.207 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP) in 21.5797ms
+2020-09-02 20:19:19.211 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP)'
+2020-09-02 20:19:19.213 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 47.9455ms 200 application/json; charset=utf-8
+2020-09-02 20:19:23.896 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/Product/GetAllProducts  
+2020-09-02 20:19:23.899 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:19:23.903 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 8.0444ms 204 
+2020-09-02 20:19:23.907 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/Product/GetAllProducts  
+2020-09-02 20:19:23.913 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:19:23.921 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2020-09-02 20:19:23.929 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+2020-09-02 20:19:23.935 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP)'
+2020-09-02 20:19:23.938 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "GetAllProducts", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts() on controller _1U_ASP.Controllers.ProductController (1U_ASP).
+2020-09-02 20:19:23.943 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:19:23.950 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:19:23.953 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP) - Validation state: Valid
+2020-09-02 20:19:23.959 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [p].[ProductId], [p].[Barcode], [p].[CategoryId], [p].[Deleted], [p].[Description], [p].[Name], [p].[Photo], [p].[PriceCost], [p].[PriseSale], [p].[UserActionId]
+FROM [Products] AS [p]
+2020-09-02 20:19:23.972 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP), returned result Microsoft.AspNetCore.Mvc.JsonResult in 15.6835ms.
+2020-09-02 20:19:23.977 +03:00 [Information] Microsoft.AspNetCore.Mvc.Formatters.Json.Internal.JsonResultExecutor: Executing JsonResult, writing value of type '_1U_ASP.DTO.DataServiceMessage'.
+2020-09-02 20:19:23.980 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP) in 38.6603ms
+2020-09-02 20:19:23.983 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP)'
+2020-09-02 20:19:23.986 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 79.9238ms 200 application/json; charset=utf-8
+2020-09-02 20:19:28.391 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/Shop/GetAllShops  
+2020-09-02 20:19:28.397 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:19:28.400 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 11.3006ms 204 
+2020-09-02 20:19:28.406 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/Shop/GetAllShops  
+2020-09-02 20:19:28.410 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:19:28.414 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2020-09-02 20:19:28.417 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+2020-09-02 20:19:28.420 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP)'
+2020-09-02 20:19:28.428 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "GetAllShops", controller = "Shop"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[_1U_ASP.Models.Shop]]] GetAllShops() on controller _1U_ASP.Controllers.ShopController (1U_ASP).
+2020-09-02 20:19:28.432 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:19:28.438 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:19:28.441 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP) - Validation state: Valid
+2020-09-02 20:19:28.448 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [s].[ShopId], [s].[Address], [s].[Deleted], [s].[Name], [s].[UserActionId]
+FROM [Shops] AS [s]
+2020-09-02 20:19:28.451 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 7.6205ms.
+2020-09-02 20:19:28.454 +03:00 [Information] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor: Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[_1U_ASP.Models.Shop, 1U_ASP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-09-02 20:19:28.458 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP) in 26.4615ms
+2020-09-02 20:19:28.461 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP)'
+2020-09-02 20:19:28.464 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 60.3492ms 200 application/json; charset=utf-8
+2020-09-02 20:19:30.001 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/Provider/  
+2020-09-02 20:19:30.004 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:19:30.011 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 9.3047ms 204 
+2020-09-02 20:19:30.014 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/Provider/  
+2020-09-02 20:19:30.018 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:19:30.026 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2020-09-02 20:19:30.031 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+2020-09-02 20:19:30.035 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.ProviderController.GetProviders (1U_ASP)'
+2020-09-02 20:19:30.047 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "GetProviders", controller = "Provider"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[_1U_ASP.Models.Provider]]] GetProviders() on controller _1U_ASP.Controllers.ProviderController (1U_ASP).
+2020-09-02 20:19:30.051 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:19:30.059 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:19:30.063 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.ProviderController.GetProviders (1U_ASP) - Validation state: Valid
+2020-09-02 20:19:30.082 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [p].[ProviderId], [p].[Address], [p].[Deleted], [p].[Name], [p].[Phone], [p].[UserActionId]
+FROM [Provider] AS [p]
+2020-09-02 20:19:30.098 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.ProviderController.GetProviders (1U_ASP), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 31.1225ms.
+2020-09-02 20:19:30.100 +03:00 [Information] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor: Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[_1U_ASP.Models.Provider, 1U_ASP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-09-02 20:19:30.114 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.ProviderController.GetProviders (1U_ASP) in 62.8245ms
+2020-09-02 20:19:30.116 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.ProviderController.GetProviders (1U_ASP)'
+2020-09-02 20:19:30.119 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 105.2101ms 200 application/json; charset=utf-8
+2020-09-02 20:19:31.817 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/Person  
+2020-09-02 20:19:31.822 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:19:31.828 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 8.5456ms 204 
+2020-09-02 20:19:31.830 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/Person  
+2020-09-02 20:19:31.833 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:19:31.837 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2020-09-02 20:19:31.842 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+2020-09-02 20:19:31.844 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.PersonController.GetPerson (1U_ASP)'
+2020-09-02 20:19:31.851 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "GetPerson", controller = "Person"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[_1U_ASP.Models.Person]]] GetPerson() on controller _1U_ASP.Controllers.PersonController (1U_ASP).
+2020-09-02 20:19:31.856 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:19:31.861 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:19:31.865 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.PersonController.GetPerson (1U_ASP) - Validation state: Valid
+2020-09-02 20:19:31.892 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [p].[PersonId], [p].[Deleted], [p].[DisplayName], [p].[Dob], [p].[EmailAddress], [p].[FirstName], [p].[GenderSysCodeUniqueId], [p].[LastName], [p].[MobilePhone], [p].[UserActionId]
+FROM [Person] AS [p]
+2020-09-02 20:19:31.909 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.PersonController.GetPerson (1U_ASP), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 39.0059ms.
+2020-09-02 20:19:31.912 +03:00 [Information] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor: Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[_1U_ASP.Models.Person, 1U_ASP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-09-02 20:19:31.924 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.PersonController.GetPerson (1U_ASP) in 68.3525ms
+2020-09-02 20:19:31.927 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.PersonController.GetPerson (1U_ASP)'
+2020-09-02 20:19:31.930 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 98.9884ms 200 application/json; charset=utf-8
+2020-09-02 20:19:39.110 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/Shop/GetAllShops  
+2020-09-02 20:19:39.113 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/Product/GetAllProducts  
+2020-09-02 20:19:39.117 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:19:39.123 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:19:39.128 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 16.202ms 204 
+2020-09-02 20:19:39.132 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 20.6157ms 204 
+2020-09-02 20:19:39.138 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/Product/GetAllProducts  
+2020-09-02 20:19:39.140 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/Shop/GetAllShops  
+2020-09-02 20:19:39.143 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:19:39.147 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:19:39.154 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2020-09-02 20:19:39.158 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2020-09-02 20:19:39.162 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+2020-09-02 20:19:39.165 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+2020-09-02 20:19:39.169 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP)'
+2020-09-02 20:19:39.171 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP)'
+2020-09-02 20:19:39.174 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "GetAllProducts", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts() on controller _1U_ASP.Controllers.ProductController (1U_ASP).
+2020-09-02 20:19:39.179 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "GetAllShops", controller = "Shop"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[_1U_ASP.Models.Shop]]] GetAllShops() on controller _1U_ASP.Controllers.ShopController (1U_ASP).
+2020-09-02 20:19:39.182 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:19:39.186 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:19:39.193 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:19:39.196 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP) - Validation state: Valid
+2020-09-02 20:19:39.200 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:19:39.205 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP) - Validation state: Valid
+2020-09-02 20:19:39.210 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [p].[ProductId], [p].[Barcode], [p].[CategoryId], [p].[Deleted], [p].[Description], [p].[Name], [p].[Photo], [p].[PriceCost], [p].[PriseSale], [p].[UserActionId]
+FROM [Products] AS [p]
+2020-09-02 20:19:39.216 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [s].[ShopId], [s].[Address], [s].[Deleted], [s].[Name], [s].[UserActionId]
+FROM [Shops] AS [s]
+2020-09-02 20:19:39.228 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 16.1782ms.
+2020-09-02 20:19:39.232 +03:00 [Information] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor: Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[_1U_ASP.Models.Shop, 1U_ASP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-09-02 20:19:39.239 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP) in 55.3885ms
+2020-09-02 20:19:39.243 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP)'
+2020-09-02 20:19:39.247 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 113.1208ms 200 application/json; charset=utf-8
+2020-09-02 20:19:39.252 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP), returned result Microsoft.AspNetCore.Mvc.JsonResult in 51.0688ms.
+2020-09-02 20:19:39.257 +03:00 [Information] Microsoft.AspNetCore.Mvc.Formatters.Json.Internal.JsonResultExecutor: Executing JsonResult, writing value of type '_1U_ASP.DTO.DataServiceMessage'.
+2020-09-02 20:19:39.261 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP) in 82.8469ms
+2020-09-02 20:19:39.267 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP)'
+2020-09-02 20:19:39.271 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 137.5557ms 200 application/json; charset=utf-8
+2020-09-02 20:19:45.277 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/SaleOrders/ALLSales  
+2020-09-02 20:19:45.282 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:19:45.287 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 10.6924ms 204 
+2020-09-02 20:19:45.291 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/SaleOrders/ALLSales  
+2020-09-02 20:19:45.294 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:19:45.299 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2020-09-02 20:19:45.304 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+2020-09-02 20:19:45.308 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP)'
+2020-09-02 20:19:45.311 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "AllSales", controller = "SaleOrders"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AllSales() on controller _1U_ASP.Controllers.SaleOrdersController (1U_ASP).
+2020-09-02 20:19:45.317 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:19:45.324 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:19:45.327 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP) - Validation state: Valid
+2020-09-02 20:19:45.333 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP), returned result Microsoft.AspNetCore.Mvc.JsonResult in 0.4127ms.
+2020-09-02 20:19:45.336 +03:00 [Information] Microsoft.AspNetCore.Mvc.Formatters.Json.Internal.JsonResultExecutor: Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[_1U_ASP.DTO.SaleDTO, 1U_ASP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-09-02 20:19:45.345 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP) in 29.3259ms
+2020-09-02 20:19:45.350 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP)'
+2020-09-02 20:19:45.354 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 63.0376ms 200 application/json; charset=utf-8
+2020-09-02 20:19:46.909 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/Product/GetAllProducts  
+2020-09-02 20:19:46.920 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:19:46.924 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 18.1328ms 204 
+2020-09-02 20:19:46.927 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/Product/GetAllProducts  
+2020-09-02 20:19:46.931 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:19:46.936 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2020-09-02 20:19:46.938 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+2020-09-02 20:19:46.942 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP)'
+2020-09-02 20:19:46.945 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "GetAllProducts", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts() on controller _1U_ASP.Controllers.ProductController (1U_ASP).
+2020-09-02 20:19:46.949 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:19:46.957 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:19:46.960 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP) - Validation state: Valid
+2020-09-02 20:19:46.968 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [p].[ProductId], [p].[Barcode], [p].[CategoryId], [p].[Deleted], [p].[Description], [p].[Name], [p].[Photo], [p].[PriceCost], [p].[PriseSale], [p].[UserActionId]
+FROM [Products] AS [p]
+2020-09-02 20:19:46.985 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP), returned result Microsoft.AspNetCore.Mvc.JsonResult in 21.7922ms.
+2020-09-02 20:19:46.990 +03:00 [Information] Microsoft.AspNetCore.Mvc.Formatters.Json.Internal.JsonResultExecutor: Executing JsonResult, writing value of type '_1U_ASP.DTO.DataServiceMessage'.
+2020-09-02 20:19:46.994 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP) in 45.6751ms
+2020-09-02 20:19:46.997 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP)'
+2020-09-02 20:19:47.001 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 73.7142ms 200 application/json; charset=utf-8
+2020-09-02 20:19:47.914 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/SaleOrders/ALLSales  
+2020-09-02 20:19:47.925 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:19:47.934 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2020-09-02 20:19:47.938 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo: '[PII is hidden]', Current time: '[PII is hidden]'.
+2020-09-02 20:19:47.950 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP)'
+2020-09-02 20:19:47.955 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "AllSales", controller = "SaleOrders"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AllSales() on controller _1U_ASP.Controllers.SaleOrdersController (1U_ASP).
+2020-09-02 20:19:47.974 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:19:47.985 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:19:47.994 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP) - Validation state: Valid
+2020-09-02 20:19:48.001 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP), returned result Microsoft.AspNetCore.Mvc.JsonResult in 0.5661ms.
+2020-09-02 20:19:48.007 +03:00 [Information] Microsoft.AspNetCore.Mvc.Formatters.Json.Internal.JsonResultExecutor: Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[_1U_ASP.DTO.SaleDTO, 1U_ASP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-09-02 20:19:48.023 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP) in 59.6171ms
+2020-09-02 20:19:48.026 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP)'
+2020-09-02 20:19:48.029 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 116.4979ms 200 application/json; charset=utf-8
+2020-09-02 20:19:54.371 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/Account  
+2020-09-02 20:19:54.374 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:19:54.377 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 5.0789ms 204 
+2020-09-02 20:19:54.381 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 POST https://localhost:44307/api/Account application/json 48
+2020-09-02 20:19:54.384 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:19:54.388 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.AccountController.Login (1U_ASP)'
+2020-09-02 20:19:54.397 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature System.Threading.Tasks.Task`1[_1U_ASP.DTO.LoginResultDto] Login(_1U_ASP.Models.LoginViewModel) on controller _1U_ASP.Controllers.AccountController (1U_ASP).
+2020-09-02 20:19:54.402 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:19:54.408 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:19:54.434 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.AccountController.Login (1U_ASP) - Validation state: Valid
+2020-09-02 20:19:54.618 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (13ms) [Parameters=[@__email_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [x].[Id], [x].[AccessFailedCount], [x].[ConcurrencyStamp], [x].[Email], [x].[EmailConfirmed], [x].[LockoutEnabled], [x].[LockoutEnd], [x].[NormalizedEmail], [x].[NormalizedUserName], [x].[PasswordHash], [x].[PersonId], [x].[PhoneNumber], [x].[PhoneNumberConfirmed], [x].[SecurityStamp], [x].[TwoFactorEnabled], [x].[UserName], [x.Person].[PersonID], [x.Person].[Deleted], [x.Person].[DisplayName], [x.Person].[DOB], [x.Person].[EmailAddress], [x.Person].[FirstName], [x.Person].[GenderSysCodeUniqueID], [x.Person].[LastName], [x.Person].[MobilePhone], [x.Person].[UserActionID]
+FROM [AspNetUsers] AS [x]
+LEFT JOIN [Core].[Person] AS [x.Person] ON [x].[PersonId] = [x.Person].[PersonID]
+WHERE [x].[Email] = @__email_0
+ORDER BY [x].[Id]
+2020-09-02 20:19:54.722 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (10ms) [Parameters=[@__email_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT [x.Claims].[Id], [x.Claims].[ClaimProperty], [x.Claims].[ClaimType], [x.Claims].[ClaimValue], [x.Claims].[UserId]
+FROM [AspNetUserClaims] AS [x.Claims]
+INNER JOIN (
+    SELECT DISTINCT [t].*
+    FROM (
+        SELECT TOP(1) [x0].[Id]
+        FROM [AspNetUsers] AS [x0]
+        LEFT JOIN [Core].[Person] AS [x.Person0] ON [x0].[PersonId] = [x.Person0].[PersonID]
+        WHERE [x0].[Email] = @__email_0
+        ORDER BY [x0].[Id]
+    ) AS [t]
+) AS [t0] ON [x.Claims].[UserId] = [t0].[Id]
+ORDER BY [t0].[Id], [x.Claims].[Id]
+2020-09-02 20:19:54.761 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (14ms) [Parameters=[@__email_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT [x.Claims.UserClaimRoles].[AspNetUserClaimRoleID], [x.Claims.UserClaimRoles].[ClaimId], [x.Claims.UserClaimRoles].[RoleId]
+FROM [AspNetUserClaimRole] AS [x.Claims.UserClaimRoles]
+INNER JOIN (
+    SELECT DISTINCT [x.Claims0].[Id], [t2].[Id] AS [Id0]
+    FROM [AspNetUserClaims] AS [x.Claims0]
+    INNER JOIN (
+        SELECT DISTINCT [t1].*
+        FROM (
+            SELECT TOP(1) [x1].[Id]
+            FROM [AspNetUsers] AS [x1]
+            LEFT JOIN [Core].[Person] AS [x.Person1] ON [x1].[PersonId] = [x.Person1].[PersonID]
+            WHERE [x1].[Email] = @__email_0
+            ORDER BY [x1].[Id]
+        ) AS [t1]
+    ) AS [t2] ON [x.Claims0].[UserId] = [t2].[Id]
+) AS [t3] ON [x.Claims.UserClaimRoles].[ClaimId] = [t3].[Id]
+ORDER BY [t3].[Id0], [t3].[Id]
+2020-09-02 20:19:54.786 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (5ms) [Parameters=[@__email_0='?' (Size = 256)], CommandType='Text', CommandTimeout='30']
+SELECT [x.UserRoles].[UserId], [x.UserRoles].[RoleId], [a.Role].[Id], [a.Role].[ConcurrencyStamp], [a.Role].[Name], [a.Role].[NormalizedName]
+FROM [AspNetUserRoles] AS [x.UserRoles]
+INNER JOIN [AspNetRoles] AS [a.Role] ON [x.UserRoles].[RoleId] = [a.Role].[Id]
+INNER JOIN (
+    SELECT DISTINCT [t4].*
+    FROM (
+        SELECT TOP(1) [x2].[Id]
+        FROM [AspNetUsers] AS [x2]
+        LEFT JOIN [Core].[Person] AS [x.Person2] ON [x2].[PersonId] = [x.Person2].[PersonID]
+        WHERE [x2].[Email] = @__email_0
+        ORDER BY [x2].[Id]
+    ) AS [t4]
+) AS [t5] ON [x.UserRoles].[UserId] = [t5].[Id]
+ORDER BY [t5].[Id]
+2020-09-02 20:19:54.859 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.AccountController.Login (1U_ASP), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 422.2068ms.
+2020-09-02 20:19:54.863 +03:00 [Information] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor: Executing ObjectResult, writing value of type '_1U_ASP.DTO.LoginResultDto'.
+2020-09-02 20:19:54.870 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.AccountController.Login (1U_ASP) in 469.1511ms
+2020-09-02 20:19:54.874 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.AccountController.Login (1U_ASP)'
+2020-09-02 20:19:54.878 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 497.6416ms 200 application/json; charset=utf-8
+2020-09-02 20:19:54.918 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/SaleOrders/ALLSales  
+2020-09-02 20:19:54.925 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:19:54.929 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 17.3106ms 204 
+2020-09-02 20:19:54.935 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/SaleOrders/ALLSales  
+2020-09-02 20:19:54.940 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:19:54.952 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Successfully validated the token.
+2020-09-02 20:19:54.970 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP)'
+2020-09-02 20:19:54.977 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "AllSales", controller = "SaleOrders"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AllSales() on controller _1U_ASP.Controllers.SaleOrdersController (1U_ASP).
+2020-09-02 20:19:54.987 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:19:54.995 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:19:55.000 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP) - Validation state: Valid
+2020-09-02 20:19:55.005 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP), returned result Microsoft.AspNetCore.Mvc.JsonResult in 0.43ms.
+2020-09-02 20:19:55.009 +03:00 [Information] Microsoft.AspNetCore.Mvc.Formatters.Json.Internal.JsonResultExecutor: Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[_1U_ASP.DTO.SaleDTO, 1U_ASP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-09-02 20:19:55.035 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP) in 37.3452ms
+2020-09-02 20:19:55.042 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP)'
+2020-09-02 20:19:55.054 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 112.6733ms 200 application/json; charset=utf-8
+2020-09-02 20:20:07.615 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/Provider/  
+2020-09-02 20:20:07.618 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:20:07.621 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 6.4937ms 204 
+2020-09-02 20:20:07.624 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/Provider/  
+2020-09-02 20:20:07.629 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:20:07.633 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Successfully validated the token.
+2020-09-02 20:20:07.636 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.ProviderController.GetProviders (1U_ASP)'
+2020-09-02 20:20:07.639 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "GetProviders", controller = "Provider"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[_1U_ASP.Models.Provider]]] GetProviders() on controller _1U_ASP.Controllers.ProviderController (1U_ASP).
+2020-09-02 20:20:07.643 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:20:07.652 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:20:07.655 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.ProviderController.GetProviders (1U_ASP) - Validation state: Valid
+2020-09-02 20:20:07.661 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [p].[ProviderId], [p].[Address], [p].[Deleted], [p].[Name], [p].[Phone], [p].[UserActionId]
+FROM [Provider] AS [p]
+2020-09-02 20:20:07.667 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.ProviderController.GetProviders (1U_ASP), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 7.7458ms.
+2020-09-02 20:20:07.670 +03:00 [Information] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor: Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[_1U_ASP.Models.Provider, 1U_ASP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-09-02 20:20:07.673 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.ProviderController.GetProviders (1U_ASP) in 31.2453ms
+2020-09-02 20:20:07.678 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.ProviderController.GetProviders (1U_ASP)'
+2020-09-02 20:20:07.681 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 57.4161ms 200 application/json; charset=utf-8
+2020-09-02 20:20:10.449 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/SaleOrders/ALLSales  
+2020-09-02 20:20:10.463 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:20:10.470 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 18.8166ms 204 
+2020-09-02 20:20:10.473 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/SaleOrders/ALLSales  
+2020-09-02 20:20:10.476 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:20:10.480 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Successfully validated the token.
+2020-09-02 20:20:10.483 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP)'
+2020-09-02 20:20:10.487 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "AllSales", controller = "SaleOrders"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AllSales() on controller _1U_ASP.Controllers.SaleOrdersController (1U_ASP).
+2020-09-02 20:20:10.492 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:20:10.498 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:20:10.502 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP) - Validation state: Valid
+2020-09-02 20:20:10.506 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP), returned result Microsoft.AspNetCore.Mvc.JsonResult in 0.4016ms.
+2020-09-02 20:20:10.509 +03:00 [Information] Microsoft.AspNetCore.Mvc.Formatters.Json.Internal.JsonResultExecutor: Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[_1U_ASP.DTO.SaleDTO, 1U_ASP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-09-02 20:20:10.518 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP) in 27.4894ms
+2020-09-02 20:20:10.521 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP)'
+2020-09-02 20:20:10.525 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 51.552ms 200 application/json; charset=utf-8
+2020-09-02 20:23:24.186 +03:00 [Information] Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager: User profile is available. Using 'C:\Users\Admin\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2020-09-02 20:23:25.024 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/values  
+2020-09-02 20:23:25.323 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.ValuesController.Get (1U_ASP)'
+2020-09-02 20:23:25.346 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "Get", controller = "Values"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[System.String]] Get() on controller _1U_ASP.Controllers.ValuesController (1U_ASP).
+2020-09-02 20:23:25.387 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.ValuesController.Get (1U_ASP) - Validation state: Valid
+2020-09-02 20:23:25.403 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.ValuesController.Get (1U_ASP), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 1.4072ms.
+2020-09-02 20:23:25.430 +03:00 [Information] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor: Executing ObjectResult, writing value of type 'System.String[]'.
+2020-09-02 20:23:25.559 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.ValuesController.Get (1U_ASP) in 207.277ms
+2020-09-02 20:23:25.562 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.ValuesController.Get (1U_ASP)'
+2020-09-02 20:23:25.572 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 548.6525ms 200 application/json; charset=utf-8
+2020-09-02 20:24:15.048 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/Shop/GetAllShops  
+2020-09-02 20:24:15.064 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:24:15.073 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/Product/GetAllProducts  
+2020-09-02 20:24:15.075 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:24:15.082 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 8.8698ms 204 
+2020-09-02 20:24:15.085 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 33.7663ms 204 
+2020-09-02 20:24:15.094 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/Shop/GetAllShops  
+2020-09-02 20:24:15.097 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:24:15.100 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/Product/GetAllProducts  
+2020-09-02 20:24:15.104 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:24:15.156 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Successfully validated the token.
+2020-09-02 20:24:15.159 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Successfully validated the token.
+2020-09-02 20:24:15.170 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP)'
+2020-09-02 20:24:15.183 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP)'
+2020-09-02 20:24:15.194 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "GetAllProducts", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts() on controller _1U_ASP.Controllers.ProductController (1U_ASP).
+2020-09-02 20:24:15.197 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "GetAllShops", controller = "Shop"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[_1U_ASP.Models.Shop]]] GetAllShops() on controller _1U_ASP.Controllers.ShopController (1U_ASP).
+2020-09-02 20:24:15.893 +03:00 [Warning] Microsoft.EntityFrameworkCore.Model.Validation: No type was specified for the decimal column 'Phone' on entity type 'Provider'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2020-09-02 20:24:15.896 +03:00 [Warning] Microsoft.EntityFrameworkCore.Model.Validation: No type was specified for the decimal column 'SalePrise' on entity type 'SalePriseDoc'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2020-09-02 20:24:15.971 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:24:15.974 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:24:16.123 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (36ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:24:16.126 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (35ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:24:16.130 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP) - Validation state: Valid
+2020-09-02 20:24:16.135 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP) - Validation state: Valid
+2020-09-02 20:24:16.312 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (33ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [s].[ShopId], [s].[Address], [s].[Deleted], [s].[Name], [s].[UserActionId]
+FROM [Shops] AS [s]
+2020-09-02 20:24:16.314 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (33ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [p].[ProductId], [p].[Barcode], [p].[CategoryId], [p].[Deleted], [p].[Description], [p].[Name], [p].[Photo], [p].[PriceCost], [p].[PriseSale], [p].[UserActionId]
+FROM [Products] AS [p]
+2020-09-02 20:24:16.386 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 252.8602ms.
+2020-09-02 20:24:16.391 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP), returned result Microsoft.AspNetCore.Mvc.JsonResult in 252.8859ms.
+2020-09-02 20:24:16.399 +03:00 [Information] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor: Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[_1U_ASP.Models.Shop, 1U_ASP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-09-02 20:24:16.407 +03:00 [Information] Microsoft.AspNetCore.Mvc.Formatters.Json.Internal.JsonResultExecutor: Executing JsonResult, writing value of type '_1U_ASP.DTO.DataServiceMessage'.
+2020-09-02 20:24:16.435 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP) in 1235.1219ms
+2020-09-02 20:24:16.453 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP) in 1241.1229ms
+2020-09-02 20:24:16.466 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP)'
+2020-09-02 20:24:16.485 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP)'
+2020-09-02 20:24:16.494 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 1405.3404ms 200 application/json; charset=utf-8
+2020-09-02 20:24:16.497 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 1394.1283ms 200 application/json; charset=utf-8
+2020-09-02 20:24:33.243 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/SaleOrders/SellGoods  
+2020-09-02 20:24:33.247 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:24:33.250 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 8.3921ms 204 
+2020-09-02 20:24:33.279 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 POST https://localhost:44307/api/SaleOrders/SellGoods application/json 157
+2020-09-02 20:24:33.283 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:24:33.287 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Successfully validated the token.
+2020-09-02 20:24:33.292 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.SaleOrdersController.SellGoods (1U_ASP)'
+2020-09-02 20:24:33.311 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "SellGoods", controller = "SaleOrders"}. Executing controller action with signature System.Threading.Tasks.Task`1[_1U_ASP.DTO.DataServiceMessage] SellGoods(System.Collections.Generic.List`1[_1U_ASP.DTO.SellDto]) on controller _1U_ASP.Controllers.SaleOrdersController (1U_ASP).
+2020-09-02 20:24:33.315 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:24:33.323 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:24:33.444 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [saleOrder].[SaleOrderId], [detail].[SaleOrderDetailId], [product].[ProductId], [product].[Name] AS [ProductName], [product].[Description] AS [ProductDescription], [product].[Barcode] AS [ProductBarcode], [detail].[Count], [saleOrder].[DataTime], COALESCE([detail].[PriceCost], 0.0E0) AS [PriceCost], COALESCE([detail].[PriseSale], 0.0E0) AS [PriseSale], COALESCE([detail].[Summ], 0.0E0) AS [Summ], COALESCE([saleOrder].[ShopId], 0) AS [ShopId], [shop].[Name] AS [ShopName], [shop].[Address] AS [ShopAddress]
+FROM [SaleOrders] AS [saleOrder]
+INNER JOIN [SaleOrderDetails] AS [detail] ON [saleOrder].[SaleOrderId] = COALESCE([detail].[SaleOrderId], 0)
+INNER JOIN [Products] AS [product] ON [detail].[ProductId] = [product].[ProductId]
+INNER JOIN [Shops] AS [shop] ON [saleOrder].[ShopId] = [shop].[ShopId]
+2020-09-02 20:24:33.498 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.SaleOrdersController.SellGoods (1U_ASP) - Validation state: Valid
+2020-09-02 20:24:33.608 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (11ms) [Parameters=[@p0='?' (DbType = DateTime2), @p1='?' (DbType = Int32), @p2='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [SaleOrders] ([DataTime], [ShopId], [UserActionId])
+VALUES (@p0, @p1, @p2);
+SELECT [SaleOrderId], [Deleted]
+FROM [SaleOrders]
+WHERE @@ROWCOUNT = 1 AND [SaleOrderId] = scope_identity();
+2020-09-02 20:24:33.661 +03:00 [Warning] Microsoft.EntityFrameworkCore.Query: The LINQ expression 'LastOrDefault()' could not be translated and will be evaluated locally.
+2020-09-02 20:24:33.674 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (1ms) [Parameters=[@__x_ProductId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [z].[ProductId], [z].[Barcode], [z].[CategoryId], [z].[Deleted], [z].[Description], [z].[Name], [z].[Photo], [z].[PriceCost], [z].[PriseSale], [z].[UserActionId]
+FROM [Products] AS [z]
+WHERE [z].[ProductId] = @__x_ProductId_0
+2020-09-02 20:24:33.681 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[@__x_ProductId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [z].[ProductId], [z].[Barcode], [z].[CategoryId], [z].[Deleted], [z].[Description], [z].[Name], [z].[Photo], [z].[PriceCost], [z].[PriseSale], [z].[UserActionId]
+FROM [Products] AS [z]
+WHERE [z].[ProductId] = @__x_ProductId_0
+2020-09-02 20:24:33.685 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[@__x_ProductId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [z].[ProductId], [z].[Barcode], [z].[CategoryId], [z].[Deleted], [z].[Description], [z].[Name], [z].[Photo], [z].[PriceCost], [z].[PriseSale], [z].[UserActionId]
+FROM [Products] AS [z]
+WHERE [z].[ProductId] = @__x_ProductId_0
+2020-09-02 20:24:33.689 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[@__x_ProductId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [z].[ProductId], [z].[Barcode], [z].[CategoryId], [z].[Deleted], [z].[Description], [z].[Name], [z].[Photo], [z].[PriceCost], [z].[PriseSale], [z].[UserActionId]
+FROM [Products] AS [z]
+WHERE [z].[ProductId] = @__x_ProductId_0
+2020-09-02 20:24:33.693 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[@__x_ProductId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [z].[ProductId], [z].[Barcode], [z].[CategoryId], [z].[Deleted], [z].[Description], [z].[Name], [z].[Photo], [z].[PriceCost], [z].[PriseSale], [z].[UserActionId]
+FROM [Products] AS [z]
+WHERE [z].[ProductId] = @__x_ProductId_0
+2020-09-02 20:24:33.697 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (0ms) [Parameters=[@__x_ProductId_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [z].[ProductId], [z].[Barcode], [z].[CategoryId], [z].[Deleted], [z].[Description], [z].[Name], [z].[Photo], [z].[PriceCost], [z].[PriseSale], [z].[UserActionId]
+FROM [Products] AS [z]
+WHERE [z].[ProductId] = @__x_ProductId_0
+2020-09-02 20:24:33.790 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (4ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Double), @p2='?' (DbType = Double), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32), @p5='?' (DbType = Double), @p6='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [SaleOrderDetails] ([Count], [PriceCost], [PriseSale], [ProductId], [SaleOrderId], [Summ], [UserActionId])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+SELECT [SaleOrderDetailId], [Deleted]
+FROM [SaleOrderDetails]
+WHERE @@ROWCOUNT = 1 AND [SaleOrderDetailId] = scope_identity();
+2020-09-02 20:24:33.799 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = Double), @p2='?' (DbType = Double), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32), @p5='?' (DbType = Double), @p6='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [SaleOrderDetails] ([Count], [PriceCost], [PriseSale], [ProductId], [SaleOrderId], [Summ], [UserActionId])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+SELECT [SaleOrderDetailId], [Deleted]
+FROM [SaleOrderDetails]
+WHERE @@ROWCOUNT = 1 AND [SaleOrderDetailId] = scope_identity();
+2020-09-02 20:24:33.816 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [saleOrder].[SaleOrderId], [detail].[SaleOrderDetailId], [product].[ProductId], [product].[Name] AS [ProductName], [product].[Description] AS [ProductDescription], [product].[Barcode] AS [ProductBarcode], [detail].[Count], [saleOrder].[DataTime], COALESCE([detail].[PriceCost], 0.0E0) AS [PriceCost], COALESCE([detail].[PriseSale], 0.0E0) AS [PriseSale], COALESCE([detail].[Summ], 0.0E0) AS [Summ], COALESCE([saleOrder].[ShopId], 0) AS [ShopId], [shop].[Name] AS [ShopName], [shop].[Address] AS [ShopAddress]
+FROM [SaleOrders] AS [saleOrder]
+INNER JOIN [SaleOrderDetails] AS [detail] ON [saleOrder].[SaleOrderId] = COALESCE([detail].[SaleOrderId], 0)
+INNER JOIN [Products] AS [product] ON [detail].[ProductId] = [product].[ProductId]
+INNER JOIN [Shops] AS [shop] ON [saleOrder].[ShopId] = [shop].[ShopId]
+2020-09-02 20:24:33.830 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.SaleOrdersController.SellGoods (1U_ASP), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 329.7435ms.
+2020-09-02 20:24:33.833 +03:00 [Information] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor: Executing ObjectResult, writing value of type '_1U_ASP.DTO.DataServiceMessage'.
+2020-09-02 20:24:33.836 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.SaleOrdersController.SellGoods (1U_ASP) in 521.7836ms
+2020-09-02 20:24:33.838 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.SaleOrdersController.SellGoods (1U_ASP)'
+2020-09-02 20:24:33.841 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 588.1671ms 200 application/json; charset=utf-8
+2020-09-02 20:25:13.031 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/SaleOrders/ALLSales  
+2020-09-02 20:25:13.034 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:25:13.038 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 6.6854ms 204 
+2020-09-02 20:25:13.043 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/SaleOrders/ALLSales  
+2020-09-02 20:25:13.048 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:25:13.053 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Successfully validated the token.
+2020-09-02 20:25:13.059 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP)'
+2020-09-02 20:25:13.068 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "AllSales", controller = "SaleOrders"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AllSales() on controller _1U_ASP.Controllers.SaleOrdersController (1U_ASP).
+2020-09-02 20:25:13.073 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:25:13.107 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (26ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:25:13.110 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP) - Validation state: Valid
+2020-09-02 20:25:13.117 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP), returned result Microsoft.AspNetCore.Mvc.JsonResult in 4.3609ms.
+2020-09-02 20:25:13.122 +03:00 [Information] Microsoft.AspNetCore.Mvc.Formatters.Json.Internal.JsonResultExecutor: Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[_1U_ASP.DTO.SaleDTO, 1U_ASP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-09-02 20:25:13.144 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP) in 71.9467ms
+2020-09-02 20:25:13.146 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP)'
+2020-09-02 20:25:13.148 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 107.3329ms 200 application/json; charset=utf-8
+2020-09-02 20:25:17.693 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/SaleOrders/MonthlySalesOfGoods  
+2020-09-02 20:25:17.696 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:25:17.700 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 7.7156ms 204 
+2020-09-02 20:25:17.703 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/SaleOrders/MonthlySalesOfGoods  
+2020-09-02 20:25:17.707 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:25:17.710 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Successfully validated the token.
+2020-09-02 20:25:17.714 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.SaleOrdersController.MonthlySalesOfGoods (1U_ASP)'
+2020-09-02 20:25:17.727 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "MonthlySalesOfGoods", controller = "SaleOrders"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] MonthlySalesOfGoods() on controller _1U_ASP.Controllers.SaleOrdersController (1U_ASP).
+2020-09-02 20:25:17.733 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:25:17.741 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:25:17.744 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.SaleOrdersController.MonthlySalesOfGoods (1U_ASP) - Validation state: Valid
+2020-09-02 20:25:17.759 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.SaleOrdersController.MonthlySalesOfGoods (1U_ASP), returned result Microsoft.AspNetCore.Mvc.JsonResult in 11.1953ms.
+2020-09-02 20:25:17.761 +03:00 [Information] Microsoft.AspNetCore.Mvc.Formatters.Json.Internal.JsonResultExecutor: Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[_1U_ASP.DTO.SaleDTO, 1U_ASP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-09-02 20:25:17.767 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.SaleOrdersController.MonthlySalesOfGoods (1U_ASP) in 35.0599ms
+2020-09-02 20:25:17.770 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.SaleOrdersController.MonthlySalesOfGoods (1U_ASP)'
+2020-09-02 20:25:17.773 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 70.1591ms 200 application/json; charset=utf-8
+2020-09-02 20:25:53.813 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/SaleOrders/YearlySalesOfGoods  
+2020-09-02 20:25:53.816 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:25:53.819 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 6.7733ms 204 
+2020-09-02 20:25:53.824 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/SaleOrders/YearlySalesOfGoods  
+2020-09-02 20:25:53.827 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:25:53.831 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Successfully validated the token.
+2020-09-02 20:25:53.834 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.SaleOrdersController.YearlySalesOfGoods (1U_ASP)'
+2020-09-02 20:25:53.842 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "YearlySalesOfGoods", controller = "SaleOrders"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] YearlySalesOfGoods() on controller _1U_ASP.Controllers.SaleOrdersController (1U_ASP).
+2020-09-02 20:25:53.847 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:25:53.855 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:25:53.858 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.SaleOrdersController.YearlySalesOfGoods (1U_ASP) - Validation state: Valid
+2020-09-02 20:25:53.868 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.SaleOrdersController.YearlySalesOfGoods (1U_ASP), returned result Microsoft.AspNetCore.Mvc.JsonResult in 6.238ms.
+2020-09-02 20:25:53.872 +03:00 [Information] Microsoft.AspNetCore.Mvc.Formatters.Json.Internal.JsonResultExecutor: Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[_1U_ASP.DTO.SaleDTO, 1U_ASP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-09-02 20:25:53.878 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.SaleOrdersController.YearlySalesOfGoods (1U_ASP) in 30.5742ms
+2020-09-02 20:25:53.882 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.SaleOrdersController.YearlySalesOfGoods (1U_ASP)'
+2020-09-02 20:25:53.886 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 62.2258ms 200 application/json; charset=utf-8
+2020-09-02 20:26:16.814 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/Product/GetAllProducts  
+2020-09-02 20:26:16.819 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:26:16.825 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 9.8224ms 204 
+2020-09-02 20:26:16.839 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/Product/GetAllProducts  
+2020-09-02 20:26:16.844 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:26:16.849 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Successfully validated the token.
+2020-09-02 20:26:16.856 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP)'
+2020-09-02 20:26:16.858 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "GetAllProducts", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts() on controller _1U_ASP.Controllers.ProductController (1U_ASP).
+2020-09-02 20:26:16.862 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:26:16.883 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (17ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:26:16.886 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP) - Validation state: Valid
+2020-09-02 20:26:16.893 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [p].[ProductId], [p].[Barcode], [p].[CategoryId], [p].[Deleted], [p].[Description], [p].[Name], [p].[Photo], [p].[PriceCost], [p].[PriseSale], [p].[UserActionId]
+FROM [Products] AS [p]
+2020-09-02 20:26:16.903 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP), returned result Microsoft.AspNetCore.Mvc.JsonResult in 14.9221ms.
+2020-09-02 20:26:16.905 +03:00 [Information] Microsoft.AspNetCore.Mvc.Formatters.Json.Internal.JsonResultExecutor: Executing JsonResult, writing value of type '_1U_ASP.DTO.DataServiceMessage'.
+2020-09-02 20:26:16.908 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP) in 47.7046ms
+2020-09-02 20:26:16.913 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP)'
+2020-09-02 20:26:16.915 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 77.813ms 200 application/json; charset=utf-8
+2020-09-02 20:27:19.981 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/Shop/GetAllShops  
+2020-09-02 20:27:19.986 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:27:19.991 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 16.8607ms 204 
+2020-09-02 20:27:19.995 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/Shop/GetAllShops  
+2020-09-02 20:27:19.998 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:27:20.002 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Successfully validated the token.
+2020-09-02 20:27:20.006 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP)'
+2020-09-02 20:27:20.010 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "GetAllShops", controller = "Shop"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[_1U_ASP.Models.Shop]]] GetAllShops() on controller _1U_ASP.Controllers.ShopController (1U_ASP).
+2020-09-02 20:27:20.020 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:27:20.040 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (14ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:27:20.042 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP) - Validation state: Valid
+2020-09-02 20:27:20.050 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [s].[ShopId], [s].[Address], [s].[Deleted], [s].[Name], [s].[UserActionId]
+FROM [Shops] AS [s]
+2020-09-02 20:27:20.053 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 8.1373ms.
+2020-09-02 20:27:20.056 +03:00 [Information] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor: Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[_1U_ASP.Models.Shop, 1U_ASP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-09-02 20:27:20.060 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP) in 46.4801ms
+2020-09-02 20:27:20.065 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP)'
+2020-09-02 20:27:20.069 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 74.0952ms 200 application/json; charset=utf-8
+2020-09-02 20:27:25.277 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/Provider/  
+2020-09-02 20:27:25.281 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:27:25.287 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 8.9738ms 204 
+2020-09-02 20:27:25.291 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/Provider/  
+2020-09-02 20:27:25.295 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:27:25.301 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Successfully validated the token.
+2020-09-02 20:27:25.305 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.ProviderController.GetProviders (1U_ASP)'
+2020-09-02 20:27:25.318 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "GetProviders", controller = "Provider"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[_1U_ASP.Models.Provider]]] GetProviders() on controller _1U_ASP.Controllers.ProviderController (1U_ASP).
+2020-09-02 20:27:25.324 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:27:25.332 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:27:25.336 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.ProviderController.GetProviders (1U_ASP) - Validation state: Valid
+2020-09-02 20:27:25.354 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [p].[ProviderId], [p].[Address], [p].[Deleted], [p].[Name], [p].[Phone], [p].[UserActionId]
+FROM [Provider] AS [p]
+2020-09-02 20:27:25.371 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.ProviderController.GetProviders (1U_ASP), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 32.1362ms.
+2020-09-02 20:27:25.374 +03:00 [Information] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor: Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[_1U_ASP.Models.Provider, 1U_ASP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-09-02 20:27:25.383 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.ProviderController.GetProviders (1U_ASP) in 61.2084ms
+2020-09-02 20:27:25.386 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.ProviderController.GetProviders (1U_ASP)'
+2020-09-02 20:27:25.388 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 98.5895ms 200 application/json; charset=utf-8
+2020-09-02 20:27:30.335 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/Shop/GetAllShops  
+2020-09-02 20:27:30.338 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:27:30.345 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 7.3968ms 204 
+2020-09-02 20:27:30.352 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/Shop/GetAllShops  
+2020-09-02 20:27:30.356 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:27:30.361 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Successfully validated the token.
+2020-09-02 20:27:30.365 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP)'
+2020-09-02 20:27:30.369 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "GetAllShops", controller = "Shop"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[_1U_ASP.Models.Shop]]] GetAllShops() on controller _1U_ASP.Controllers.ShopController (1U_ASP).
+2020-09-02 20:27:30.376 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:27:30.382 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:27:30.387 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP) - Validation state: Valid
+2020-09-02 20:27:30.394 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [s].[ShopId], [s].[Address], [s].[Deleted], [s].[Name], [s].[UserActionId]
+FROM [Shops] AS [s]
+2020-09-02 20:27:30.401 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 8.7999ms.
+2020-09-02 20:27:30.405 +03:00 [Information] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor: Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[_1U_ASP.Models.Shop, 1U_ASP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-09-02 20:27:30.409 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP) in 35.4245ms
+2020-09-02 20:27:30.413 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP)'
+2020-09-02 20:27:30.416 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 68.6749ms 200 application/json; charset=utf-8
+2020-09-02 20:27:31.337 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/Person  
+2020-09-02 20:27:31.340 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:27:31.344 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 8.0249ms 204 
+2020-09-02 20:27:31.351 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/Person  
+2020-09-02 20:27:31.354 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:27:31.358 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Successfully validated the token.
+2020-09-02 20:27:31.363 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.PersonController.GetPerson (1U_ASP)'
+2020-09-02 20:27:31.372 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "GetPerson", controller = "Person"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[_1U_ASP.Models.Person]]] GetPerson() on controller _1U_ASP.Controllers.PersonController (1U_ASP).
+2020-09-02 20:27:31.378 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:27:31.385 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:27:31.389 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.PersonController.GetPerson (1U_ASP) - Validation state: Valid
+2020-09-02 20:27:31.410 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [p].[PersonId], [p].[Deleted], [p].[DisplayName], [p].[Dob], [p].[EmailAddress], [p].[FirstName], [p].[GenderSysCodeUniqueId], [p].[LastName], [p].[MobilePhone], [p].[UserActionId]
+FROM [Person] AS [p]
+2020-09-02 20:27:31.430 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.PersonController.GetPerson (1U_ASP), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 37.9099ms.
+2020-09-02 20:27:31.434 +03:00 [Information] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor: Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[_1U_ASP.Models.Person, 1U_ASP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-09-02 20:27:31.446 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.PersonController.GetPerson (1U_ASP) in 69.104ms
+2020-09-02 20:27:31.450 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.PersonController.GetPerson (1U_ASP)'
+2020-09-02 20:27:31.454 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 103.1617ms 200 application/json; charset=utf-8
+2020-09-02 20:27:33.149 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/Shop/GetAllShops  
+2020-09-02 20:27:33.153 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:27:33.157 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Successfully validated the token.
+2020-09-02 20:27:33.161 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP)'
+2020-09-02 20:27:33.165 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "GetAllShops", controller = "Shop"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[_1U_ASP.Models.Shop]]] GetAllShops() on controller _1U_ASP.Controllers.ShopController (1U_ASP).
+2020-09-02 20:27:33.171 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:27:33.178 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:27:33.182 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP) - Validation state: Valid
+2020-09-02 20:27:33.189 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [s].[ShopId], [s].[Address], [s].[Deleted], [s].[Name], [s].[UserActionId]
+FROM [Shops] AS [s]
+2020-09-02 20:27:33.194 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 9.1036ms.
+2020-09-02 20:27:33.198 +03:00 [Information] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor: Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[_1U_ASP.Models.Shop, 1U_ASP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-09-02 20:27:33.202 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP) in 32.953ms
+2020-09-02 20:27:33.205 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP)'
+2020-09-02 20:27:33.208 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 60.32ms 200 application/json; charset=utf-8
+2020-09-02 20:29:24.841 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/Shop/GetAllShops  
+2020-09-02 20:29:24.847 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:29:24.852 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/Product/GetAllProducts  
+2020-09-02 20:29:24.859 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 12.7037ms 204 
+2020-09-02 20:29:24.869 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:29:24.875 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/Shop/GetAllShops  
+2020-09-02 20:29:24.878 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 23.2052ms 204 
+2020-09-02 20:29:24.887 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:29:24.894 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/Product/GetAllProducts  
+2020-09-02 20:29:24.897 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:29:24.905 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Successfully validated the token.
+2020-09-02 20:29:24.908 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Successfully validated the token.
+2020-09-02 20:29:24.911 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP)'
+2020-09-02 20:29:24.918 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP)'
+2020-09-02 20:29:24.923 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "GetAllShops", controller = "Shop"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[_1U_ASP.Models.Shop]]] GetAllShops() on controller _1U_ASP.Controllers.ShopController (1U_ASP).
+2020-09-02 20:29:24.929 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "GetAllProducts", controller = "Product"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllProducts() on controller _1U_ASP.Controllers.ProductController (1U_ASP).
+2020-09-02 20:29:24.933 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:29:24.943 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:29:24.954 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (16ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:29:24.957 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP) - Validation state: Valid
+2020-09-02 20:29:24.960 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (14ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:29:24.963 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP) - Validation state: Valid
+2020-09-02 20:29:24.966 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [s].[ShopId], [s].[Address], [s].[Deleted], [s].[Name], [s].[UserActionId]
+FROM [Shops] AS [s]
+2020-09-02 20:29:24.972 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 11.0913ms.
+2020-09-02 20:29:24.977 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [p].[ProductId], [p].[Barcode], [p].[CategoryId], [p].[Deleted], [p].[Description], [p].[Name], [p].[Photo], [p].[PriceCost], [p].[PriseSale], [p].[UserActionId]
+FROM [Products] AS [p]
+2020-09-02 20:29:24.980 +03:00 [Information] Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor: Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[_1U_ASP.Models.Shop, 1U_ASP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-09-02 20:29:24.987 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP) in 57.0055ms
+2020-09-02 20:29:24.991 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.ShopController.GetAllShops (1U_ASP)'
+2020-09-02 20:29:24.997 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 122.3403ms 200 application/json; charset=utf-8
+2020-09-02 20:29:25.005 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP), returned result Microsoft.AspNetCore.Mvc.JsonResult in 38.5554ms.
+2020-09-02 20:29:25.008 +03:00 [Information] Microsoft.AspNetCore.Mvc.Formatters.Json.Internal.JsonResultExecutor: Executing JsonResult, writing value of type '_1U_ASP.DTO.DataServiceMessage'.
+2020-09-02 20:29:25.011 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP) in 77.5853ms
+2020-09-02 20:29:25.014 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.ProductController.GetAllProducts (1U_ASP)'
+2020-09-02 20:29:25.017 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 134.5174ms 200 application/json; charset=utf-8
+2020-09-02 20:29:47.502 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 OPTIONS https://localhost:44307/api/SaleOrders/ALLSales  
+2020-09-02 20:29:47.506 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:29:47.509 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 7.7014ms 204 
+2020-09-02 20:29:47.515 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request starting HTTP/2.0 GET https://localhost:44307/api/SaleOrders/ALLSales  
+2020-09-02 20:29:47.519 +03:00 [Information] Microsoft.AspNetCore.Cors.Infrastructure.CorsService: CORS policy execution successful.
+2020-09-02 20:29:47.523 +03:00 [Information] Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler: Successfully validated the token.
+2020-09-02 20:29:47.528 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executing endpoint '_1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP)'
+2020-09-02 20:29:47.533 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Route matched with {action = "AllSales", controller = "SaleOrders"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] AllSales() on controller _1U_ASP.Controllers.SaleOrdersController (1U_ASP).
+2020-09-02 20:29:47.538 +03:00 [Information] Microsoft.EntityFrameworkCore.Infrastructure: Entity Framework Core 2.2.6-servicing-10079 initialized 'ApplicationContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+2020-09-02 20:29:47.546 +03:00 [Information] Microsoft.EntityFrameworkCore.Database.Command: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0
+2020-09-02 20:29:47.550 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executing action method _1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP) - Validation state: Valid
+2020-09-02 20:29:47.555 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action method _1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP), returned result Microsoft.AspNetCore.Mvc.JsonResult in 1.1467ms.
+2020-09-02 20:29:47.558 +03:00 [Information] Microsoft.AspNetCore.Mvc.Formatters.Json.Internal.JsonResultExecutor: Executing JsonResult, writing value of type 'System.Collections.Generic.List`1[[_1U_ASP.DTO.SaleDTO, 1U_ASP, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-09-02 20:29:47.568 +03:00 [Information] Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker: Executed action _1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP) in 30.3ms
+2020-09-02 20:29:47.571 +03:00 [Information] Microsoft.AspNetCore.Routing.EndpointMiddleware: Executed endpoint '_1U_ASP.Controllers.SaleOrdersController.AllSales (1U_ASP)'
+2020-09-02 20:29:47.574 +03:00 [Information] Microsoft.AspNetCore.Hosting.Internal.WebHost: Request finished in 61.0756ms 200 application/json; charset=utf-8

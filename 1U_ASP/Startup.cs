@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using _1U_ASP.Repositorys;
+using _1U_ASP.Service;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -195,7 +196,7 @@ namespace _1U_ASP
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+           // app.UseMiddleware<TokenMiddleware>();
             app.UseHttpsRedirection();
             
             app.UseCors(MyAllowSpecificOrigins);

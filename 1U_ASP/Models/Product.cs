@@ -14,6 +14,7 @@ namespace Dap1U.Models
        public int CategoryId { get; set; }
        public double PriceCost { get; set; }
        public double PriseSale { get; set; }
+       public string Photo { get; set; }
        public bool Deleted { get; set; }
        public int? UserActionId { get; set; }
 

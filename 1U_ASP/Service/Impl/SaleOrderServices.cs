@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using _1U_ASP.Const;
 using _1U_ASP.Context;
@@ -132,11 +134,57 @@ namespace _1U_ASP.Service.Impl
            //         ShopName = shop.Name,
            //         ShopAddress = shop.Address
            //     }).ToListAsync();
-
-           var result = _memoryCache.Get("sell_list");
-            return (List<SaleDTO>) result;
+           var result = await AllSale();
+           result.ForEach(x=> x.DisplayData = x.DataTime.ToString(CultureInfo.InvariantCulture));
+            return result;
         }
-        
+
+        private async Task<List<SaleDTO>> AllSale()
+        {
+            var result =_memoryCache.Get("sell_list");
+            return (List<SaleDTO>)result;
+        }
+
+        public async Task<List<SaleDTO>> MonthlySalesOfGoods()
+        {
+            var all = await AllSale();
+            var c1 = all.Sum(x => x.Summ);
+            var result = all.GroupBy(x=> new { x.DataTime.Month, x.DataTime.Year, x.ProductId}).Select(g => new SaleDTO
+            {
+                DisplayData = g.Key.Year.ToString() + " "+ CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(g.Key.Month), //ToString("MMMM")
+                ProductName = all.FirstOrDefault(x=> x.ProductId == g.Key.ProductId)?.ProductName,
+                Count = g.Sum(x=> x.Count),
+                Summ = g.Sum(x=>x.Summ),
+                PriceCost = all.FirstOrDefault(x => x.ProductId == g.Key.ProductId).PriceCost,
+                PriseSale = all.FirstOrDefault(x => x.ProductId == g.Key.ProductId).PriseSale,
+                Sort = DateTime.ParseExact((CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(g.Key.Month) + " " + g.Key.Year.ToString() ), "MMMM yyyy", CultureInfo.InvariantCulture)
+            }).OrderByDescending(x=>x.Sort).ToList();
+            var c2 = result.Sum(x => x.Summ);
+            return result;
+
+        }
+
+        public async Task<List<SaleDTO>> YearlySalesOfGoods()
+        {
+            var all = await AllSale();
+            var c1 = all.Sum(x => x.Count);
+            var result = all.GroupBy(x => new { x.DataTime.Year, x.ProductId }).Select(g => new SaleDTO
+            {
+                DisplayData = g.Key.Year.ToString(), //ToString("MMMM")
+                ProductName = all.FirstOrDefault(x => x.ProductId == g.Key.ProductId)?.ProductName,
+                Count = g.Sum(x => x.Count),
+                Summ = g.Sum(x => x.Summ),
+                PriceCost = all.FirstOrDefault(x => x.ProductId == g.Key.ProductId).PriceCost,
+                PriseSale = all.FirstOrDefault(x => x.ProductId == g.Key.ProductId).PriseSale
+
+            }).OrderBy(x => x.DataTime).ToList();
+            var c2 = result.Sum(x => x.Summ);
+            return result;
+        }
+
+
+
+
         private static bool StoredProcedureExists(string sp)
         {
             var connString = GlobalVariables.ConnectionStringMainDatabase;
@@ -211,9 +259,6 @@ namespace _1U_ASP.Service.Impl
             var saleOrder = await _saleOrder.GetByIdAsync(id);
             return saleOrder;
         }
-
-
-
 
     }
 }

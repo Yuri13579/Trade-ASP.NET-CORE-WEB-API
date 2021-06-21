@@ -54,7 +54,41 @@ namespace _1U_ASP.Controllers
                 throw;
             }
         }
-        
+
+        // GET: api/SaleOrders
+        [HttpGet("MonthlySalesOfGoods")]
+        public async Task<IActionResult> MonthlySalesOfGoods()
+        {
+            try
+            {
+                var result = await _saleOrderService.MonthlySalesOfGoods();
+                return Json(result);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw;
+            }
+        }
+   
+
+         
+        [HttpGet("YearlySalesOfGoods")]
+        public async Task<IActionResult> YearlySalesOfGoods()
+        {
+            try
+            {
+                var result = await _saleOrderService.YearlySalesOfGoods();
+                return Json(result);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw;
+            }
+        }
+
+
         // GET: api/SaleOrders/5
         [HttpGet("GetSaleOrder/{id}")]
         public async Task<ActionResult<SaleOrder>> GetSaleOrder(int id)

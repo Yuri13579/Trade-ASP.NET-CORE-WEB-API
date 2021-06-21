@@ -13,5 +13,7 @@ namespace _1U_ASP.Service.Interface
         Task<List<SaleDTO>> GetAllSale();
         Task<DataServiceMessage> SellGoods(List<SellDto> sellDto);
         Task<ActionResult<SaleOrder>> GetSaleOrder(int id);
+        Task<List<SaleDTO>> MonthlySalesOfGoods();
+        Task<List<SaleDTO>> YearlySalesOfGoods();
     }
 }
